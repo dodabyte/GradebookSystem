@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -27,30 +28,29 @@ public class Authorization {
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
         if (!email.isEmpty() && !password.isEmpty()) {
-            AuthData authData = AppManager.getAuthDataDao().findByFields(email, password);
+            AuthData authData = AppManager.getAuthDataDao().findByEmail(email);
             if (authData != null) {
-                Stage stage = (Stage) pane.getScene().getWindow();
-                FXMLLoader fxmlLoader;
-                switch (authData.getTypeOfUser()) {
-                    case 0: // superuser
-                        fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
-                        break;
-                    case 1: // teacher
-                        fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for teachers
-                        break;
-                    case 2: // student
-                        fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for students
-                        break;
-                    default:
-                        fxmlLoader = new FXMLLoader(Main.class.getResource("authorization.fxml"));
+                try {
+                    if (BCrypt.checkpw(password, authData.getPassword())) {
+                        Stage stage = (Stage) pane.getScene().getWindow();
+                        FXMLLoader fxmlLoader = switch (authData.getTypeOfUser()) {
+                            // superuser
+                            case 0 -> new FXMLLoader(Main.class.getResource("main-view.fxml"));
+                            // teacher
+                            case 1 -> new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for teachers
+                            // student
+                            case 2 -> new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for students
+                            default -> new FXMLLoader(Main.class.getResource("authorization.fxml"));
+                        };
+                        Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
+                        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+                        stage.setScene(scene);
+                        return;
+                    }
                 }
-                Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
-                scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
-                stage.setScene(scene);
+                catch (Exception ignore) {}
             }
-            else {
-                authErrorLabel.setVisible(true);
-            }
+            authErrorLabel.setVisible(true);
         }
     }
 

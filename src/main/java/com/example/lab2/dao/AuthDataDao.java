@@ -11,10 +11,9 @@ public class AuthDataDao extends DataAccessObject<AuthData> {
     public boolean contains(AuthData entity) {
         AuthData authData = null;
         try {
-            TypedQuery<AuthData> typedQuery = HibernateUtils.getEntityManager().createQuery("FROM " + getTableName() +
-                            " WHERE email = '" + entity.getEmail() +
-                            "' AND password = '" + entity.getPassword() + "'",
-                            getType());
+            TypedQuery<AuthData> typedQuery = HibernateUtils.getEntityManager().createQuery(
+                    "FROM " + getTableName() + " WHERE email = '" + entity.getEmail() + "'", getType());
+
             authData = typedQuery.getSingleResult();
             HibernateUtils.getEntityManager().close();
         }
@@ -24,14 +23,12 @@ public class AuthDataDao extends DataAccessObject<AuthData> {
         return authData != null;
     }
 
-    public AuthData findByFields(String email, String password) {
+    public AuthData findByEmail(String email) {
         AuthData authData = null;
         try {
-            TypedQuery<AuthData> typedQuery = HibernateUtils.getEntityManager().createQuery("FROM " + getTableName() +
-                            " WHERE " +
-                            "email = '" + email +
-                            "' AND password = '" + password + "'",
-                            getType());
+            TypedQuery<AuthData> typedQuery = HibernateUtils.getEntityManager().createQuery(
+                    "FROM " + getTableName() + " WHERE email = '" + email + "'", getType());
+
             authData = typedQuery.getSingleResult();
             HibernateUtils.getEntityManager().close();
         }

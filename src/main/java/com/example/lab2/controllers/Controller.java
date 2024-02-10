@@ -12,6 +12,7 @@ import com.example.lab2.objects.old.CurrentPayment;
 import com.example.lab2.objects.old.Status;
 import com.example.lab2.utils.DateUtils;
 import com.example.lab2.utils.MarksUtils;
+import com.example.lab2.utils.AuthUtils;
 import com.example.lab2.utils.TypesUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -33,8 +34,11 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class Controller implements Initializable {
     @FXML private Button addressesAddButton;
@@ -913,6 +917,7 @@ public class Controller implements Initializable {
             readdingAlert.getResult();
         }
         else {
+            AuthUtils.generateStudentAuthData(student);
             AppManager.getStudentDao().insert(student);
             studentLastNameField.setText("");
             studentFirstNameField.setText("");

@@ -5,6 +5,7 @@ module com.example.lab2 {
     requires org.hibernate.orm.core;
     requires org.hibernate.orm.hikaricp;
     requires com.zaxxer.hikari;
+    requires spring.security.crypto;
 
     opens com.example.lab2.objects;
     opens com.example.lab2.callbacks;
