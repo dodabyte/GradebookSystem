@@ -1,11 +1,8 @@
-create database rpbd;
+create database GratebookSystem;
 
-\c rpbd
-\! chcp 1251
-
-create user doda with password 'doda';
-grant all privileges on database "rpbd" to doda;
-grant all privileges on all tables in schema public to "doda";
+create user superuser with password 'password';
+grant all privileges on database "GratebookSystem" to superuser;
+grant all privileges on all tables in schema public to "superuser";
 
 create table statuses (id serial primary key, 
 						name varchar not null);
@@ -58,7 +55,7 @@ create table parents (id serial primary key,
 						first_name varchar not null, 
 						patronymic varchar not null, 
 						address_id int not null, 
-						foreign key (student_id) references students (id)
+						foreign key (student_id) references students (id),
 						foreign key (address_id) references addresses (id));
 create table contract_data (id serial primary key, 
 							student_id int not null,
@@ -70,14 +67,19 @@ create table contract_data (id serial primary key,
 							foreign key (current_payments_id) references current_payments (id),
 							foreign key (status_id) references statuses (id));
 create table semester_perfomance (id serial primary key, 
-									student_id int not null, 
-									course int not null, 
-									semester int not null,
-									discipline_id int not null,
-									type_of_marks_id int not null,
-									mark int not null,
-									foreign key (student_id) references students (id),
-									foreign key (discipline_id) references disciplines (id),
-									foreign key (type_of_marks_id) references types_of_marks (id));
+								  student_id int not null, 
+								  course int not null, 
+								  semester int not null,
+								  discipline_id int not null,
+								  type_of_marks_id int not null,
+								  mark int not null,
+								  foreign key (student_id) references students (id),
+								  foreign key (discipline_id) references disciplines (id),
+								  foreign key (type_of_marks_id) references types_of_marks (id));
+									
+create table auth_data (id serial primary key,
+						email varchar not null unique,
+						password varchar not null,
+						type_of_user smallint not null);
 
 insert into statuses (name) values ('Оплачено'), ('Не оплачено');

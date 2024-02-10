@@ -24,10 +24,10 @@ public class AppManager {
     private static SemesterPerformanceDao semesterPerformanceDao = new SemesterPerformanceDao();
 
     public AppManager(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("authorization.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
-        stage.setTitle("Система \"Деканат\"");
+        stage.setTitle("Система ведения зачетных книжек");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
