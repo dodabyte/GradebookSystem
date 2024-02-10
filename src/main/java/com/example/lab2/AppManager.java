@@ -22,6 +22,7 @@ public class AppManager {
     private static ParentDao parentDao = new ParentDao();
     private static ContractDataDao contractDataDao = new ContractDataDao();
     private static SemesterPerformanceDao semesterPerformanceDao = new SemesterPerformanceDao();
+    private static AuthDataDao authDataDao = new AuthDataDao();
 
     public AppManager(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("authorization.fxml"));
@@ -87,5 +88,9 @@ public class AppManager {
 
     public static SemesterPerformanceDao getSemesterPerformanceDao() {
         return semesterPerformanceDao;
+    }
+
+    public static AuthDataDao getAuthDataDao() {
+        return authDataDao;
     }
 }
