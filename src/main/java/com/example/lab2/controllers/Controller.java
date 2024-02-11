@@ -7,6 +7,7 @@ import com.example.lab2.converters.AddressConverter;
 import com.example.lab2.converters.CustomDateStringConverter;
 import com.example.lab2.converters.LimitationIntegerConverter;
 import com.example.lab2.objects.*;
+import com.example.lab2.utils.DateUtils;
 import com.example.lab2.utils.TypesUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -71,8 +72,10 @@ public class Controller implements Initializable {
     @FXML private TextField statusesNameField;
     @FXML private TextField typesOfMarksNameField;
     @FXML private TextField disciplinesNameField;
+    @FXML private TextField disciplinesTypeOfMarkNameField;
     @FXML private TextField specializationsNumberField;
     @FXML private TextField specializationsNameField;
+    @FXML private TextField specializationsStudyDurationField;
     @FXML private TextField currentPaymentsAmountField;
     @FXML private TextField currentPaymentsDateField;
     @FXML private TextField currentPaymentsDocNumberField;
@@ -81,6 +84,8 @@ public class Controller implements Initializable {
     @FXML private TextField groupsSemesterField;
     @FXML private TextField groupSpecializationsNumberField;
     @FXML private TextField groupSpecializationsNameField;
+    @FXML private TextField groupSpecializationsStudyDurationField;
+    @FXML private TextField groupDateAdmissionField;
     @FXML private TextField learningConditionFormsNameField;
     @FXML private TextField learningConditionBasisNameField;
     @FXML private TextField studentLastNameField;
@@ -114,7 +119,6 @@ public class Controller implements Initializable {
     @FXML private TextField semesterPerformanceCourseField;
     @FXML private TextField semesterPerformanceSemesterField;
     @FXML private TextField semesterPerformanceDisciplineNameField;
-    @FXML private TextField semesterPerformanceTypeOfMarkNameField;
     @FXML private TextField semesterPerformanceMarkField;
     @FXML private TextField basisOfEducationSearchField;
     @FXML private TextField formsOfEducationSearchField;
@@ -157,8 +161,8 @@ public class Controller implements Initializable {
     @FXML private RadioButton contractDataStatusNewRadioButton;
     @FXML private RadioButton semesterPerformanceDisciplineExitsRadioButton;
     @FXML private RadioButton semesterPerformanceDisciplineNewRadioButton;
-    @FXML private RadioButton semesterPerformanceTypeOfMarkExitsRadioButton;
-    @FXML private RadioButton semesterPerformanceTypeOfMarkNewRadioButton;
+    @FXML private RadioButton disciplineTypeOfMarkExitsRadioButton;
+    @FXML private RadioButton disciplineTypeOfMarkNewRadioButton;
 
     @FXML private ComboBox<Specialization> groupSpecializationComboBox;
     @FXML private ComboBox<FormOfEducation> learningConditionFormComboBox;
@@ -176,7 +180,7 @@ public class Controller implements Initializable {
     @FXML private ComboBox<Status> contractDataStatusComboBox;
     @FXML private ComboBox<Student> semesterPerformanceStudentComboBox;
     @FXML private ComboBox<Discipline> semesterPerformanceDisciplineComboBox;
-    @FXML private ComboBox<TypeOfMark> semesterPerformanceTypeOfMarkComboBox;
+    @FXML private ComboBox<TypeOfMark> disciplineTypeOfMarkComboBox;
 
     @FXML private TableView<Address> addressesTable;
     @FXML private TableView<BasisOfEducation> basisOfEducationTable;
@@ -200,6 +204,8 @@ public class Controller implements Initializable {
     @FXML protected TableColumn<Group, Integer> courseColumn;
     @FXML protected TableColumn<Group, Integer> semesterColumn;
     @FXML protected TableColumn<Group, Specialization> specializationColumn;
+    @FXML protected TableColumn<Group, Date> dateAdmissionColumn;
+    @FXML protected TableColumn<Group, Date> dateGraduationColumn;
     @FXML protected TableColumn<LearningCondition, FormOfEducation> formOfEducationColumn;
     @FXML protected TableColumn<LearningCondition, BasisOfEducation> basisOfEducationColumn;
     @FXML protected TableColumn<Student, Address> studentAddressColumn;
@@ -217,8 +223,9 @@ public class Controller implements Initializable {
     @FXML protected TableColumn<SemesterPerformance, Integer> semesterPerformanceCourseColumn;
     @FXML protected TableColumn<SemesterPerformance, Integer> semesterPerformanceSemesterColumn;
     @FXML protected TableColumn<SemesterPerformance, Discipline> semesterPerformanceDisciplineColumn;
-    @FXML protected TableColumn<SemesterPerformance, TypeOfMark> semesterPerformanceTypeOfMarkColumn;
     @FXML protected TableColumn<SemesterPerformance, Integer> semesterPerformanceMarkColumn;
+    @FXML protected TableColumn<Discipline, TypeOfMark> disciplineTypeOfMarkColumn;
+    @FXML protected TableColumn<Specialization, Integer> studyDurationColumn;
 
     @FXML private RadioMenuItem advancedMode;
 
@@ -254,12 +261,12 @@ public class Controller implements Initializable {
     private ToggleGroup contractDataCurrentPaymentGroup = new ToggleGroup();
     private ToggleGroup contractDataStatusGroup = new ToggleGroup();
     private ToggleGroup semesterPerformanceDisciplineGroup = new ToggleGroup();
-    private ToggleGroup semesterPerformanceTypeOfMarkGroup = new ToggleGroup();
+    private ToggleGroup disciplineTypeOfMarkGroup = new ToggleGroup();
 
-    private final String readdingAlertMessage = "Объект уже имеется в базе данных.";
+    private final String readingAlertMessage = "Объект уже имеется в базе данных.";
     private final String addingAlertMessage = "Объект отсутствует в базе данных. Добавить его?";
     private final String deleteAlertMessage = "Удалить данный объект невозможно, так как он используется в других таблицах.";
-    Alert readdingAlert = new Alert(Alert.AlertType.WARNING, readdingAlertMessage, ButtonType.OK);
+    Alert readdingAlert = new Alert(Alert.AlertType.WARNING, readingAlertMessage, ButtonType.OK);
     Alert addingAlert = new Alert(Alert.AlertType.CONFIRMATION, addingAlertMessage, ButtonType.YES, ButtonType.NO);
     Alert deleteAlert = new Alert(Alert.AlertType.ERROR, deleteAlertMessage, ButtonType.OK);
 
@@ -557,6 +564,15 @@ public class Controller implements Initializable {
     protected void onDisciplinesAddButton() {
         Discipline discipline = new Discipline();
         discipline.setName(disciplinesNameField.getText());
+        if (disciplineTypeOfMarkExitsRadioButton.isSelected()) {
+            discipline.setTypeOfMark(disciplineTypeOfMarkComboBox.getValue());
+        }
+        else {
+            TypeOfMark typeOfMark = new TypeOfMark();
+            typeOfMark.setName(disciplinesTypeOfMarkNameField.getText());
+            discipline.setTypeOfMark(typeOfMark);
+            AppManager.getTypesOfMarksDao().insert(typeOfMark);
+        }
         if (AppManager.getDisciplinesDao().contains(discipline)) {
             readdingAlert.showAndWait();
             readdingAlert.getResult();
@@ -735,8 +751,8 @@ public class Controller implements Initializable {
     protected void onGroupsAddButton() {
         Group group = new Group();
         group.setName(groupsNameField.getText());
-        group.setCourse(Integer.parseInt(groupsCourseField.getText()));
-        group.setSemester(Integer.parseInt(groupsSemesterField.getText()));
+//        group.setCourse(Integer.parseInt(groupsCourseField.getText()));
+//        group.setSemester(Integer.parseInt(groupsSemesterField.getText()));
         if (groupSpecializationExitsRadioButton.isSelected()) {
             group.setSpecialization(groupSpecializationComboBox.getValue());
         }
@@ -744,8 +760,23 @@ public class Controller implements Initializable {
             Specialization specialization = new Specialization();
             specialization.setNumber(groupSpecializationsNumberField.getText());
             specialization.setName(groupSpecializationsNameField.getText());
+            specialization.setStudyDuration(Integer.parseInt(groupSpecializationsStudyDurationField.getText()));
             group.setSpecialization(specialization);
+            AppManager.getSpecializationsDao().insert(specialization);
         }
+        try {
+            group.setDateAdmission((new SimpleDateFormat(datePattern)).parse(groupDateAdmissionField.getText()));
+        } catch (ParseException ignored) {}
+
+        Date dateGraduation = new Date();
+        dateGraduation.setDate(1);
+        dateGraduation.setMonth(6);
+        dateGraduation.setYear(group.getDateAdmission().getYear() + group.getSpecialization().getStudyDuration());
+        group.setDateGraduation(dateGraduation);
+
+        group.setCourse(DateUtils.getCurrentCourse(group.getDateAdmission()));
+        group.setSemester(DateUtils.getCurrentSemester(group.getDateAdmission(), group.getCourse()));
+
         if (AppManager.getGroupsDao().contains(group)) {
             readdingAlert.showAndWait();
             readdingAlert.getResult();
@@ -753,8 +784,10 @@ public class Controller implements Initializable {
         else {
             AppManager.getGroupsDao().insert(group);
             groupsNameField.setText("");
-            groupsCourseField.setText("");
-            groupsSemesterField.setText("");
+            groupSpecializationsNumberField.setText("");
+            groupSpecializationsNameField.setText("");
+            groupSpecializationsStudyDurationField.setText("");
+            groupDateAdmissionField.setText("");
             groupSpecializationComboBox.setValue(null);
             groupSpecializationGroup.selectToggle(null);
             onGroupsRefreshButton();
@@ -892,6 +925,7 @@ public class Controller implements Initializable {
             address.setHouseNumber(studentAddressHouseNumberField.getText());
             address.setApartmentNumber(Integer.parseInt(studentAddressApartmentNumberField.getText()));
             student.setAddress(address);
+            AppManager.getAddressesDao().insert(address);
         }
         try {
             student.setDateOfBirth((new SimpleDateFormat(datePattern)).parse(studentDateOfBirthField.getText()));
@@ -912,8 +946,10 @@ public class Controller implements Initializable {
                 specialization.setNumber(studentSpecializationNumberField.getText());
                 specialization.setName(studentSpecializationNameField.getText());
                 group.setSpecialization(specialization);
+                AppManager.getSpecializationsDao().insert(specialization);
             }
             student.setGroup(group);
+            AppManager.getGroupsDao().insert(group);
         }
         if (studentLearningConditionExitsRadioButton.isSelected()) {
             student.setLearningCondition(studentLearningConditionComboBox.getValue());
@@ -927,6 +963,7 @@ public class Controller implements Initializable {
                 FormOfEducation formOfEducation = new FormOfEducation();
                 formOfEducation.setName(studentFormOfEducationNameField.getText());
                 learningCondition.setFormOfEducation(formOfEducation);
+                AppManager.getFormsOfEducationDao().insert(formOfEducation);
             }
             if (studentBasisOfEducationExitsRadioButton.isSelected()) {
                 learningCondition.setBasisOfEducation(studentBasisOfEducationComboBox.getValue());
@@ -935,8 +972,10 @@ public class Controller implements Initializable {
                 BasisOfEducation basisOfEducation = new BasisOfEducation();
                 basisOfEducation.setName(studentBasisOfEducationNameField.getText());
                 learningCondition.setBasisOfEducation(basisOfEducation);
+                AppManager.getBasisOfEducationDao().insert(basisOfEducation);
             }
             student.setLearningCondition(learningCondition);
+            AppManager.getLearningConditionDao().insert(learningCondition);
         }
         if (AppManager.getStudentDao().contains(student)) {
             readdingAlert.showAndWait();
@@ -1033,6 +1072,7 @@ public class Controller implements Initializable {
             address.setHouseNumber(parentAddressHouseNumberField.getText());
             address.setApartmentNumber(Integer.parseInt(parentAddressApartmentNumberField.getText()));
             parent.setAddress(address);
+            AppManager.getAddressesDao().insert(address);
         }
         parent.setStudent(parentStudentComboBox.getValue());
         if (AppManager.getParentDao().contains(parent)) {
@@ -1126,6 +1166,7 @@ public class Controller implements Initializable {
             }
             currentPayment.setDocNumber(Integer.parseInt(contractDataCurrentPaymentDocNumberField.getText()));
             contractData.setCurrentPayments(currentPayment);
+            AppManager.getCurrentPaymentsDao().insert(currentPayment);
         }
         if (contractDataStatusExitsRadioButton.isSelected()) {
             contractData.setStatuses(contractDataStatusComboBox.getValue());
@@ -1134,6 +1175,7 @@ public class Controller implements Initializable {
             Status status = new Status();
             status.setName(contractDataStatusNameField.getText());
             contractData.setStatuses(status);
+            AppManager.getStatusesDao().insert(status);
         }
         if (AppManager.getContractDataDao().contains(contractData)) {
             readdingAlert.showAndWait();
@@ -1211,14 +1253,7 @@ public class Controller implements Initializable {
             Discipline discipline = new Discipline();
             discipline.setName(semesterPerformanceDisciplineNameField.getText());
             semesterPerformance.setDiscipline(discipline);
-        }
-        if (semesterPerformanceTypeOfMarkExitsRadioButton.isSelected()) {
-            semesterPerformance.setTypeOfMark(semesterPerformanceTypeOfMarkComboBox.getValue());
-        }
-        else {
-            TypeOfMark typeOfMark = new TypeOfMark();
-            typeOfMark.setName(semesterPerformanceTypeOfMarkNameField.getText());
-            semesterPerformance.setTypeOfMark(typeOfMark);
+            AppManager.getDisciplinesDao().insert(discipline);
         }
         semesterPerformance.setMark(Integer.parseInt(semesterPerformanceMarkField.getText()));
         if (AppManager.getSemesterPerformanceDao().contains(semesterPerformance)) {
@@ -1230,13 +1265,12 @@ public class Controller implements Initializable {
             semesterPerformanceCourseField.setText("");
             semesterPerformanceSemesterField.setText("");
             semesterPerformanceDisciplineNameField.setText("");
-            semesterPerformanceTypeOfMarkNameField.setText("");
             semesterPerformanceMarkField.setText("");
             semesterPerformanceStudentComboBox.getSelectionModel().select(0);
             semesterPerformanceDisciplineComboBox.setValue(null);
-            semesterPerformanceTypeOfMarkComboBox.setValue(null);
+            disciplineTypeOfMarkComboBox.setValue(null);
             semesterPerformanceDisciplineGroup.selectToggle(null);
-            semesterPerformanceTypeOfMarkGroup.selectToggle(null);
+            disciplineTypeOfMarkGroup.selectToggle(null);
             onSemesterPerformanceRefreshButton();
         }
     }
@@ -1377,7 +1411,7 @@ public class Controller implements Initializable {
     protected void onFormNameColumnEditCommit(TableColumn.CellEditEvent<FormOfEducation, String> event) {
         final String value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(value);
-        addressesTable.refresh();
+        formsOfEducationTable.refresh();
         AppManager.getFormsOfEducationDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
     }
 
@@ -1385,7 +1419,7 @@ public class Controller implements Initializable {
     protected void onBasisNameColumnEditCommit(TableColumn.CellEditEvent<BasisOfEducation, String> event) {
         final String value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(value);
-        addressesTable.refresh();
+        basisOfEducationTable.refresh();
         AppManager.getBasisOfEducationDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
     }
 
@@ -1393,7 +1427,7 @@ public class Controller implements Initializable {
     protected void onStatusNameColumnEditCommit(TableColumn.CellEditEvent<Status, String> event) {
         final String value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(value);
-        addressesTable.refresh();
+        statusesTable.refresh();
         AppManager.getStatusesDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
     }
 
@@ -1401,7 +1435,7 @@ public class Controller implements Initializable {
     protected void onTypeOfMarkNameColumnEditCommit(TableColumn.CellEditEvent<TypeOfMark, String> event) {
         final String value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(value);
-        addressesTable.refresh();
+        typesOfMarksTable.refresh();
         AppManager.getTypesOfMarksDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
     }
 
@@ -1409,7 +1443,7 @@ public class Controller implements Initializable {
     protected void onDisciplineNameColumnEditCommit(TableColumn.CellEditEvent<Discipline, String> event) {
         final String value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(value);
-        addressesTable.refresh();
+        disciplinesTable.refresh();
         AppManager.getDisciplinesDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
     }
 
@@ -1417,7 +1451,7 @@ public class Controller implements Initializable {
     protected void onSpecializationNumberColumnEditCommit(TableColumn.CellEditEvent<Specialization, String> event) {
         final String value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getTableView().getItems().get(event.getTablePosition().getRow()).setNumber(value);
-        addressesTable.refresh();
+        specializationsTable.refresh();
         AppManager.getSpecializationsDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
     }
 
@@ -1425,7 +1459,15 @@ public class Controller implements Initializable {
     protected void onSpecializationNameColumnEditCommit(TableColumn.CellEditEvent<Specialization, String> event) {
         final String value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(value);
-        addressesTable.refresh();
+        specializationsTable.refresh();
+        AppManager.getSpecializationsDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
+    }
+
+    @FXML
+    protected void onSpecializationStudyDurationColumnEditCommit(TableColumn.CellEditEvent<Specialization, Integer> event) {
+        final Integer value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
+        event.getTableView().getItems().get(event.getTablePosition().getRow()).setStudyDuration(value);
+        specializationsTable.refresh();
         AppManager.getSpecializationsDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
     }
 
@@ -1505,6 +1547,22 @@ public class Controller implements Initializable {
     protected void onSemesterColumnEditCommit(TableColumn.CellEditEvent<Group, Integer> event) {
         final Integer value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getTableView().getItems().get(event.getTablePosition().getRow()).setSemester(value);
+        groupsTable.refresh();
+        AppManager.getGroupsDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
+    }
+
+    @FXML
+    protected void onDateAdmissionColumnEditCommit(TableColumn.CellEditEvent<Group, Date> event) {
+        final Date value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
+        event.getTableView().getItems().get(event.getTablePosition().getRow()).setDateAdmission(value);
+        groupsTable.refresh();
+        AppManager.getGroupsDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
+    }
+
+    @FXML
+    protected void onDateGraduationColumnEditCommit(TableColumn.CellEditEvent<Group, Date> event) {
+        final Date value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
+        event.getTableView().getItems().get(event.getTablePosition().getRow()).setDateGraduation(value);
         groupsTable.refresh();
         AppManager.getGroupsDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
     }
@@ -1605,9 +1663,14 @@ public class Controller implements Initializable {
     @FXML
     protected void onParentAddressColumnEditCommit(TableColumn.CellEditEvent<Parent, Address> event) {
         final Address value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
-        event.getTableView().getItems().get(event.getTablePosition().getRow()).setAddress(value);
-        studentsTable.refresh();
-        AppManager.getParentDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
+        if (!AppManager.getAddressesDao().contains(value) && !addingAlert.isShowing()) {
+            addingAlert.showAndWait();
+            if (addingAlert.getResult() == ButtonType.YES) {
+                event.getTableView().getItems().get(event.getTablePosition().getRow()).setAddress(value);
+                studentsTable.refresh();
+                AppManager.getParentDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
+            }
+        }
     }
 
     @FXML
@@ -1651,6 +1714,14 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    protected void onDisciplineTypeOfMarkColumnEditCommit(TableColumn.CellEditEvent<Discipline, TypeOfMark> event) {
+        final TypeOfMark value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
+        event.getTableView().getItems().get(event.getTablePosition().getRow()).setTypeOfMark(value);
+        semesterPerformanceTable.refresh();
+        AppManager.getDisciplinesDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
+    }
+
+    @FXML
     protected void onSemesterPerformanceStudentColumnEditCommit(TableColumn.CellEditEvent<SemesterPerformance, Student> event) {
         final Student value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getTableView().getItems().get(event.getTablePosition().getRow()).setStudent(value);
@@ -1683,14 +1754,6 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    protected void onSemesterPerformanceTypeOfMarkColumnEditCommit(TableColumn.CellEditEvent<SemesterPerformance, TypeOfMark> event) {
-        final TypeOfMark value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
-        event.getTableView().getItems().get(event.getTablePosition().getRow()).setTypeOfMark(value);
-        semesterPerformanceTable.refresh();
-        AppManager.getSemesterPerformanceDao().update(event.getTableView().getItems().get(event.getTablePosition().getRow()));
-    }
-
-    @FXML
     protected void onSemesterPerformanceMarkColumnEditCommit(TableColumn.CellEditEvent<SemesterPerformance, Integer> event) {
         final Integer value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getTableView().getItems().get(event.getTablePosition().getRow()).setMark(value);
@@ -1703,15 +1766,17 @@ public class Controller implements Initializable {
         if (groupSpecializationExitsRadioButton.isSelected()) {
             groupSpecializationsNumberField.setDisable(true);
             groupSpecializationsNameField.setDisable(true);
+            groupSpecializationsStudyDurationField.setDisable(true);
             groupSpecializationComboBox.setDisable(false);
             groupSpecializationComboBox.setItems(FXCollections.observableArrayList(
                     AppManager.getSpecializationsDao().findAll()));
             groupSpecializationComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (groupSpecializationNewRadioButton.isSelected()) {
             groupSpecializationComboBox.setDisable(true);
             groupSpecializationsNumberField.setDisable(false);
             groupSpecializationsNameField.setDisable(false);
+            groupSpecializationsStudyDurationField.setDisable(false);
             groupSpecializationComboBox.setValue(null);
         }
     }
@@ -1725,7 +1790,7 @@ public class Controller implements Initializable {
                     AppManager.getFormsOfEducationDao().findAll()));
             learningConditionFormComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (learningConditionFormsNewRadioButton.isSelected()) {
             learningConditionFormComboBox.setDisable(true);
             learningConditionFormsNameField.setDisable(false);
             learningConditionFormComboBox.setValue(null);
@@ -1741,7 +1806,7 @@ public class Controller implements Initializable {
                     AppManager.getBasisOfEducationDao().findAll()));
             learningConditionBasisComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (learningConditionBasisNewRadioButton.isSelected()) {
             learningConditionBasisComboBox.setDisable(true);
             learningConditionBasisNameField.setDisable(false);
             learningConditionBasisComboBox.setValue(null);
@@ -1760,7 +1825,7 @@ public class Controller implements Initializable {
                     AppManager.getAddressesDao().findAll()));
             studentAddressComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (studentAddressNewRadioButton.isSelected()) {
             studentAddressComboBox.setDisable(true);
             studentAddressCityField.setDisable(false);
             studentAddressStreetField.setDisable(false);
@@ -1783,7 +1848,7 @@ public class Controller implements Initializable {
                     AppManager.getGroupsDao().findAll()));
             studentGroupComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (studentGroupNewRadioButton.isSelected()) {
             studentGroupComboBox.setDisable(true);
             studentGroupNameField.setDisable(false);
             studentGroupCourseField.setDisable(false);
@@ -1804,7 +1869,7 @@ public class Controller implements Initializable {
                     AppManager.getSpecializationsDao().findAll()));
             studentSpecializationComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (studentSpecializationNewRadioButton.isSelected()) {
             studentSpecializationComboBox.setDisable(true);
             studentSpecializationNumberField.setDisable(false);
             studentSpecializationNameField.setDisable(false);
@@ -1828,13 +1893,15 @@ public class Controller implements Initializable {
                     AppManager.getLearningConditionDao().findAll()));
             studentLearningConditionComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (studentLearningConditionNewRadioButton.isSelected()) {
             studentLearningConditionComboBox.setDisable(true);
             studentFormOfEducationExitsRadioButton.setDisable(false);
             studentFormOfEducationNewRadioButton.setDisable(false);
             studentBasisOfEducationExitsRadioButton.setDisable(false);
             studentBasisOfEducationNewRadioButton.setDisable(false);
             studentLearningConditionComboBox.setValue(null);
+            onStudentFormOfEducationChoose();
+            onStudentBasisOfEducationChoose();
         }
     }
 
@@ -1847,7 +1914,7 @@ public class Controller implements Initializable {
                     AppManager.getFormsOfEducationDao().findAll()));
             studentFormOfEducationComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (studentFormOfEducationNewRadioButton.isSelected()) {
             studentFormOfEducationComboBox.setDisable(true);
             studentFormOfEducationNameField.setDisable(false);
             studentFormOfEducationComboBox.setValue(null);
@@ -1863,7 +1930,7 @@ public class Controller implements Initializable {
                     AppManager.getBasisOfEducationDao().findAll()));
             studentBasisOfEducationComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (studentBasisOfEducationNewRadioButton.isSelected()) {
             studentBasisOfEducationComboBox.setDisable(true);
             studentBasisOfEducationNameField.setDisable(false);
             studentBasisOfEducationComboBox.setValue(null);
@@ -1882,7 +1949,7 @@ public class Controller implements Initializable {
                     AppManager.getAddressesDao().findAll()));
             parentAddressComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (parentAddressNewRadioButton.isSelected()) {
             parentAddressComboBox.setDisable(true);
             parentAddressCityField.setDisable(false);
             parentAddressStreetField.setDisable(false);
@@ -1903,7 +1970,7 @@ public class Controller implements Initializable {
                     AppManager.getCurrentPaymentsDao().findAll()));
             contractDataCurrentPaymentComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (contractDataCurrentPaymentNewRadioButton.isSelected()) {
             contractDataCurrentPaymentComboBox.setDisable(true);
             contractDataCurrentPaymentAmountField.setDisable(false);
             contractDataCurrentPaymentDateField.setDisable(false);
@@ -1921,7 +1988,7 @@ public class Controller implements Initializable {
                     AppManager.getStatusesDao().findAll()));
             contractDataStatusComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (contractDataStatusNewRadioButton.isSelected()) {
             contractDataStatusComboBox.setDisable(true);
             contractDataStatusNameField.setDisable(false);
             contractDataStatusComboBox.setValue(null);
@@ -1937,7 +2004,7 @@ public class Controller implements Initializable {
                     AppManager.getDisciplinesDao().findAll()));
             semesterPerformanceDisciplineComboBox.getSelectionModel().select(0);
         }
-        else {
+        else if (semesterPerformanceDisciplineNewRadioButton.isSelected()) {
             semesterPerformanceDisciplineComboBox.setDisable(true);
             semesterPerformanceDisciplineNameField.setDisable(false);
             semesterPerformanceDisciplineComboBox.setValue(null);
@@ -1945,18 +2012,18 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    protected void onSemesterPerformanceTypeOfMarkChoose() {
-        if (semesterPerformanceTypeOfMarkExitsRadioButton.isSelected()) {
-            semesterPerformanceTypeOfMarkNameField.setDisable(true);
-            semesterPerformanceTypeOfMarkComboBox.setDisable(false);
-            semesterPerformanceTypeOfMarkComboBox.setItems(FXCollections.observableArrayList(
+    protected void onDisciplineTypeOfMarkChoose() {
+        if (disciplineTypeOfMarkExitsRadioButton.isSelected()) {
+            disciplinesTypeOfMarkNameField.setDisable(true);
+            disciplineTypeOfMarkComboBox.setDisable(false);
+            disciplineTypeOfMarkComboBox.setItems(FXCollections.observableArrayList(
                     AppManager.getTypesOfMarksDao().findAll()));
-            semesterPerformanceTypeOfMarkComboBox.getSelectionModel().select(0);
+            disciplineTypeOfMarkComboBox.getSelectionModel().select(0);
         }
-        else {
-            semesterPerformanceTypeOfMarkComboBox.setDisable(true);
-            semesterPerformanceTypeOfMarkNameField.setDisable(false);
-            semesterPerformanceTypeOfMarkComboBox.setValue(null);
+        else if (disciplineTypeOfMarkNewRadioButton.isSelected()) {
+            disciplineTypeOfMarkComboBox.setDisable(true);
+            disciplinesTypeOfMarkNameField.setDisable(false);
+            disciplineTypeOfMarkComboBox.setValue(null);
         }
     }
 
@@ -2053,8 +2120,8 @@ public class Controller implements Initializable {
         semesterPerformanceDisciplineExitsRadioButton.setToggleGroup(semesterPerformanceDisciplineGroup);
         semesterPerformanceDisciplineNewRadioButton.setToggleGroup(semesterPerformanceDisciplineGroup);
 
-        semesterPerformanceTypeOfMarkExitsRadioButton.setToggleGroup(semesterPerformanceTypeOfMarkGroup);
-        semesterPerformanceTypeOfMarkNewRadioButton.setToggleGroup(semesterPerformanceTypeOfMarkGroup);
+        disciplineTypeOfMarkExitsRadioButton.setToggleGroup(disciplineTypeOfMarkGroup);
+        disciplineTypeOfMarkNewRadioButton.setToggleGroup(disciplineTypeOfMarkGroup);
     }
 
     private void initAllTables() {
@@ -2154,6 +2221,30 @@ public class Controller implements Initializable {
 
     private void initDisciplinesTable() {
         disciplinesTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
+        disciplineTypeOfMarkColumn.setCellFactory(tc -> {
+            ComboBox<TypeOfMark> combo = new ComboBox<>();
+            combo.getItems().addAll(AppManager.getTypesOfMarksDao().findAll());
+            TableCell<Discipline, TypeOfMark> cell = new TableCell<>() {
+                @Override
+                protected void updateItem(TypeOfMark reason, boolean empty) {
+                    super.updateItem(reason, empty);
+                    if (empty) {
+                        setTooltip(null);
+                        setGraphic(null);
+                    } else {
+                        combo.setValue(reason);
+                        setTooltip(new Tooltip(combo.getValue().toString()));
+                        setGraphic(combo);
+                    }
+                }
+            };
+            combo.setOnAction(e -> {
+                disciplinesTable.getItems().get(cell.getIndex()).setTypeOfMark(combo.getValue());
+                disciplinesTable.refresh();
+                AppManager.getDisciplinesDao().update(disciplinesTable.getItems().get(cell.getIndex()));
+            });
+            return cell;
+        });
         disciplinesSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -2166,6 +2257,7 @@ public class Controller implements Initializable {
 
     private void initSpecializationsTable() {
         specializationsTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
+        studyDurationColumn.setCellFactory(CustomTableCell.forTableColumn(new IntegerStringConverter()));
         specializationsSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -2215,8 +2307,10 @@ public class Controller implements Initializable {
                 groupsTable.refresh();
                 AppManager.getGroupsDao().update(groupsTable.getItems().get(cell.getIndex()));
             });
-            return cell ;
+            return cell;
         });
+        dateAdmissionColumn.setCellFactory(CustomTableCell.forTableColumn(new CustomDateStringConverter(datePattern)));
+        dateGraduationColumn.setCellFactory(CustomTableCell.forTableColumn(new CustomDateStringConverter(datePattern)));
         groupsSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -2286,30 +2380,6 @@ public class Controller implements Initializable {
     private void initStudentsTable() {
         studentsTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
         dateOfBirthColumn.setCellFactory(CustomTableCell.forTableColumn(new CustomDateStringConverter(datePattern)));
-//        addressColumn.setCellFactory(tc -> {
-//            ComboBox<Address> combo = new ComboBox<>();
-//            combo.getItems().addAll(AppManager.getAddressesDao().findAll());
-//            TableCell<Student, Address> cell = new TableCell<>() {
-//                @Override
-//                protected void updateItem(Address reason, boolean empty) {
-//                    super.updateItem(reason, empty);
-//                    if (empty) {
-//                        setTooltip(null);
-//                        setGraphic(null);
-//                    } else {
-//                        combo.setValue(reason);
-//                        setTooltip(new Tooltip(combo.getValue().toString()));
-//                        setGraphic(combo);
-//                    }
-//                }
-//            };
-//            combo.setOnAction(e -> {
-//                studentsTable.getItems().get(cell.getIndex()).setAddress(combo.getValue());
-//                studentsTable.refresh();
-//                AppManager.getStudentDao().update(studentsTable.getItems().get(cell.getIndex()));
-//            });
-//            return cell;
-//        });
         studentAddressColumn.setCellFactory(CustomTableCell.forTableColumn(new AddressConverter()));
         groupColumn.setCellFactory(tc -> {
             ComboBox<Group> combo = new ComboBox<>();
@@ -2545,30 +2615,6 @@ public class Controller implements Initializable {
             });
             return cell;
         });
-        semesterPerformanceTypeOfMarkColumn.setCellFactory(tc -> {
-            ComboBox<TypeOfMark> combo = new ComboBox<>();
-            combo.getItems().addAll(AppManager.getTypesOfMarksDao().findAll());
-            TableCell<SemesterPerformance, TypeOfMark> cell = new TableCell<>() {
-                @Override
-                protected void updateItem(TypeOfMark reason, boolean empty) {
-                    super.updateItem(reason, empty);
-                    if (empty) {
-                        setTooltip(null);
-                        setGraphic(null);
-                    } else {
-                        combo.setValue(reason);
-                        setTooltip(new Tooltip(combo.getValue().toString()));
-                        setGraphic(combo);
-                    }
-                }
-            };
-            combo.setOnAction(e -> {
-                semesterPerformanceTable.getItems().get(cell.getIndex()).setTypeOfMark(combo.getValue());
-                semesterPerformanceTable.refresh();
-                AppManager.getSemesterPerformanceDao().update(semesterPerformanceTable.getItems().get(cell.getIndex()));
-            });
-            return cell;
-        });
         semesterPerformanceMarkColumn.setCellFactory(CustomTableCell.forTableColumn(new LimitationIntegerConverter(0, 100)));
         semesterPerformanceSemesterField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -2729,12 +2775,16 @@ public class Controller implements Initializable {
     private void initDisciplinesButtons() {
         BooleanBinding addBind = new BooleanBinding() {
             {
-                super.bind(disciplinesNameField.textProperty());
+                super.bind(disciplinesNameField.textProperty(),
+                            disciplinesTypeOfMarkNameField.textProperty());
             }
 
             @Override
             protected boolean computeValue() {
-                return (disciplinesNameField.getText().isEmpty());
+                return disciplinesNameField.getText().isEmpty()
+                        || (!(disciplineTypeOfMarkNewRadioButton.isSelected()
+                            && !disciplinesTypeOfMarkNameField.getText().isEmpty())
+                            && !disciplineTypeOfMarkExitsRadioButton.isSelected());
             }
         };
 
@@ -2758,13 +2808,15 @@ public class Controller implements Initializable {
         BooleanBinding addBind = new BooleanBinding() {
             {
                 super.bind(specializationsNumberField.textProperty(),
-                        specializationsNameField.textProperty());
+                        specializationsNameField.textProperty(),
+                        specializationsStudyDurationField.textProperty());
             }
 
             @Override
             protected boolean computeValue() {
                 return (specializationsNumberField.getText().isEmpty()
-                        || specializationsNameField.getText().isEmpty());
+                        || specializationsNameField.getText().isEmpty()
+                        || !TypesUtils.isInteger(specializationsStudyDurationField.getText()));
             }
         };
 
@@ -2820,23 +2872,25 @@ public class Controller implements Initializable {
         BooleanBinding addBind = new BooleanBinding() {
             {
                 super.bind(groupsNameField.textProperty(),
-                        groupsCourseField.textProperty(),
-                        groupsSemesterField.textProperty(),
+                        //groupsCourseField.textProperty(),
+                        //groupsSemesterField.textProperty(),
                         groupSpecializationGroup.selectedToggleProperty(),
                         groupSpecializationComboBox.valueProperty(),
                         groupSpecializationsNumberField.textProperty(),
-                        groupSpecializationsNameField.textProperty());
+                        groupSpecializationsNameField.textProperty(),
+                        groupDateAdmissionField.textProperty());
             }
 
             @Override
             protected boolean computeValue() {
                 return groupsNameField.getText().isEmpty()
-                        || !TypesUtils.isInteger(groupsCourseField.getText())
-                        || !TypesUtils.isInteger(groupsSemesterField.getText())
+                        //|| !TypesUtils.isInteger(groupsCourseField.getText())
+                        //|| !TypesUtils.isInteger(groupsSemesterField.getText())
                         || (!(groupSpecializationNewRadioButton.isSelected()
                             && !groupSpecializationsNumberField.getText().isEmpty()
                             && !groupSpecializationsNameField.getText().isEmpty())
-                            && !groupSpecializationExitsRadioButton.isSelected());
+                            && !groupSpecializationExitsRadioButton.isSelected())
+                        || !TypesUtils.isDate(groupDateAdmissionField.getText());
             }
         };
 
@@ -3094,12 +3148,11 @@ public class Controller implements Initializable {
                 super.bind(semesterPerformanceCourseField.textProperty(),
                         semesterPerformanceSemesterField.textProperty(),
                         semesterPerformanceDisciplineNameField.textProperty(),
-                        semesterPerformanceTypeOfMarkNameField.textProperty(),
                         semesterPerformanceMarkField.textProperty(),
                         semesterPerformanceDisciplineComboBox.valueProperty(),
-                        semesterPerformanceTypeOfMarkComboBox.valueProperty(),
+                        disciplineTypeOfMarkComboBox.valueProperty(),
                         semesterPerformanceDisciplineGroup.selectedToggleProperty(),
-                        semesterPerformanceTypeOfMarkGroup.selectedToggleProperty());
+                        disciplineTypeOfMarkGroup.selectedToggleProperty());
             }
 
             @Override
@@ -3109,9 +3162,6 @@ public class Controller implements Initializable {
                         || (!(semesterPerformanceDisciplineNewRadioButton.isSelected()
                             && !semesterPerformanceDisciplineNameField.getText().isEmpty())
                             && !semesterPerformanceDisciplineExitsRadioButton.isSelected())
-                        || (!(semesterPerformanceTypeOfMarkNewRadioButton.isSelected()
-                            && !semesterPerformanceTypeOfMarkNameField.getText().isEmpty())
-                            && !semesterPerformanceTypeOfMarkExitsRadioButton.isSelected())
                         || semesterPerformanceMarkField.getText().isEmpty();
             }
         };

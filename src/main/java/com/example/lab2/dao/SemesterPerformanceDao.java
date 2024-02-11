@@ -16,7 +16,6 @@ public class SemesterPerformanceDao extends DataAccessObject<SemesterPerformance
                             " AND course = " + entity.getCourse() +
                             " AND semester = " + entity.getSemester() +
                             " AND discipline = " + entity.getDiscipline() +
-                            " AND typeOfMark = " + entity.getTypeOfMark() +
                             " AND mark = " + entity.getMark(),
                     getType());
             semesterPerformance = typedQuery.getSingleResult();

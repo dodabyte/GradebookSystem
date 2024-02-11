@@ -11,6 +11,10 @@ public class Discipline {
     private int id;
     @Column(name="name")
     private String name;
+    @ManyToOne (fetch=FetchType.EAGER,
+            cascade=CascadeType.MERGE)
+    @JoinColumn (name="type_of_marks_id")
+    private TypeOfMark typeOfMark;
 
     public int getId() {
         return id;
@@ -27,6 +31,10 @@ public class Discipline {
     public void setName(String name) {
         this.name = name;
     }
+
+    public TypeOfMark getTypeOfMark() { return typeOfMark; }
+
+    public void setTypeOfMark(TypeOfMark typeOfMark) { this.typeOfMark = typeOfMark; }
 
     @Override
     public String toString() {

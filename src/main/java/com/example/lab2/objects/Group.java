@@ -2,6 +2,8 @@ package com.example.lab2.objects;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name="groups")
 public class Group {
@@ -19,6 +21,10 @@ public class Group {
             cascade = CascadeType.MERGE)
     @JoinColumn(name="specialization_id")
     private Specialization specialization;
+    @Column(name="date_admission")
+    private Date dateAdmission;
+    @Column(name="date_graduation")
+    private Date dateGraduation;
 
     public int getId() {
         return id;
@@ -60,12 +66,25 @@ public class Group {
         this.specialization = specialization;
     }
 
+    public Date getDateAdmission() {
+        return dateAdmission;
+    }
+
+    public void setDateAdmission(Date dateAdmission) { this.dateAdmission = dateAdmission; }
+
+    public Date getDateGraduation() {
+        return dateGraduation;
+    }
+
+    public void setDateGraduation(Date dateGraduation) { this.dateGraduation = dateGraduation; }
+
     @Override
     public String toString() {
         return getName();
     }
 
     public String toStringFields() {
-        return getName() + " " + getCourse() + " " + getSemester() + " " + getSpecialization().toStringFields();
+        return getName() + " " + getCourse() + " " + getSemester() + " " + getSpecialization().toStringFields()
+                + " " + getDateAdmission() + " " + getDateGraduation();
     }
 }

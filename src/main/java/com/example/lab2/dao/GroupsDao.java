@@ -14,7 +14,9 @@ public class GroupsDao extends DataAccessObject<Group> {
                     " WHERE name = '" + entity.getName() +
                     "' AND course = " + entity.getCourse() +
                     " AND semester = " + entity.getSemester() +
-                    " AND specialization = " + entity.getSpecialization(), getType());
+                    " AND specialization = " + entity.getSpecialization() +
+                    " AND dateAdmission = " + entity.getDateAdmission() +
+                    " AND dateGraduation = " + entity.getDateGraduation(), getType());
             group = typedQuery.getSingleResult();
             HibernateUtils.getEntityManager().close();
         }
