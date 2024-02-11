@@ -13,6 +13,8 @@ public class Specialization {
     private String number;
     @Column(name="name")
     private String name;
+    @Column(name="study_duration")
+    private int studyDuration;
 
     public int getId() {
         return id;
@@ -37,6 +39,10 @@ public class Specialization {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getStudyDuration() { return studyDuration; }
+
+    public void setStudyDuration(int studyDuration) { this.studyDuration = studyDuration; }
 
     @Override
     public String toString() {

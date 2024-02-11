@@ -21,10 +21,7 @@ public class SemesterPerformance {
             cascade=CascadeType.MERGE)
     @JoinColumn (name="discipline_id")
     private Discipline discipline;
-    @ManyToOne (fetch=FetchType.EAGER,
-            cascade=CascadeType.MERGE)
-    @JoinColumn (name="type_of_marks_id")
-    private TypeOfMark typeOfMark;
+
     @Column(name="mark")
     private int mark;
 
@@ -68,14 +65,6 @@ public class SemesterPerformance {
         this.discipline = discipline;
     }
 
-    public TypeOfMark getTypeOfMark() {
-        return typeOfMark;
-    }
-
-    public void setTypeOfMark(TypeOfMark typeOfMark) {
-        this.typeOfMark = typeOfMark;
-    }
-
     public int getMark() {
         return mark;
     }
@@ -86,6 +75,6 @@ public class SemesterPerformance {
 
     public String toStringFields() {
         return student.toStringFields() + " " + getCourse() + " " + getSemester() + " " +
-                getDiscipline().toStringFields() + " " + getTypeOfMark().toStringFields() + " " + getMark();
+                getDiscipline().toStringFields() + " " + getMark();
     }
 }

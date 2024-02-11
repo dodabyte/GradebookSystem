@@ -12,7 +12,7 @@ public class DisciplinesDao extends DataAccessObject<Discipline> {
         try {
             TypedQuery<Discipline> typedQuery = HibernateUtils.getEntityManager().createQuery("FROM " + getTableName() +
                     " WHERE name = '" + entity.getName() +
-                    "'", getType());
+                    "' AND typeOfMark = " + entity.getTypeOfMark(), getType());
             discipline = typedQuery.getSingleResult();
             HibernateUtils.getEntityManager().close();
         }
