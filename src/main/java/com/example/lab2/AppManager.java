@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AppManager {
+    private static boolean debugModeEnable = true; // TODO replace with FALSE
+
     private static AddressesDao addressesDao = new AddressesDao();
     private static BasisOfEducationDao basisOfEducationDao = new BasisOfEducationDao();
     private static DisciplinesDao disciplinesDao = new DisciplinesDao();
@@ -24,7 +26,7 @@ public class AppManager {
     private static AuthDataDao authDataDao = new AuthDataDao();
 
     public AppManager(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("authorization.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("authorization-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
         stage.setTitle("Система ведения зачетных книжек");
@@ -87,5 +89,9 @@ public class AppManager {
 
     public static AuthDataDao getAuthDataDao() {
         return authDataDao;
+    }
+
+    public static boolean getDebugModeEnable() {
+        return debugModeEnable;
     }
 }

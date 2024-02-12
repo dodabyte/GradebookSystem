@@ -2,7 +2,9 @@ package com.example.lab2.controllers;
 
 import com.example.lab2.AppManager;
 import com.example.lab2.Main;
+import com.example.lab2.dao.AuthDataDao;
 import com.example.lab2.objects.AuthData;
+import com.example.lab2.utils.AuthUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.io.IOException;
 
-public class Authorization {
+public class AuthorizationController {
 
     @FXML private Pane pane;
     @FXML private TextField emailTextField;
@@ -23,10 +25,11 @@ public class Authorization {
     @FXML private Label authErrorLabel;
 
     @FXML
-    protected void onAuthButtonClick() throws IOException {
+    protected void onAuthButtonClick() {
         authErrorLabel.setVisible(false);
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
+
         if (!email.isEmpty() && !password.isEmpty()) {
             AuthData authData = AppManager.getAuthDataDao().findByEmail(email);
             if (authData != null) {
@@ -40,7 +43,7 @@ public class Authorization {
                             case 1 -> new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for teachers
                             // student
                             case 2 -> new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for students
-                            default -> new FXMLLoader(Main.class.getResource("authorization.fxml"));
+                            default -> new FXMLLoader(Main.class.getResource("authorization-view.fxml"));
                         };
                         Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
                         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
@@ -54,4 +57,17 @@ public class Authorization {
         }
     }
 
+    @FXML
+    protected void onAuthRegenerateButtonClick() {
+        authErrorLabel.setVisible(false);
+        String email = emailTextField.getText();
+        AuthData authData = AppManager.getAuthDataDao().findByEmail(email);
+
+        if (authData == null) {
+            authErrorLabel.setVisible(true);
+            return;
+        }
+
+        AuthUtils.regeneratePassword(authData);
+    }
 }

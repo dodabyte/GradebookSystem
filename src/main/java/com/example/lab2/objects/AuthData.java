@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name="auth_data")
 public class AuthData {
     @Id
-    @GeneratedValue(generator = "increment")
+    @GeneratedValue(generator = "increment") // TODO foreign key by student_id or teacher_id
     @Column(name="id")
     private int id;
     @Column(name="email")

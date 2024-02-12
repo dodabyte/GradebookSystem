@@ -917,8 +917,8 @@ public class Controller implements Initializable {
             readdingAlert.getResult();
         }
         else {
-            AuthUtils.generateStudentAuthData(student);
             AppManager.getStudentDao().insert(student);
+            AuthUtils.generateStudentAuthData(student);
             studentLastNameField.setText("");
             studentFirstNameField.setText("");
             studentPatronymicField.setText("");

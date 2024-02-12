@@ -23,4 +23,10 @@ public class DateUtils {
                 LocalDate.now().isBefore(LocalDate.of(calendar.get(Calendar.YEAR) + 1, 1, 31))
                 ? course * 2 - 1 : course * 2;
     }
+
+    public static int getYear(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.YEAR);
+    }
 }
