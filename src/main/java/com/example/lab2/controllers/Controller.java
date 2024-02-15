@@ -754,7 +754,6 @@ public class Controller implements Initializable {
             group.setSpecialization(specialization);
             AppManager.getSpecializationsDao().insert(specialization);
         }
-
         try {
             group.setDateFormation((new SimpleDateFormat(datePattern)).parse(groupDateFormationField.getText()));
         } catch (ParseException ignored) {}
