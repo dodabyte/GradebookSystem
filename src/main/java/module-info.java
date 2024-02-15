@@ -14,4 +14,5 @@ module com.example.lab2 {
     exports com.example.lab2;
     exports com.example.lab2.controllers;
     opens com.example.lab2.controllers to javafx.fxml;
+    opens com.example.lab2.objects.old;
 }

@@ -21,8 +21,8 @@ public class Group {
             cascade = CascadeType.MERGE)
     @JoinColumn(name="specialization_id")
     private Specialization specialization;
-    @Column(name="date_admission")
-    private Date dateAdmission;
+    @Column(name="date_formation")
+    private Date dateFormation;
     @Column(name="date_graduation")
     private Date dateGraduation;
 
@@ -66,11 +66,11 @@ public class Group {
         this.specialization = specialization;
     }
 
-    public Date getDateAdmission() {
-        return dateAdmission;
+    public Date getDateFormation() {
+        return dateFormation;
     }
 
-    public void setDateAdmission(Date dateAdmission) { this.dateAdmission = dateAdmission; }
+    public void setDateFormation(Date dateFormation) { this.dateFormation = dateFormation; }
 
     public Date getDateGraduation() {
         return dateGraduation;
@@ -85,6 +85,6 @@ public class Group {
 
     public String toStringFields() {
         return getName() + " " + getCourse() + " " + getSemester() + " " + getSpecialization().toStringFields()
-                + " " + getDateAdmission() + " " + getDateGraduation();
+                + " " + getDateFormation() + " " + getDateGraduation();
     }
 }

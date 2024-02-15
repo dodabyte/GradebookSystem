@@ -1,9 +1,10 @@
 package com.example.lab2.objects;
 
+import com.example.lab2.utils.MarksUtils;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="semester_perfomance")
+@Table(name="semester_performance")
 public class SemesterPerformance {
     @Id
     @GeneratedValue(generator = "increment")
@@ -21,9 +22,13 @@ public class SemesterPerformance {
             cascade=CascadeType.MERGE)
     @JoinColumn (name="discipline_id")
     private Discipline discipline;
-
     @Column(name="mark")
     private int mark;
+    private String ectsMark;
+
+    private int traditionalMark;
+
+    private String traditionalWordMark;
 
     public int getId() {
         return id;
@@ -73,8 +78,34 @@ public class SemesterPerformance {
         this.mark = mark;
     }
 
+    public String getEctsMark() {
+        return ectsMark;
+    }
+
+    public void setEctsMark(String ectsMark) {
+        this.ectsMark = ectsMark;
+    }
+
+    public int getTraditionalMark() {
+        return traditionalMark;
+    }
+
+    public void setTraditionalMark(int traditionalMark) {
+        this.traditionalMark = traditionalMark;
+    }
+
+    public String getTraditionalWordMark() {
+        return traditionalWordMark;
+    }
+
+    public void setTraditionalWordMark(String traditionalWordMark) {
+        this.traditionalWordMark = traditionalWordMark;
+    }
+
     public String toStringFields() {
         return student.toStringFields() + " " + getCourse() + " " + getSemester() + " " +
-                getDiscipline().toStringFields() + " " + getMark();
+                getDiscipline().toStringFields() + " " + getMark() + " " + MarksUtils.getEctsMark(getMark()) + " " +
+                MarksUtils.getTraditionalMark(getMark()) + " " +
+                MarksUtils.getTraditionalWordMark(getMark(), getDiscipline().getTypeOfMark().getName());
     }
 }

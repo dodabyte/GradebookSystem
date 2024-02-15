@@ -17,7 +17,6 @@ public class AppManager {
     private static SpecializationsDao specializationsDao = new SpecializationsDao();
     private static CurrentPaymentsDao currentPaymentsDao = new CurrentPaymentsDao();
     private static GroupsDao groupsDao = new GroupsDao();
-    private static LearningConditionDao learningConditionDao = new LearningConditionDao();
     private static StudentDao studentDao = new StudentDao();
     private static ParentDao parentDao = new ParentDao();
     private static ContractDataDao contractDataDao = new ContractDataDao();
@@ -67,10 +66,6 @@ public class AppManager {
 
     public static GroupsDao getGroupsDao() {
         return groupsDao;
-    }
-
-    public static LearningConditionDao getLearningConditionDao() {
-        return learningConditionDao;
     }
 
     public static StudentDao getStudentDao() {

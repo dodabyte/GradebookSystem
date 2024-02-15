@@ -2,7 +2,7 @@ package com.example.lab2.dao;
 
 import com.example.lab2.dao.global.DataAccessObject;
 import com.example.lab2.hibernate.HibernateUtils;
-import com.example.lab2.objects.Status;
+import com.example.lab2.objects.old.Status;
 import jakarta.persistence.TypedQuery;
 
 public class StatusesDao extends DataAccessObject<Status> {
