@@ -1,6 +1,8 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.old;
 
+import com.example.lab2.objects.Student;
 import jakarta.persistence.*;
+
 import java.util.Date;
 
 @Entity

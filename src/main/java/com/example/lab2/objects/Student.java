@@ -26,10 +26,16 @@ public class Student {
             cascade=CascadeType.MERGE)
     @JoinColumn (name="group_id")
     private Group group;
-    @ManyToOne (fetch=FetchType.LAZY,
-            cascade=CascadeType.MERGE)
-    @JoinColumn (name="learning_conditions_id")
-    private LearningCondition learningCondition;
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE)
+    @JoinColumn(name="form_of_education_id")
+    private FormOfEducation formOfEducation;
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE)
+    @JoinColumn(name="basis_of_education_id")
+    private BasisOfEducation basisOfEducation;
+    @Column(name="date_admission")
+    private Date dateAdmission;
 
     public int getId() {
         return id;
@@ -87,13 +93,23 @@ public class Student {
         this.group = group;
     }
 
-    public LearningCondition getLearningCondition() {
-        return learningCondition;
+    public FormOfEducation getFormOfEducation() { return formOfEducation; }
+
+    public void setFormOfEducation(FormOfEducation formOfEducation) {
+        this.formOfEducation = formOfEducation;
     }
 
-    public void setLearningCondition(LearningCondition learningCondition) {
-        this.learningCondition = learningCondition;
+    public BasisOfEducation getBasisOfEducation() {
+        return basisOfEducation;
     }
+
+    public void setBasisOfEducation(BasisOfEducation basisOfEducation) {
+        this.basisOfEducation = basisOfEducation;
+    }
+
+    public Date getDateAdmission() { return dateAdmission; }
+
+    public void setDateAdmission(Date dateAdmission) { this.dateAdmission = dateAdmission; }
 
     @Override
     public String toString() {
@@ -103,6 +119,6 @@ public class Student {
     public String toStringFields() {
         return getLastName() + " " + getFirstName() + " " + getPatronymic() + " " +
                 getAddress().toStringFields() + " " + getDateOfBirth() + " " + getGroup().toStringFields() + " " +
-                getLearningCondition().toStringFields();
+                getFormOfEducation() + " " + getBasisOfEducation() + " " + getDateAdmission();
     }
 }

@@ -17,7 +17,9 @@ public class StudentDao extends DataAccessObject<Student>  {
                 "' AND address = " + entity.getAddress() +
                 " AND dateOfBirth = '" + entity.getDateOfBirth() +
                 "' AND group = " + entity.getGroup() +
-                " AND learningCondition = " + entity.getLearningCondition(),
+                " AND formOfEducation = " + entity.getFormOfEducation() +
+                " AND basisOfEducation = " + entity.getBasisOfEducation() +
+                " AND dateAdmission = " + entity.getDateAdmission(),
                 getType());
         student = typedQuery.getSingleResult();
         HibernateUtils.getEntityManager().close();
