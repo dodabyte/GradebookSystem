@@ -20,7 +20,7 @@ public abstract class DataAccessObject<T>{
 
     public List<T> findByField(String parameter, Object object) {
         TypedQuery <T> typedQuery = HibernateUtils.getEntityManager().createQuery("FROM " + getTableName() +
-                " WHERE " + parameter + " = '" + object + "'" + " order by id", getType());
+                " WHERE " + parameter + " = " + object + " order by id", getType());
         List<T> list = typedQuery.getResultList();
         HibernateUtils.getEntityManager().close();
         return list;

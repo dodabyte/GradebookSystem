@@ -38,12 +38,12 @@
          <font>
             <Font size="18.0" />
          </font></PasswordField>
-      <Button fx:id="authButton" layoutX="505.0" layoutY="389.0" mnemonicParsing="false" onAction="#onAuthButtonClick" prefHeight="50.0" prefWidth="200.0" text="Войти">
+      <Button fx:id="authButton" layoutX="506.0" layoutY="411.0" mnemonicParsing="false" onAction="#onAuthButtonClick" prefHeight="50.0" prefWidth="200.0" text="Войти">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="authErrorLabel" layoutX="367.0" layoutY="362.0" style="-fx-font-weight: bold;" text="Ошибка! Проверьте правильность введеных данных." textFill="RED" visible="false">
+      <Label fx:id="authErrorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="177.0" layoutY="356.0" prefHeight="27.0" prefWidth="845.0" style="-fx-font-weight: bold;" text="Ошибка! Проверьте правильность введеных данных." textAlignment="CENTER" textFill="RED" visible="false">
          <font>
             <Font size="18.0" />
          </font>

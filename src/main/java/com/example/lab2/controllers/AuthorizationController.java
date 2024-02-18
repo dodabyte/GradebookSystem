@@ -4,20 +4,26 @@ import com.example.lab2.AppManager;
 import com.example.lab2.Main;
 import com.example.lab2.dao.AuthDataDao;
 import com.example.lab2.objects.AuthData;
+import com.example.lab2.objects.Student;
 import com.example.lab2.utils.AuthUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Collection;
+import java.util.ResourceBundle;
 
-public class AuthorizationController {
+public class AuthorizationController implements Initializable {
 
     @FXML private Pane pane;
     @FXML private TextField emailTextField;
@@ -27,6 +33,7 @@ public class AuthorizationController {
     @FXML
     protected void onAuthButtonClick() {
         authErrorLabel.setVisible(false);
+
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
 
@@ -36,22 +43,31 @@ public class AuthorizationController {
                 try {
                     if (BCrypt.checkpw(password, authData.getPassword())) {
                         Stage stage = (Stage) pane.getScene().getWindow();
-                        FXMLLoader fxmlLoader = switch (authData.getTypeOfUser()) {
+                        FXMLLoader fxmlLoader;
+                        switch (authData.getTypeOfUser()) {
                             // superuser
-                            case 0 -> new FXMLLoader(Main.class.getResource("main-view.fxml"));
+                            case 0 -> fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
                             // teacher
-                            case 1 -> new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for teachers
+                            case 1 -> {
+//                                AppManager.setCurrentTeacher(authData.getTeacher());
+                                fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for teachers
+                            }
                             // student
-                            case 2 -> new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for students
-                            default -> new FXMLLoader(Main.class.getResource("authorization-view.fxml"));
-                        };
+                            case 2 -> {
+                                AppManager.setCurrentStudent(authData.getStudent());
+                                fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for students
+                            }
+                            default -> fxmlLoader = new FXMLLoader(Main.class.getResource("authorization-view.fxml"));
+                        }
                         Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
                         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
                         stage.setScene(scene);
                         return;
                     }
                 }
-                catch (Exception ignore) {}
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
             authErrorLabel.setVisible(true);
         }
@@ -59,15 +75,30 @@ public class AuthorizationController {
 
     @FXML
     protected void onAuthRegenerateButtonClick() {
-        authErrorLabel.setVisible(false);
+        authErrorLabel.setVisible(true);
+        authErrorLabel.setTextFill(Color.RED);
         String email = emailTextField.getText();
         AuthData authData = AppManager.getAuthDataDao().findByEmail(email);
 
         if (authData == null) {
-            authErrorLabel.setVisible(true);
+            authErrorLabel.setText("Ошибка! Проверьте правильность введения электронной почты!");
+            return;
+        }
+
+        if (authData.getTypeOfUser() == 0) {
+            authErrorLabel.setText("Вам запрещено изменять пароль!");
             return;
         }
 
         AuthUtils.regeneratePassword(authData);
+        authErrorLabel.setText("Новые данные для авторизации отправлены на вашу электронную почту.");
+        authErrorLabel.setTextFill(Color.BLACK);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (!AppManager.getAuthDataDao().isContainsAdmin()) {
+            AuthUtils.generateAdminAuthData();
+        }
     }
 }

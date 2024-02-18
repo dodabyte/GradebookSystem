@@ -241,6 +241,7 @@ public class Controller implements Initializable {
     @FXML private Tab semesterPerformanceTab;
 
     private Stage aboutProgramStage;
+    private Stage changePasswordStage;
 
     private ToggleGroup groupSpecializationGroup = new ToggleGroup();
     private ToggleGroup studentAddressGroup = new ToggleGroup();
@@ -3012,5 +3013,30 @@ public class Controller implements Initializable {
         };
 
         semesterPerformanceDeleteButton.disableProperty().bind(deleteBind);
+    }
+
+    @FXML
+    private void onExitClick() throws IOException {
+        AppManager.setCurrentStudent(null);
+//        AppManager.setCurrentTeacher(null);
+
+        Stage stage = (Stage) tabPane.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("authorization-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        stage.setScene(scene);
+    }
+
+    @FXML
+    private void onChangePasswordClick() throws IOException {
+        changePasswordStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("change-password-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 400, 200);
+        changePasswordStage.setScene(scene);
+        changePasswordStage.setTitle("Смена пароля");
+        changePasswordStage.setResizable(false);
+        changePasswordStage.initModality(Modality.WINDOW_MODAL);
+        changePasswordStage.initOwner(tabPane.getScene().getWindow());
+        changePasswordStage.show();
     }
 }
