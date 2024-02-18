@@ -1,4 +1,4 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.old;
 
 import jakarta.persistence.*;
 
