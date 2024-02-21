@@ -42,22 +42,6 @@ public class DisciplinesDao extends DataAccessObject<Discipline> {
         return disciplines;
     }
 
-    public List<Discipline> findDisciplines(Teacher entity) {
-        List<Discipline> disciplines = null;
-        try {
-            TypedQuery<Discipline> typedQuery = HibernateUtils.getEntityManager().createQuery(
-                    "SELECT t3 FROM " + TeacherDiscipline.class.getSimpleName() + " as t1 " +
-                            "JOIN t1.teacher as t2 " +
-                            "JOIN t1.discipline as t3 " +
-                            "WHERE t2.id = " + entity.getId(),
-                    getType());
-            disciplines = typedQuery.getResultList();
-            HibernateUtils.getEntityManager().close();
-        }
-        catch (Exception ignored) {}
-        return disciplines;
-    }
-
     @Override
     protected Class<Discipline> getType() {
         return Discipline.class;

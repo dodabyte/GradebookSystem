@@ -32,20 +32,21 @@ public class GroupsDao extends DataAccessObject<Group> {
         }
         return group != null;
     }
-    public List<Discipline> findDisciplines(Teacher entity) {
-        List<Discipline> disciplines = null;
+    public List<Group> findGroups(Teacher teacher, Discipline discipline) {
+        List<Group> groups = null;
         try {
-            TypedQuery<Discipline> typedQuery = HibernateUtils.getEntityManager().createQuery(
+            TypedQuery<Group> typedQuery = HibernateUtils.getEntityManager().createQuery(
                     "SELECT t3 FROM " + TeacherGroup.class.getSimpleName() + " as t1 " +
+                            "JOIN t1.teacherDiscipline as t2 " +
                             "JOIN t1.group as t3 " +
-                            "JOIN t1.discipline as t3 " +
-                            "WHERE t2.id = " + entity.getId(),
+                            "WHERE t2.discipline.id  = " + discipline.getId()+
+                            "AND t2.teacher.id = " + teacher.getId(),
                     getType());
-            disciplines = typedQuery.getResultList();
+            groups = typedQuery.getResultList();
             HibernateUtils.getEntityManager().close();
         }
         catch (Exception ignored) {}
-        return disciplines;
+        return groups;
     }
     @Override
     protected Class<Group> getType() {

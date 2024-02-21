@@ -23,11 +23,11 @@ public class SemesterPerformance extends CustomObject {
     @JoinColumn (name="discipline_id")
     private Discipline discipline;
     @Column(name="mark")
-    private int mark;
+    private Integer mark;
     @Column(name="ects_mark")
     private String ectsMark;
     @Column(name="traditional_mark")
-    private int traditionalMark;
+    private Integer traditionalMark;
     @Column(name="traditional_word_mark")
     private String traditionalWordMark;
 
