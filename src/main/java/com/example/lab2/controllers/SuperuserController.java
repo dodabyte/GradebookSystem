@@ -1,6 +1,5 @@
 package com.example.lab2.controllers;
 
-import com.aspose.cells.SaveFormat;
 import com.example.lab2.AppManager;
 import com.example.lab2.Main;
 import com.example.lab2.alerts.AlertLoader;
@@ -19,7 +18,6 @@ import com.example.lab2.utils.AuthUtils;
 import com.example.lab2.utils.TypesUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -38,7 +36,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class SuperuserController implements Initializable {
@@ -1247,12 +1244,30 @@ public class SuperuserController implements Initializable {
         }
         else {
             AppManager.getTeacherGroupDao().insert(teacherGroup);
+            teacherGroupAddStudents(teacherGroupDisciplineComboBox.getValue(),teacherGroupGroupComboBox.getValue(),Integer.parseInt(teacherGroupSemesterField.getText()));
             teacherGroupSemesterField.setText("");
             teacherGroupDisciplineComboBox.setValue(null);
             teacherGroupTeacherComboBox.setValue(null);
             teacherGroupGroupComboBox.setValue(null);
             teacherGroupTeacherComboBox.setDisable(true);
             onTeacherGroupRefreshButton();
+        }
+    }
+
+    protected void teacherGroupAddStudents(Discipline discipline, Group group, Integer semester){
+        Integer course;
+        if (semester == 1)
+            course = 1;
+        else
+            course = (int) Math.floor(semester/2.0);
+        List<Student> list = AppManager.getStudentDao().findByCustomField("group","id",group.getId());
+        for (Student student : list) {
+            SemesterPerformance semesterPerformance = new SemesterPerformance();
+            semesterPerformance.setStudent(student);
+            semesterPerformance.setDiscipline(discipline);
+            semesterPerformance.setSemester(semester);
+            semesterPerformance.setCourse(course);
+            AppManager.getSemesterPerformanceDao().insert(semesterPerformance);
         }
     }
 

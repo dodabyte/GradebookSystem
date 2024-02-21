@@ -83,28 +83,7 @@ public class TeacherDisciplineDao extends DataAccessObject<TeacherDiscipline> {
         return teacherDiscipline != null;
     }
 
-    public TeacherDiscipline findByField(Teacher teacher, Discipline discipline) {
-        TeacherDiscipline teacherDiscipline = null;
-        try {
-            TypedQuery<TeacherDiscipline> typedQuery = HibernateUtils.getEntityManager().createQuery("FROM " + getTableName() +
-                            " WHERE discipline.name = '" + discipline.getName() +
-                            "' AND discipline.typeOfMark.name = '" + discipline.getTypeOfMark().getName() +
-                            "' AND teacher.lastName = '" + teacher.getLastName() +
-                            "' AND teacher.firstName = '" + teacher.getFirstName() +
-                            "' AND teacher.patronymic = '" + teacher.getPatronymic() +
-                            "' AND teacher.department.name = '" + teacher.getDepartment().getName() +
-                            "' AND teacher.post.name = '" + teacher.getPost().getName() +
-                            "' AND teacher.address.city = '" + teacher.getAddress().getCity() +
-                            "' AND teacher.address.street = '" + teacher.getAddress().getStreet() +
-                            "' AND teacher.address.houseNumber = '" + teacher.getAddress().getHouseNumber() +
-                            "' AND teacher.address.apartmentNumber = " + teacher.getAddress().getApartmentNumber(),
-                    getType());
-            teacherDiscipline = typedQuery.getSingleResult();
-            HibernateUtils.getEntityManager().close();
-        }
-        catch (Exception ignored) {}
-        return teacherDiscipline;
-    }
+
 
     @Override
     protected Class<TeacherDiscipline> getType() {
