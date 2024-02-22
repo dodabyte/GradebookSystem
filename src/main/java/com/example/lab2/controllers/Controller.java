@@ -12,6 +12,7 @@ import com.example.lab2.objects.old.CurrentPayment;
 import com.example.lab2.objects.old.Status;
 import com.example.lab2.utils.DateUtils;
 import com.example.lab2.utils.MarksUtils;
+import com.example.lab2.utils.AuthUtils;
 import com.example.lab2.utils.TypesUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -33,8 +34,11 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class Controller implements Initializable {
     @FXML private Button addressesAddButton;
@@ -237,6 +241,7 @@ public class Controller implements Initializable {
     @FXML private Tab semesterPerformanceTab;
 
     private Stage aboutProgramStage;
+    private Stage changePasswordStage;
 
     private ToggleGroup groupSpecializationGroup = new ToggleGroup();
     private ToggleGroup studentAddressGroup = new ToggleGroup();
@@ -914,6 +919,7 @@ public class Controller implements Initializable {
         }
         else {
             AppManager.getStudentDao().insert(student);
+            AuthUtils.generateStudentAuthData(student);
             studentLastNameField.setText("");
             studentFirstNameField.setText("");
             studentPatronymicField.setText("");
@@ -3007,5 +3013,30 @@ public class Controller implements Initializable {
         };
 
         semesterPerformanceDeleteButton.disableProperty().bind(deleteBind);
+    }
+
+    @FXML
+    private void onExitClick() throws IOException {
+        AppManager.setCurrentStudent(null);
+//        AppManager.setCurrentTeacher(null);
+
+        Stage stage = (Stage) tabPane.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("authorization-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        stage.setScene(scene);
+    }
+
+    @FXML
+    private void onChangePasswordClick() throws IOException {
+        changePasswordStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("change-password-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 400, 200);
+        changePasswordStage.setScene(scene);
+        changePasswordStage.setTitle("Смена пароля");
+        changePasswordStage.setResizable(false);
+        changePasswordStage.initModality(Modality.WINDOW_MODAL);
+        changePasswordStage.initOwner(tabPane.getScene().getWindow());
+        changePasswordStage.show();
     }
 }

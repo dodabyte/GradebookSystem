@@ -1,6 +1,7 @@
 package com.example.lab2;
 
 import com.example.lab2.dao.*;
+import com.example.lab2.objects.Student;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -8,6 +9,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AppManager {
+    private static boolean debugModeEnable = true; // TODO replace with FALSE
+
+    private static Student currentStudent = null;
+//    private static Teacher currentTeacher = null;
+
     private static AddressesDao addressesDao = new AddressesDao();
     private static BasisOfEducationDao basisOfEducationDao = new BasisOfEducationDao();
     private static DisciplinesDao disciplinesDao = new DisciplinesDao();
@@ -24,7 +30,7 @@ public class AppManager {
     private static AuthDataDao authDataDao = new AuthDataDao();
 
     public AppManager(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("authorization.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("authorization-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
         stage.setTitle("Система ведения зачетных книжек");
@@ -87,5 +93,24 @@ public class AppManager {
 
     public static AuthDataDao getAuthDataDao() {
         return authDataDao;
+    }
+
+    public static Student getCurrentStudent() { return currentStudent; }
+    public static void setCurrentStudent(Student student) { currentStudent = student;}
+
+//    public static Teacher getCurrentTeacher() { return currentTeacher; }
+//    public static void setCurrentTeacher(Teacher teacher) { currentTeacher = teacher;}
+
+    public static Integer getTypeOfUser() {
+        if (currentStudent != null)
+            return 2; // student
+//        else if (currentTeacher != null)
+//            return 1; // teacher
+        else
+            return 0; // superuser
+    }
+
+    public static boolean getDebugModeEnable() {
+        return debugModeEnable;
     }
 }

@@ -6,38 +6,44 @@ import jakarta.persistence.*;
 @Table(name="auth_data")
 public class AuthData {
     @Id
-    @GeneratedValue(generator = "increment")
+    @GeneratedValue(generator = "increment") // TODO foreign key by student_id or teacher_id
     @Column(name="id")
     private int id;
     @Column(name="email")
     private String email;
     @Column(name="password")
     private String password;
-    @Column(name="type_of_user")
-    private int type_of_user;
+    @OneToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+//    @OneToOne
+//    @JoinColumn(name = "teacher_id")
+//    public Teacher teacher;
 
     public AuthData() {}
 
-    public AuthData(String email, String password, int typeOfUser) {
+    public AuthData(String email, String password, Student student/*, Teacher teacher*/) {
         this.email = email;
         this.password = password;
-        this.type_of_user = typeOfUser;
+        this.student = student;
+//        this.teacher = teacher;
     }
 
-    public AuthData(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+    public Student getStudent() { return student; }
+    //public Teacher getTeacher() { return teacher; }
 
     public String getEmail() { return email; }
-
     public void setEmail(String email) { this.email = email; }
 
     public String getPassword() { return password; }
-
     public void setPassword(String password) { this.password = password; }
 
-    public int getTypeOfUser() { return type_of_user; }
-
-    public void setTypeOfUser(int type_of_user) { this.type_of_user = type_of_user; }
+    public int getTypeOfUser() {
+        if (student != null)
+            return 2; // student
+//        else if (teacher != null)
+//            return 1; // teacher
+        else
+            return 0; // superuser
+    }
 }

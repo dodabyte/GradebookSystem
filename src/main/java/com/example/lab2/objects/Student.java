@@ -36,6 +36,8 @@ public class Student {
     private BasisOfEducation basisOfEducation;
     @Column(name="date_admission")
     private Date dateAdmission;
+    @OneToOne(mappedBy = "student")
+    private AuthData authData;
 
     public int getId() {
         return id;
@@ -110,6 +112,10 @@ public class Student {
     public Date getDateAdmission() { return dateAdmission; }
 
     public void setDateAdmission(Date dateAdmission) { this.dateAdmission = dateAdmission; }
+
+    public AuthData getAuthData() { return authData; }
+
+    public void setAuthData(AuthData authData) { this.authData = authData; }
 
     @Override
     public String toString() {
