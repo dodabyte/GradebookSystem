@@ -22,11 +22,11 @@
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <Label layoutX="395.0" layoutY="225.0" text="Почтовый адрес:">
+      <Label fx:id="emailLabel" layoutX="395.0" layoutY="225.0" text="Почтовый адрес:">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="469.0" layoutY="296.0" text="Пароль:">
+      <Label fx:id="passwordLabel" layoutX="469.0" layoutY="296.0" text="Пароль:">
          <font>
             <Font size="18.0" />
          </font></Label>
