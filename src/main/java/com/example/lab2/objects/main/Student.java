@@ -37,7 +37,7 @@ public class Student extends CustomObject {
     private BasisOfEducation basisOfEducation;
     @Column(name="date_admission")
     private Date dateAdmission;
-    @OneToOne(mappedBy = "student")
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "student")
     private AuthData authData;
 
     public Student() {}

@@ -6,6 +6,9 @@ import com.example.lab2.dao.AuthDataDao;
 import com.example.lab2.objects.AuthData;
 import com.example.lab2.objects.Student;
 import com.example.lab2.utils.AuthUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -25,10 +30,14 @@ import java.util.ResourceBundle;
 
 public class AuthorizationController implements Initializable {
 
+    private final int maxEmailLength = 40;
+
     @FXML private Pane pane;
     @FXML private TextField emailTextField;
     @FXML private PasswordField passwordTextField;
     @FXML private Label authErrorLabel;
+    @FXML private Label emailLabel;
+    @FXML private Label passwordLabel;
 
     @FXML
     protected void onAuthButtonClick() {
@@ -37,7 +46,15 @@ public class AuthorizationController implements Initializable {
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
 
+        if (email.isEmpty())
+            emailLabel.setTextFill(Color.RED);
+        if (password.isEmpty())
+            passwordLabel.setTextFill(Color.RED);
+
         if (!email.isEmpty() && !password.isEmpty()) {
+            emailLabel.setTextFill(Color.BLACK);
+            passwordLabel.setTextFill(Color.BLACK);
+
             AuthData authData = AppManager.getAuthDataDao().findByEmail(email);
             if (authData != null) {
                 try {
@@ -100,5 +117,24 @@ public class AuthorizationController implements Initializable {
         if (!AppManager.getAuthDataDao().isContainsAdmin()) {
             AuthUtils.generateAdminAuthData();
         }
+
+        emailTextField.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+                onAuthButtonClick();
+            }
+        });
+
+        passwordTextField.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+                onAuthButtonClick();
+            }
+        });
+
+        emailTextField.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (emailTextField.getText().length() > maxEmailLength) {
+                String s = emailTextField.getText().substring(0, maxEmailLength);
+                emailTextField.setText(s);
+            }
+        });
     }
 }
