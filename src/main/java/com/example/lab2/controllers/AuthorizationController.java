@@ -2,13 +2,8 @@ package com.example.lab2.controllers;
 
 import com.example.lab2.AppManager;
 import com.example.lab2.Main;
-import com.example.lab2.dao.AuthDataDao;
-import com.example.lab2.objects.AuthData;
-import com.example.lab2.objects.Student;
+import com.example.lab2.objects.main.AuthData;
 import com.example.lab2.utils.AuthUtils;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,15 +12,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
 import java.util.ResourceBundle;
 
 public class AuthorizationController implements Initializable {
@@ -63,16 +55,16 @@ public class AuthorizationController implements Initializable {
                         FXMLLoader fxmlLoader;
                         switch (authData.getTypeOfUser()) {
                             // superuser
-                            case 0 -> fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
+                            case 0 -> fxmlLoader = new FXMLLoader(Main.class.getResource("superuser-view.fxml"));
                             // teacher
                             case 1 -> {
 //                                AppManager.setCurrentTeacher(authData.getTeacher());
-                                fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for teachers
+                                fxmlLoader = new FXMLLoader(Main.class.getResource("superuser-view.fxml")); // TODO app for teachers
                             }
                             // student
                             case 2 -> {
                                 AppManager.setCurrentStudent(authData.getStudent());
-                                fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml")); // TODO app for students
+                                fxmlLoader = new FXMLLoader(Main.class.getResource("superuser-view.fxml")); // TODO app for students
                             }
                             default -> fxmlLoader = new FXMLLoader(Main.class.getResource("authorization-view.fxml"));
                         }

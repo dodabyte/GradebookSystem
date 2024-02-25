@@ -1,7 +1,7 @@
 package com.example.lab2;
 
 import com.example.lab2.dao.*;
-import com.example.lab2.objects.Student;
+import com.example.lab2.objects.main.Student;
 import com.example.lab2.localizations.LocalizationLoader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

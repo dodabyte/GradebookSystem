@@ -1,8 +1,8 @@
 package com.example.lab2.utils;
 
 import com.example.lab2.AppManager;
-import com.example.lab2.objects.AuthData;
-import com.example.lab2.objects.Student;
+import com.example.lab2.objects.main.AuthData;
+import com.example.lab2.objects.main.Student;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.Date;

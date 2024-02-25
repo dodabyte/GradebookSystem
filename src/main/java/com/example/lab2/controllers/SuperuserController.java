@@ -3217,6 +3217,8 @@ public class SuperuserController implements Initializable {
         changePasswordStage.initModality(Modality.WINDOW_MODAL);
         changePasswordStage.initOwner(tabPane.getScene().getWindow());
         changePasswordStage.show();
+    }
+
     private void initDepartmentsButtons() {
         BooleanBinding addBind = new BooleanBinding() {
             {

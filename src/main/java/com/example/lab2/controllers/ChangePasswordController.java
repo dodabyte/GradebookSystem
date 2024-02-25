@@ -1,25 +1,16 @@
 package com.example.lab2.controllers;
 
 import com.example.lab2.AppManager;
-import com.example.lab2.Main;
-import com.example.lab2.objects.AuthData;
+import com.example.lab2.objects.main.AuthData;
 import com.example.lab2.utils.AuthUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ChangePasswordController {
 
