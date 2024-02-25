@@ -1,11 +1,12 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.main;
 
+import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name="students")
-public class Student {
+public class Student extends CustomObject {
     @Id
     @GeneratedValue(generator = "increment")
     @Column(name="id")
@@ -38,6 +39,22 @@ public class Student {
     private Date dateAdmission;
     @OneToOne(mappedBy = "student")
     private AuthData authData;
+
+    public Student() {}
+
+    public Student(String lastName, String firstName, String patronymic, Address address,
+                   Date dateOfBirth, Group group, FormOfEducation formOfEducation,
+                   BasisOfEducation basisOfEducation, Date dateAdmission) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.patronymic = patronymic;
+        this.address = address;
+        this.dateOfBirth = dateOfBirth;
+        this.group = group;
+        this.formOfEducation = formOfEducation;
+        this.basisOfEducation = basisOfEducation;
+        this.dateAdmission = dateAdmission;
+    }
 
     public int getId() {
         return id;

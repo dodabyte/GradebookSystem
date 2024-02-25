@@ -1,10 +1,11 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.main;
 
+import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="disciplines")
-public class Discipline {
+public class Discipline extends CustomObject {
     @Id
     @GeneratedValue(generator = "increment")
     @Column(name="id")
@@ -15,6 +16,13 @@ public class Discipline {
             cascade=CascadeType.MERGE)
     @JoinColumn (name="type_of_marks_id")
     private TypeOfMark typeOfMark;
+
+    public Discipline() {}
+
+    public Discipline(String name, TypeOfMark typeOfMark) {
+        this.name = name;
+        this.typeOfMark = typeOfMark;
+    }
 
     public int getId() {
         return id;

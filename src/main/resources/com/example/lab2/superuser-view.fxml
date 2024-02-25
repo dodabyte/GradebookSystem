@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.RadioMenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import com.example.lab2.controls.DateTextField?>
 <?import com.example.lab2.callbacks.CustomCallbackTableColumn?>
 <?import com.example.lab2.callbacks.CustomCallbackNumberCellData?>
 <?import com.example.lab2.callbacks.CustomCallbackNumberTableColumn?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lab2.controllers.Controller">
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lab2.controllers.SuperuserController">
    <TabPane fx:id="tabPane" layoutY="26.0" prefHeight="575.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
          <Tab fx:id="studentsTab" onSelectionChanged="#onStudentsTabChanged" text="Студенты">
@@ -108,11 +97,11 @@
                      </TableView>
                      <ScrollPane layoutX="995.0" prefHeight="547.0" prefWidth="206.0">
                         <content>
-                           <Pane prefHeight="1540.0" prefWidth="191.0">
+                           <Pane prefHeight="1320.0" prefWidth="191.0">
                               <children>
                                  <Button fx:id="studentsRefreshButton" layoutX="48.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onStudentsRefreshButton" text="Обновить" />
-                                 <Button fx:id="studentsAddButton" layoutX="48.0" layoutY="1427.0" minWidth="100.0" mnemonicParsing="false" onAction="#onStudentsAddButton" text="Добавить" />
-                                 <Button fx:id="studentsDeleteButton" layoutX="48.0" layoutY="1476.0" minWidth="100.0" mnemonicParsing="false" onAction="#onStudentsDeleteButton" text="Удалить" />
+                                 <Button fx:id="studentsAddButton" layoutX="48.0" layoutY="1207.0" minWidth="100.0" mnemonicParsing="false" onAction="#onStudentsAddButton" text="Добавить" />
+                                 <Button fx:id="studentsDeleteButton" layoutX="48.0" layoutY="1256.0" minWidth="100.0" mnemonicParsing="false" onAction="#onStudentsDeleteButton" text="Удалить" />
                                  <TextField fx:id="studentLastNameField" layoutX="4.0" layoutY="92.0" prefHeight="25.0" prefWidth="184.0" />
                                  <Label layoutX="4.0" layoutY="75.0" text="Фамилия" />
                                  <TextField fx:id="studentFirstNameField" layoutX="4.0" layoutY="141.0" prefHeight="25.0" prefWidth="184.0" />
@@ -132,7 +121,7 @@
                                  <Label layoutX="4.0" layoutY="479.0" text="Номер квартиры" />
                                  <TextField fx:id="studentAddressApartmentNumberField" disable="true" layoutX="4.0" layoutY="496.0" prefHeight="25.0" prefWidth="184.0" />
                                  <Label layoutX="4.0" layoutY="528.0" text="Дата рождения" />
-                                 <TextField fx:id="studentDateOfBirthField" layoutX="4.0" layoutY="545.0" prefHeight="25.0" prefWidth="184.0" promptText="dd.mm.yyyy" />
+                                 <DateTextField fx:id="studentDateOfBirthField" promptText="dd.mm.yyyy" layoutX="4.0" layoutY="545.0" prefHeight="25.0" prefWidth="184.0" />
                                  <Label layoutX="4.0" layoutY="587.0" text="Группа" />
                                  <RadioButton fx:id="studentGroupExitsRadioButton" layoutX="4.0" layoutY="612.0" mnemonicParsing="false" onAction="#onStudentGroupChoose" text="Существующая" />
                                  <RadioButton fx:id="studentGroupNewRadioButton" layoutX="4.0" layoutY="635.0" mnemonicParsing="false" onAction="#onStudentGroupChoose" text="Новая" />
@@ -141,7 +130,7 @@
                                  <TextField fx:id="studentGroupNameField" disable="true" layoutX="4.0" layoutY="714.0" prefHeight="25.0" prefWidth="184.0" />
                                  <Label layoutX="4.0" layoutY="746.0" text="Направление" />
                                  <RadioButton fx:id="studentSpecializationExitsRadioButton" disable="true" layoutX="4.0" layoutY="771.0" mnemonicParsing="false" onAction="#onStudentSpecializationChoose" text="Существующее" />
-                                 <RadioButton fx:id="studentSpecializationNewRadioButton" disable="true" layoutX="4.0" layoutY="794.0" mnemonicParsing="false" onAction="#onStudentSpecializationChoose" text="Новая" />
+                                 <RadioButton fx:id="studentSpecializationNewRadioButton" disable="true" layoutX="4.0" layoutY="794.0" mnemonicParsing="false" onAction="#onStudentSpecializationChoose" text="Новое" />
                                  <ComboBox fx:id="studentSpecializationComboBox" disable="true" layoutX="4.0" layoutY="823.0" prefWidth="184.0" />
                                  <Label layoutX="4.0" layoutY="856.0" text="Номер направления" />
                                  <TextField fx:id="studentSpecializationNumberField" disable="true" layoutX="4.0" layoutY="873.0" prefHeight="25.0" prefWidth="184.0" />
@@ -152,19 +141,11 @@
                                  <Label layoutX="4.0" layoutY="1003.0" text="Дата формирования группы" />
                                  <TextField fx:id="studentGroupDateFormationField" disable="true" layoutX="4.0" layoutY="1020.0" prefHeight="25.0" prefWidth="184.0" promptText="dd.mm.yyyy" />
                                  <Label layoutX="4.0" layoutY="1052.0" text="Форма обучения" />
-                                 <RadioButton fx:id="studentFormOfEducationExitsRadioButton" layoutX="4.0" layoutY="1077.0" mnemonicParsing="false" onAction="#onStudentFormOfEducationChoose" text="Существующая" />
-                                 <RadioButton fx:id="studentFormOfEducationNewRadioButton" layoutX="4.0" layoutY="1100.0" mnemonicParsing="false" onAction="#onStudentFormOfEducationChoose" text="Новая" />
-                                 <ComboBox fx:id="studentFormOfEducationComboBox" disable="true" layoutX="4.0" layoutY="1129.0" prefWidth="184.0" />
-                                 <Label layoutX="4.0" layoutY="1162.0" text="Название формы обучения" />
-                                 <TextField fx:id="studentFormOfEducationNameField" disable="true" layoutX="4.0" layoutY="1179.0" prefHeight="25.0" prefWidth="184.0" />
-                                 <Label layoutX="4.0" layoutY="1211.0" text="Основа обучения" />
-                                 <RadioButton fx:id="studentBasisOfEducationExitsRadioButton" layoutX="4.0" layoutY="1236.0" mnemonicParsing="false" onAction="#onStudentBasisOfEducationChoose" text="Существующая" />
-                                 <RadioButton fx:id="studentBasisOfEducationNewRadioButton" layoutX="4.0" layoutY="1259.0" mnemonicParsing="false" onAction="#onStudentBasisOfEducationChoose" text="Новая" />
-                                 <ComboBox fx:id="studentBasisOfEducationComboBox" disable="true" layoutX="4.0" layoutY="1288.0" prefWidth="184.0" />
-                                 <Label layoutX="4.0" layoutY="1321.0" text="Название основы обучения" />
-                                 <TextField fx:id="studentBasisOfEducationNameField" disable="true" layoutX="4.0" layoutY="1338.0" prefHeight="25.0" prefWidth="184.0" />
-                                 <Label layoutX="4.0" layoutY="1370.0" text="Дата поступления студента" />
-                                 <TextField fx:id="studentDateAdmissionField" layoutX="4.0" layoutY="1387.0" prefHeight="25.0" prefWidth="184.0" promptText="dd.mm.yyyy" />
+                                 <ComboBox fx:id="studentFormOfEducationComboBox" layoutX="4.0" layoutY="1069.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="1101.0" text="Основа обучения" />
+                                 <ComboBox fx:id="studentBasisOfEducationComboBox" layoutX="4.0" layoutY="1118.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="1150.0" text="Дата поступления студента" />
+                                 <DateTextField fx:id="studentDateAdmissionField" promptText="dd.mm.yyyy" layoutX="4.0" layoutY="1167.0" prefHeight="25.0" prefWidth="184.0" />
                                  <StackPane layoutX="4.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
                                     <TextField fx:id="studentsSearchField" promptText="Поиск" styleClass="transparent">
                                        <StackPane.margin>
@@ -233,17 +214,17 @@
                                  <PropertyValueFactory property="mark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" minWidth="8.0" onEditCommit="#onSemesterPerformanceMarkColumnEditCommit" prefWidth="70.0" text="Оценка ECTS">
+                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Оценка ECTS">
                               <cellValueFactory>
                                  <PropertyValueFactory property="ectsMark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" minWidth="8.0" onEditCommit="#onSemesterPerformanceMarkColumnEditCommit" prefWidth="70.0" text="Оценка (5-балл.)">
+                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Оценка (5-балл.)">
                               <cellValueFactory>
                                  <PropertyValueFactory property="traditionalMark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" minWidth="8.0" onEditCommit="#onSemesterPerformanceMarkColumnEditCommit" prefWidth="70.0" text="Традиц. оценка">
+                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Традиц. оценка">
                               <cellValueFactory>
                                  <PropertyValueFactory property="traditionalWordMark" />
                               </cellValueFactory>
@@ -252,11 +233,11 @@
                      </TableView>
                      <ScrollPane layoutX="995.0" prefHeight="547.0" prefWidth="206.0">
                         <content>
-                           <Pane prefHeight="710.0" prefWidth="191.0">
+                           <Pane prefHeight="600.0" prefWidth="191.0">
                               <children>
                                  <Button fx:id="semesterPerformanceRefreshButton" layoutX="48.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSemesterPerformanceRefreshButton" text="Обновить" />
-                                 <Button fx:id="semesterPerformanceAddButton" layoutX="48.0" layoutY="597.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSemesterPerformanceAddButton" text="Добавить" />
-                                 <Button fx:id="semesterPerformanceDeleteButton" layoutX="48.0" layoutY="646.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSemesterPerformanceDeleteButton" text="Удалить" />
+                                 <Button fx:id="semesterPerformanceAddButton" layoutX="48.0" layoutY="487.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSemesterPerformanceAddButton" text="Добавить" />
+                                 <Button fx:id="semesterPerformanceDeleteButton" layoutX="48.0" layoutY="536.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSemesterPerformanceDeleteButton" text="Удалить" />
                                  <Label layoutX="4.0" layoutY="75.0" text="Студент" />
                                  <ComboBox fx:id="semesterPerformanceStudentComboBox" layoutX="4.0" layoutY="92.0" prefWidth="184.0" />
                                  <TextField fx:id="semesterPerformanceCourseField" layoutX="4.0" layoutY="141.0" prefHeight="25.0" prefWidth="184.0" promptText="1-4" />
@@ -270,13 +251,9 @@
                                  <Label layoutX="4.0" layoutY="332.0" text="Название дисциплины" />
                                  <TextField fx:id="semesterPerformanceDisciplineNameField" disable="true" layoutX="4.0" layoutY="349.0" prefHeight="25.0" prefWidth="184.0" />
                                  <Label layoutX="4.0" layoutY="381.0" text="Тип оценивания" />
-                                 <RadioButton fx:id="semesterPerformanceDisciplineTypeOfMarkExitsRadioButton" disable="true" layoutX="4.0" layoutY="406.0" mnemonicParsing="false" onAction="#onSemesterPerformanceDisciplineTypeOfMarksChoose" text="Существующая" />
-                                 <RadioButton fx:id="semesterPerformanceDisciplineTypeOfMarkNewRadioButton" disable="true" layoutX="4.0" layoutY="429.0" mnemonicParsing="false" onAction="#onSemesterPerformanceDisciplineTypeOfMarksChoose" text="Новая" />
-                                 <ComboBox fx:id="semesterPerformanceDisciplineTypeOfMarkComboBox" disable="true" layoutX="4.0" layoutY="458.0" prefWidth="184.0" />
-                                 <Label layoutX="4.0" layoutY="491.0" text="Название типа оценивания" />
-                                 <TextField fx:id="semesterPerformanceDisciplineTypeOfMarkNameField" disable="true" layoutX="4.0" layoutY="508.0" prefHeight="25.0" prefWidth="184.0" />
-                                 <Label layoutX="4.0" layoutY="540.0" text="Оценка в баллах" />
-                                 <TextField fx:id="semesterPerformanceMarkField" layoutX="4.0" layoutY="557.0" prefHeight="25.0" prefWidth="184.0" promptText="0-100" />
+                                 <ComboBox fx:id="semesterPerformanceDisciplineTypeOfMarkComboBox" disable="true" layoutX="4.0" layoutY="398.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="430.0" text="Оценка в баллах" />
+                                 <TextField fx:id="semesterPerformanceMarkField" promptText="0-100" layoutX="4.0" layoutY="447.0" prefHeight="25.0" prefWidth="184.0" />
                                  <StackPane layoutX="4.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
                                     <TextField fx:id="semesterPerformanceSearchField" promptText="Поиск" styleClass="transparent">
                                        <StackPane.margin>
@@ -302,106 +279,6 @@
                </Pane>
             </content>
          </Tab>
-<!--         <Tab fx:id="contractDataTab" onSelectionChanged="#onContractDataTabChanged" text="Данные о контрактах">-->
-<!--            <content>-->
-<!--               <Pane prefHeight="600.0" prefWidth="1200.0">-->
-<!--                  <children>-->
-<!--                     <TableView fx:id="contractDataTable" editable="true" prefHeight="545.0" prefWidth="1000.0">-->
-<!--                        <columns>-->
-<!--                           <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">-->
-<!--                              <cellValueFactory>-->
-<!--                                 <CustomCallbackNumberCellData />-->
-<!--                              </cellValueFactory>-->
-<!--                              <cellFactory>-->
-<!--                                 <CustomCallbackNumberTableColumn />-->
-<!--                              </cellFactory>-->
-<!--                           </TableColumn>-->
-<!--                           <TableColumn editable="false" prefWidth="68.0" text="Id">-->
-<!--                              <cellValueFactory>-->
-<!--                                 <PropertyValueFactory property="id" />-->
-<!--                              </cellValueFactory>-->
-<!--                           </TableColumn>-->
-<!--                           <TableColumn fx:id="contractDataStudentColumn" minWidth="8.0" onEditCommit="#onContractDataStudentColumnEditCommit" prefWidth="240.0" text="Студент">-->
-<!--                              <cellValueFactory>-->
-<!--                                 <PropertyValueFactory property="student" />-->
-<!--                              </cellValueFactory>-->
-<!--                           </TableColumn>-->
-<!--                           <TableColumn fx:id="contractDataDateColumn" onEditCommit="#onContractDataDateColumnEditCommit" prefWidth="120.0" text="Дата контракта">-->
-<!--                              <cellValueFactory>-->
-<!--                                 <PropertyValueFactory property="contractDate" />-->
-<!--                              </cellValueFactory>-->
-<!--                           </TableColumn>-->
-<!--                           <TableColumn fx:id="contractDataPaymentAmountColumn" onEditCommit="#onContractDataPaymentAmountColumnEditCommit" prefWidth="120.0" text="Сумма платежа">-->
-<!--                              <cellValueFactory>-->
-<!--                                 <PropertyValueFactory property="paymentAmount" />-->
-<!--                              </cellValueFactory>-->
-<!--                           </TableColumn>-->
-<!--                           <TableColumn fx:id="contractDataCurrentPaymentColumn" onEditCommit="#onContractDataCurrentPaymentColumnEditCommit" prefWidth="300.0" text="Текущий платёж">-->
-<!--                              <cellValueFactory>-->
-<!--                                 <PropertyValueFactory property="currentPayments" />-->
-<!--                              </cellValueFactory>-->
-<!--                           </TableColumn>-->
-<!--                           <TableColumn fx:id="contractDataStatusColumn" minWidth="8.0" onEditCommit="#onContractDataStatusColumnEditCommit" prefWidth="126.0" text="Статус">-->
-<!--                              <cellValueFactory>-->
-<!--                                 <PropertyValueFactory property="statuses" />-->
-<!--                              </cellValueFactory>-->
-<!--                           </TableColumn>-->
-<!--                        </columns>-->
-<!--                     </TableView>-->
-<!--                     <ScrollPane layoutX="995.0" prefHeight="547.0" prefWidth="206.0">-->
-<!--                        <content>-->
-<!--                           <Pane prefHeight="759.0" prefWidth="191.0">-->
-<!--                              <children>-->
-<!--                                 <Button fx:id="contractDataRefreshButton" layoutX="48.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onContractDataRefreshButton" text="Обновить" />-->
-<!--                                 <Button fx:id="contractDataAddButton" layoutX="48.0" layoutY="646.0" minWidth="100.0" mnemonicParsing="false" onAction="#onContractDataAddButton" text="Добавить" />-->
-<!--                                 <Button fx:id="contractDataDeleteButton" layoutX="48.0" layoutY="695.0" minWidth="100.0" mnemonicParsing="false" onAction="#onContractDataDeleteButton" text="Удалить" />-->
-<!--                                 <Label layoutX="4.0" layoutY="75.0" text="Студент" />-->
-<!--                                 <ComboBox fx:id="contractDataStudentComboBox" layoutX="4.0" layoutY="92.0" prefWidth="184.0" />-->
-<!--                                 <TextField fx:id="contractDataDateField" layoutX="4.0" layoutY="141.0" prefHeight="25.0" prefWidth="184.0" />-->
-<!--                                 <Label layoutX="4.0" layoutY="124.0" text="Дата оформления контракта" />-->
-<!--                                 <TextField fx:id="contractDataPaymentAmountField" layoutX="4.0" layoutY="190.0" prefHeight="25.0" prefWidth="184.0" />-->
-<!--                                 <Label layoutX="4.0" layoutY="173.0" text="Сумма платежа" />-->
-<!--                                 <Label layoutX="4.0" layoutY="222.0" text="Текущий платёж" />-->
-<!--                                 <RadioButton fx:id="contractDataCurrentPaymentExitsRadioButton" layoutX="4.0" layoutY="247.0" mnemonicParsing="false" onAction="#onContractDataCurrentPaymentChoose" text="Существующий" />-->
-<!--                                 <RadioButton fx:id="contractDataCurrentPaymentNewRadioButton" layoutX="4.0" layoutY="270.0" mnemonicParsing="false" onAction="#onContractDataCurrentPaymentChoose" text="Новый" />-->
-<!--                                 <ComboBox fx:id="contractDataCurrentPaymentComboBox" disable="true" layoutX="4.0" layoutY="299.0" prefWidth="184.0" />-->
-<!--                                 <Label layoutX="4.0" layoutY="332.0" text="Сумма" />-->
-<!--                                 <TextField fx:id="contractDataCurrentPaymentAmountField" disable="true" layoutX="4.0" layoutY="349.0" prefHeight="25.0" prefWidth="184.0" />-->
-<!--                                 <Label layoutX="4.0" layoutY="381.0" text="Дата платежа" />-->
-<!--                                 <TextField fx:id="contractDataCurrentPaymentDateField" disable="true" layoutX="4.0" layoutY="398.0" prefHeight="25.0" prefWidth="184.0" />-->
-<!--                                 <Label layoutX="4.0" layoutY="430.0" text="Номер документа" />-->
-<!--                                 <TextField fx:id="contractDataCurrentPaymentDocNumberField" disable="true" layoutX="4.0" layoutY="447.0" prefHeight="25.0" prefWidth="184.0" />-->
-<!--                                 <Label layoutX="4.0" layoutY="479.0" text="Статус" />-->
-<!--                                 <RadioButton fx:id="contractDataStatusExitsRadioButton" layoutX="4.0" layoutY="504.0" mnemonicParsing="false" onAction="#onContractDataStatusChoose" text="Существующий" />-->
-<!--                                 <RadioButton fx:id="contractDataStatusNewRadioButton" layoutX="4.0" layoutY="527.0" mnemonicParsing="false" onAction="#onContractDataStatusChoose" text="Новый" />-->
-<!--                                 <ComboBox fx:id="contractDataStatusComboBox" disable="true" layoutX="4.0" layoutY="556.0" prefWidth="184.0" />-->
-<!--                                 <Label layoutX="4.0" layoutY="589.0" text="Название" />-->
-<!--                                 <TextField fx:id="contractDataStatusNameField" disable="true" layoutX="4.0" layoutY="606.0" prefHeight="25.0" prefWidth="184.0" />-->
-<!--                                 <StackPane layoutX="4.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">-->
-<!--                                    <TextField fx:id="contractDataSearchField" styleClass="transparent" promptText="Поиск">-->
-<!--                                       <StackPane.margin>-->
-<!--                                          <Insets left="15.0" right="15.0" />-->
-<!--                                       </StackPane.margin>-->
-<!--                                    </TextField>-->
-<!--                                    <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="search-button" text="Butt" StackPane.alignment="CENTER_RIGHT" onAction="#onContractDataSearch">-->
-<!--                                       <StackPane.margin>-->
-<!--                                          <Insets right="4.0" />-->
-<!--                                       </StackPane.margin>-->
-<!--                                    </Button>-->
-<!--                                    <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="delete-button" text="Butt" StackPane.alignment="CENTER_LEFT" onAction="#onContractDataSearchClear">-->
-<!--                                       <StackPane.margin>-->
-<!--                                          <Insets left="4.0"/>-->
-<!--                                       </StackPane.margin>-->
-<!--                                    </Button>-->
-<!--                                 </StackPane>-->
-<!--                              </children>-->
-<!--                           </Pane>-->
-<!--                        </content>-->
-<!--                     </ScrollPane>-->
-<!--                  </children>-->
-<!--               </Pane>-->
-<!--            </content>-->
-<!--         </Tab>-->
          <Tab fx:id="parentsTab" onSelectionChanged="#onParentsTabChanged" text="Родители">
             <content>
                <Pane prefHeight="600.0" prefWidth="1200.0">
@@ -509,72 +386,135 @@
                </Pane>
             </content>
          </Tab>
-<!--         <Tab fx:id="currentPaymentsTab" onSelectionChanged="#onCurrentPaymentsTabChanged" text="Текущ. платежи">-->
-<!--            <content>-->
-<!--                <Pane prefHeight="600.0" prefWidth="1200.0">-->
-<!--                    <children>-->
-<!--                        <TableView fx:id="currentPaymentsTable" editable="true" prefHeight="545.0" prefWidth="1000.0">-->
-<!--                            <columns>-->
-<!--                                <TableColumn editable="false" prefWidth="20" resizable="false" sortable="false" styleClass="color_column" text="№">-->
-<!--                                    <cellValueFactory>-->
-<!--                                        <CustomCallbackNumberCellData />-->
-<!--                                    </cellValueFactory>-->
-<!--                                    <cellFactory>-->
-<!--                                        <CustomCallbackNumberTableColumn />-->
-<!--                                    </cellFactory>-->
-<!--                                </TableColumn>-->
-<!--                                <TableColumn editable="false" prefWidth="68.0" text="Id">-->
-<!--                                    <cellValueFactory>-->
-<!--                                        <PropertyValueFactory property="id" />-->
-<!--                                    </cellValueFactory>-->
-<!--                                </TableColumn>-->
-<!--                                <TableColumn fx:id="amountColumn" onEditCommit="#onAmountColumnEditCommit" prefWidth="90.0" text="Сумма">-->
-<!--                                    <cellValueFactory>-->
-<!--                                        <PropertyValueFactory property="amount" />-->
-<!--                                    </cellValueFactory>-->
-<!--                                </TableColumn>-->
-<!--                                <TableColumn fx:id="paymentDateColumn" onEditCommit="#onPaymentDateColumnEditCommit" prefWidth="120.0" text="Дата платежа">-->
-<!--                                    <cellValueFactory>-->
-<!--                                        <PropertyValueFactory property="paymentDate" />-->
-<!--                                    </cellValueFactory>-->
-<!--                                </TableColumn>-->
-<!--                                <TableColumn fx:id="docNumberColumn" onEditCommit="#onDocNumberColumnEditCommit" prefWidth="120.0" text="Номер документа">-->
-<!--                                    <cellValueFactory>-->
-<!--                                        <PropertyValueFactory property="docNumber" />-->
-<!--                                    </cellValueFactory>-->
-<!--                                </TableColumn>-->
-<!--                            </columns>-->
-<!--                        </TableView>-->
-<!--                        <Button fx:id="currentPaymentsRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onCurrentPaymentsRefreshButton" text="Обновить" />-->
-<!--                        <Button fx:id="currentPaymentsAddButton" layoutX="1052.0" layoutY="231.0" minWidth="100.0" mnemonicParsing="false" onAction="#onCurrentPaymentsAddButton" text="Добавить" />-->
-<!--                        <Button fx:id="currentPaymentsDeleteButton" layoutX="1052.0" layoutY="280.0" minWidth="100.0" mnemonicParsing="false" onAction="#onCurrentPaymentsDeleteButton" text="Удалить" />-->
-<!--                        <TextField fx:id="currentPaymentsAmountField" layoutX="1009.0" layoutY="93.0" prefHeight="25.0" prefWidth="184.0" />-->
-<!--                        <Label layoutX="1009.0" layoutY="76.0" text="Сумма" />-->
-<!--                        <TextField fx:id="currentPaymentsDateField" layoutX="1009.0" layoutY="142.0" prefHeight="25.0" prefWidth="184.0" />-->
-<!--                        <Label layoutX="1009.0" layoutY="125.0" text="Дата платежа" />-->
-<!--                        <TextField fx:id="currentPaymentsDocNumberField" layoutX="1009.0" layoutY="191.0" prefHeight="25.0" prefWidth="184.0" />-->
-<!--                        <Label layoutX="1009.0" layoutY="174.0" text="Номер документа" />-->
-<!--                       <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">-->
-<!--                          <TextField fx:id="currentPaymentsSearchField" styleClass="transparent" promptText="Поиск">-->
-<!--                             <StackPane.margin>-->
-<!--                                <Insets left="15.0" right="15.0" />-->
-<!--                             </StackPane.margin>-->
-<!--                          </TextField>-->
-<!--                          <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="search-button" text="Butt" StackPane.alignment="CENTER_RIGHT" onAction="#onCurrentPaymentsSearch">-->
-<!--                             <StackPane.margin>-->
-<!--                                <Insets right="4.0" />-->
-<!--                             </StackPane.margin>-->
-<!--                          </Button>-->
-<!--                          <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="delete-button" text="Butt" StackPane.alignment="CENTER_LEFT" onAction="#onCurrentPaymentsSearchClear">-->
-<!--                             <StackPane.margin>-->
-<!--                                <Insets left="4.0"/>-->
-<!--                             </StackPane.margin>-->
-<!--                          </Button>-->
-<!--                       </StackPane>-->
-<!--                    </children>-->
-<!--                </Pane>-->
-<!--            </content>-->
-<!--         </Tab>-->
+         <Tab fx:id="teachersTab" onSelectionChanged="#onTeachersTabChanged" text="Преподаватели">
+            <content>
+               <Pane prefHeight="600.0" prefWidth="1200.0">
+                  <children>
+                     <TableView fx:id="teachersTable" editable="true" prefHeight="545.0" prefWidth="1000.0">
+                        <columns>
+                           <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">
+                              <cellValueFactory>
+                                 <CustomCallbackNumberCellData />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackNumberTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="id" />
+                              </cellValueFactory>
+                           </TableColumn>
+                           <TableColumn onEditCommit="#onTeacherLastNameColumnEditCommit" prefWidth="120.0" text="Фамилия">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="lastName" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn onEditCommit="#onTeacherFirstNameColumnEditCommit" prefWidth="120.0" text="Имя">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="firstName" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn onEditCommit="#onTeacherPatronymicColumnEditCommit" prefWidth="120.0" text="Отчество">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="patronymic" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn fx:id="teacherDateOfBirthColumn" minWidth="8.0" onEditCommit="#onTeacherDateOfBirthColumnEditCommit" prefWidth="100.0" text="Дата рождения">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="dateOfBirth" />
+                              </cellValueFactory>
+                           </TableColumn>
+                           <TableColumn fx:id="teacherDepartmentColumn" minWidth="8.0" onEditCommit="#onTeacherDepartmentColumnEditCommit" prefWidth="200.0" text="Кафедра">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="department" />
+                              </cellValueFactory>
+                           </TableColumn>
+                           <TableColumn fx:id="teacherPostColumn" minWidth="8.0" onEditCommit="#onTeacherPostColumnEditCommit" prefWidth="100.0" text="Должность">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="post" />
+                              </cellValueFactory>
+                           </TableColumn>
+                           <TableColumn fx:id="teacherAddressColumn" minWidth="8.0" onEditCommit="#onTeacherAddressColumnEditCommit" prefWidth="250.0" text="Адрес проживания">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="address" />
+                              </cellValueFactory>
+                           </TableColumn>
+                        </columns>
+                     </TableView>
+                     <ScrollPane layoutX="995.0" prefHeight="547.0" prefWidth="206.0">
+                        <content>
+                           <Pane prefHeight="1016.0" prefWidth="191.0">
+                              <children>
+                                 <Button fx:id="teachersRefreshButton" layoutX="48.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeachersRefreshButton" text="Обновить" />
+                                 <Button fx:id="teachersAddButton" layoutX="48.0" layoutY="903.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeachersAddButton" text="Добавить" />
+                                 <Button fx:id="teachersDeleteButton" layoutX="48.0" layoutY="952.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeachersDeleteButton" text="Удалить" />
+                                 <Label layoutX="4.0" layoutY="75.0" text="Фамилия" />
+                                 <TextField fx:id="teacherLastNameField" layoutX="4.0" layoutY="92.0" prefHeight="25.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="124.0" text="Имя" />
+                                 <TextField fx:id="teacherFirstNameField" layoutX="4.0" layoutY="141.0" prefHeight="25.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="173.0" text="Отчество" />
+                                 <TextField fx:id="teacherPatronymicField" layoutX="4.0" layoutY="190.0" prefHeight="25.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="222.0" text="Дата рождения" />
+                                 <DateTextField fx:id="teacherDateOfBirthField" promptText="dd.mm.yyyy" layoutX="4.0" layoutY="239.0" prefHeight="25.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="271.0" text="Кафедра" />
+                                 <RadioButton fx:id="teacherDepartmentExitsRadioButton" layoutX="4.0" layoutY="296.0" mnemonicParsing="false" onAction="#onTeacherDepartmentChoose" text="Существующая" />
+                                 <RadioButton fx:id="teacherDepartmentNewRadioButton" layoutX="4.0" layoutY="319.0" mnemonicParsing="false" onAction="#onTeacherDepartmentChoose" text="Новая" />
+                                 <ComboBox fx:id="teacherDepartmentComboBox" disable="true" layoutX="4.0" layoutY="348.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="381.0" text="Название кафедры" />
+                                 <TextField fx:id="teacherDepartmentNameField" disable="true" layoutX="4.0" layoutY="398.0" prefHeight="25.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="430.0" text="Должность" />
+                                 <RadioButton fx:id="teacherPostExitsRadioButton" layoutX="4.0" layoutY="455.0" mnemonicParsing="false" onAction="#onTeacherPostChoose" text="Существующая" />
+                                 <RadioButton fx:id="teacherPostNewRadioButton" layoutX="4.0" layoutY="478.0" mnemonicParsing="false" onAction="#onTeacherPostChoose" text="Новая" />
+                                 <ComboBox fx:id="teacherPostComboBox" disable="true" layoutX="4.0" layoutY="507.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="540.0" text="Название должности" />
+                                 <TextField fx:id="teacherPostNameField" disable="true" layoutX="4.0" layoutY="557.0" prefHeight="25.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="589.0" text="Адрес проживания" />
+                                 <RadioButton fx:id="teacherAddressExitsRadioButton" layoutX="4.0" layoutY="614.0" mnemonicParsing="false" onAction="#onTeacherAddressChoose" text="Существующий" />
+                                 <RadioButton fx:id="teacherAddressNewRadioButton" layoutX="4.0" layoutY="637.0" mnemonicParsing="false" onAction="#onTeacherAddressChoose" text="Новый" />
+                                 <ComboBox fx:id="teacherAddressComboBox" disable="true" layoutX="4.0" layoutY="666.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="699.0" text="Город" />
+                                 <TextField fx:id="teacherAddressCityField" disable="true" layoutX="4.0" layoutY="716.0" prefHeight="25.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="748.0" text="Улица" />
+                                 <TextField fx:id="teacherAddressStreetField" disable="true" layoutX="4.0" layoutY="765.0" prefHeight="25.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="797.0" text="Номер дома" />
+                                 <TextField fx:id="teacherAddressHouseNumberField" disable="true" layoutX="4.0" layoutY="814.0" prefHeight="25.0" prefWidth="184.0" />
+                                 <Label layoutX="4.0" layoutY="846.0" text="Номер квартиры" />
+                                 <TextField fx:id="teacherAddressApartmentNumberField" disable="true" layoutX="4.0" layoutY="863.0" prefHeight="25.0" prefWidth="184.0" />
+                                 <StackPane layoutX="4.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
+                                    <TextField fx:id="teachersSearchField" styleClass="transparent" promptText="Поиск">
+                                       <StackPane.margin>
+                                          <Insets left="15.0" right="15.0" />
+                                       </StackPane.margin>
+                                    </TextField>
+                                    <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="search-button" text="Butt" StackPane.alignment="CENTER_RIGHT" onAction="#onTeachersSearch">
+                                       <StackPane.margin>
+                                          <Insets right="4.0" />
+                                       </StackPane.margin>
+                                    </Button>
+                                    <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="delete-button" text="Butt" StackPane.alignment="CENTER_LEFT" onAction="#onTeachersSearchClear">
+                                       <StackPane.margin>
+                                          <Insets left="4.0"/>
+                                       </StackPane.margin>
+                                    </Button>
+                                 </StackPane>
+                              </children>
+                           </Pane>
+                        </content>
+                     </ScrollPane>
+                  </children>
+               </Pane>
+            </content>
+         </Tab>
          <Tab fx:id="addressesTab" onSelectionChanged="#onAddressesTabChanged" text="Адреса">
             <content>
                <Pane prefHeight="600.0" prefWidth="1200.0">
@@ -873,16 +813,12 @@
                             </columns>
                         </TableView>
                         <Button fx:id="disciplinesRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onDisciplinesRefreshButton" text="Обновить" />
-                        <Button fx:id="disciplinesAddButton" layoutX="1051.0" layoutY="292.0" minWidth="100.0" mnemonicParsing="false" onAction="#onDisciplinesAddButton" text="Добавить" />
-                        <Button fx:id="disciplinesDeleteButton" layoutX="1051.0" layoutY="341.0" minWidth="100.0" mnemonicParsing="false" onAction="#onDisciplinesDeleteButton" text="Удалить" />
+                        <Button fx:id="disciplinesAddButton" layoutX="1051.0" layoutY="182.0" minWidth="100.0" mnemonicParsing="false" onAction="#onDisciplinesAddButton" text="Добавить" />
+                        <Button fx:id="disciplinesDeleteButton" layoutX="1051.0" layoutY="231.0" minWidth="100.0" mnemonicParsing="false" onAction="#onDisciplinesDeleteButton" text="Удалить" />
                         <Label layoutX="1009.0" layoutY="76.0" text="Название" />
                        <TextField fx:id="disciplinesNameField" layoutX="1009.0" layoutY="93.0" prefHeight="25.0" prefWidth="184.0" />
                        <Label layoutX="1009.0" layoutY="125.0" text="Тип оценивания" />
-                       <RadioButton fx:id="disciplineTypeOfMarkExitsRadioButton" layoutX="1009.0" layoutY="150.0" mnemonicParsing="false" onAction="#onDisciplineTypeOfMarkChoose" text="Существующий" />
-                       <RadioButton fx:id="disciplineTypeOfMarkNewRadioButton" layoutX="1009.0" layoutY="173.0" mnemonicParsing="false" onAction="#onDisciplineTypeOfMarkChoose" text="Новый" />
-                       <ComboBox fx:id="disciplineTypeOfMarkComboBox" disable="true" layoutX="1009.0" layoutY="202.0" prefWidth="184.0" />
-                       <Label layoutX="1009.0" layoutY="235.0" text="Название типа оценивания" />
-                       <TextField fx:id="disciplinesTypeOfMarkNameField" disable="true" layoutX="1009.0" layoutY="252.0" prefHeight="25.0" prefWidth="184.0" />
+                       <ComboBox fx:id="disciplineTypeOfMarkComboBox" layoutX="1009.0" layoutY="142.0" prefWidth="184.0" />
                        <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
                           <TextField fx:id="disciplinesSearchField" promptText="Поиск" styleClass="transparent">
                              <StackPane.margin>
@@ -923,7 +859,7 @@
                                         <PropertyValueFactory property="id" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn onEditCommit="#onTypeOfMarkNameColumnEditCommit" prefWidth="330.0" text="Название">
+                                <TableColumn editable="false" prefWidth="330.0" text="Название">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="name" />
                                     </cellValueFactory>
@@ -934,10 +870,10 @@
                             </columns>
                         </TableView>
                         <Button fx:id="typesOfMarksRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTypesOfMarksRefreshButton" text="Обновить" />
-                        <Button fx:id="typesOfMarksAddButton" layoutX="1051.0" layoutY="133.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTypesOfMarksAddButton" text="Добавить" />
-                        <Button fx:id="typesOfMarksDeleteButton" layoutX="1051.0" layoutY="182.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTypesOfMarksDeleteButton" text="Удалить" />
-                        <TextField fx:id="typesOfMarksNameField" layoutX="1009.0" layoutY="93.0" prefHeight="25.0" prefWidth="184.0" />
-                        <Label layoutX="1009.0" layoutY="76.0" text="Название" />
+<!--                        <Button fx:id="typesOfMarksAddButton" layoutX="1051.0" layoutY="133.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTypesOfMarksAddButton" text="Добавить" />-->
+<!--                        <Button fx:id="typesOfMarksDeleteButton" layoutX="1051.0" layoutY="182.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTypesOfMarksDeleteButton" text="Удалить" />-->
+<!--                        <TextField fx:id="typesOfMarksNameField" layoutX="1009.0" layoutY="93.0" prefHeight="25.0" prefWidth="184.0" />-->
+<!--                        <Label layoutX="1009.0" layoutY="76.0" text="Название" />-->
                        <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
                           <TextField fx:id="typesOfMarksSearchField" promptText="Поиск" styleClass="transparent">
                              <StackPane.margin>
@@ -959,61 +895,6 @@
                 </Pane>
             </content>
          </Tab>
-<!--         <Tab fx:id="statusesTab" onSelectionChanged="#onStatusesTabChanged" text="Статусы">-->
-<!--            <content>-->
-<!--                <Pane prefHeight="600.0" prefWidth="1200.0">-->
-<!--                    <children>-->
-<!--                        <TableView fx:id="statusesTable" editable="true" prefHeight="545.0" prefWidth="1000.0">-->
-<!--                            <columns>-->
-<!--                                <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">-->
-<!--                                    <cellValueFactory>-->
-<!--                                        <CustomCallbackNumberCellData />-->
-<!--                                    </cellValueFactory>-->
-<!--                                    <cellFactory>-->
-<!--                                        <CustomCallbackNumberTableColumn />-->
-<!--                                    </cellFactory>-->
-<!--                                </TableColumn>-->
-<!--                                <TableColumn editable="false" prefWidth="68.0" text="Id">-->
-<!--                                    <cellValueFactory>-->
-<!--                                        <PropertyValueFactory property="id" />-->
-<!--                                    </cellValueFactory>-->
-<!--                                </TableColumn>-->
-<!--                                <TableColumn onEditCommit="#onStatusNameColumnEditCommit" prefWidth="330.0" text="Название">-->
-<!--                                    <cellValueFactory>-->
-<!--                                        <PropertyValueFactory property="name" />-->
-<!--                                    </cellValueFactory>-->
-<!--                                    <cellFactory>-->
-<!--                                        <CustomCallbackTableColumn />-->
-<!--                                    </cellFactory>-->
-<!--                                </TableColumn>-->
-<!--                            </columns>-->
-<!--                        </TableView>-->
-<!--                        <Button fx:id="statusesRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onStatusesRefreshButton" text="Обновить" />-->
-<!--                        <Button fx:id="statusesAddButton" layoutX="1051.0" layoutY="133.0" minWidth="100.0" mnemonicParsing="false" onAction="#onStatusesAddButton" text="Добавить" />-->
-<!--                        <Button fx:id="statusesDeleteButton" layoutX="1051.0" layoutY="182.0" minWidth="100.0" mnemonicParsing="false" onAction="#onStatusesDeleteButton" text="Удалить" />-->
-<!--                        <TextField fx:id="statusesNameField" layoutX="1009.0" layoutY="93.0" prefHeight="25.0" prefWidth="184.0" />-->
-<!--                        <Label layoutX="1009.0" layoutY="76.0" text="Название" />-->
-<!--                       <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">-->
-<!--                          <TextField fx:id="statusesSearchField" styleClass="transparent" promptText="Поиск">-->
-<!--                             <StackPane.margin>-->
-<!--                                <Insets left="15.0" right="15.0" />-->
-<!--                             </StackPane.margin>-->
-<!--                          </TextField>-->
-<!--                          <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="search-button" text="Butt" StackPane.alignment="CENTER_RIGHT" onAction="#onStatusesSearch">-->
-<!--                             <StackPane.margin>-->
-<!--                                <Insets right="4.0" />-->
-<!--                             </StackPane.margin>-->
-<!--                          </Button>-->
-<!--                          <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="delete-button" text="Butt" StackPane.alignment="CENTER_LEFT" onAction="#onStatusesSearchClear">-->
-<!--                             <StackPane.margin>-->
-<!--                                <Insets left="4.0"/>-->
-<!--                             </StackPane.margin>-->
-<!--                          </Button>-->
-<!--                       </StackPane>-->
-<!--                    </children>-->
-<!--                </Pane>-->
-<!--            </content>-->
-<!--         </Tab>-->
          <Tab fx:id="formsOfEducationTab" onSelectionChanged="#onFormsOfEducationTabChanged" text="Формы обуч.">
             <content>
                 <Pane prefHeight="600.0" prefWidth="1200.0">
@@ -1033,7 +914,7 @@
                                         <PropertyValueFactory property="id" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn onEditCommit="#onFormNameColumnEditCommit" prefWidth="330.0" text="Название">
+                                <TableColumn editable="false" prefWidth="330.0" text="Название">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="name" />
                                     </cellValueFactory>
@@ -1044,10 +925,6 @@
                             </columns>
                         </TableView>
                         <Button fx:id="formsOfEducationRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onFormsOfEducationRefreshButton" text="Обновить" />
-                        <Button fx:id="formsOfEducationAddButton" layoutX="1051.0" layoutY="133.0" minWidth="100.0" mnemonicParsing="false" onAction="#onFormsOfEducationAddButton" text="Добавить" />
-                        <Button fx:id="formsOfEducationDeleteButton" layoutX="1051.0" layoutY="182.0" minWidth="100.0" mnemonicParsing="false" onAction="#onFormsOfEducationDeleteButton" text="Удалить" />
-                        <TextField fx:id="formsOfEducationNameField" layoutX="1009.0" layoutY="93.0" prefHeight="25.0" prefWidth="184.0" />
-                        <Label layoutX="1009.0" layoutY="76.0" text="Название" />
                        <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
                           <TextField fx:id="formsOfEducationSearchField" promptText="Поиск" styleClass="transparent">
                              <StackPane.margin>
@@ -1088,7 +965,7 @@
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onBasisNameColumnEditCommit" prefWidth="330.0" text="Название">
+                           <TableColumn editable="false" prefWidth="330.0" text="Название">
                               <cellValueFactory>
                                  <PropertyValueFactory property="name" />
                               </cellValueFactory>
@@ -1099,10 +976,6 @@
                         </columns>
                      </TableView>
                      <Button fx:id="basisOfEducationRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onBasisOfEducationRefreshButton" text="Обновить" />
-                     <Button fx:id="basisOfEducationAddButton" layoutX="1051.0" layoutY="133.0" minWidth="100.0" mnemonicParsing="false" onAction="#onBasisOfEducationAddButton" text="Добавить" />
-                     <Button fx:id="basisOfEducationDeleteButton" layoutX="1051.0" layoutY="182.0" minWidth="100.0" mnemonicParsing="false" onAction="#onBasisOfEducationDeleteButton" text="Удалить" />
-                     <TextField fx:id="basisOfEducationNameField" layoutX="1009.0" layoutY="93.0" prefHeight="25.0" prefWidth="184.0" />
-                     <Label layoutX="1009.0" layoutY="76.0" text="Название" />
                      <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
                         <TextField fx:id="basisOfEducationSearchField" promptText="Поиск" styleClass="transparent">
                            <StackPane.margin>
@@ -1117,6 +990,317 @@
                         <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" onAction="#onBasisOfEducationSearchClear" prefHeight="0.0" prefWidth="0.0" styleClass="delete-button" text="Butt" StackPane.alignment="CENTER_LEFT">
                            <StackPane.margin>
                               <Insets left="4.0" />
+                           </StackPane.margin>
+                        </Button>
+                     </StackPane>
+                  </children>
+               </Pane>
+            </content>
+         </Tab>
+         <Tab fx:id="departmentsTab" onSelectionChanged="#onDepartmentsTabChanged" text="Кафедры">
+            <content>
+               <Pane prefHeight="600.0" prefWidth="1200.0">
+                  <children>
+                     <TableView fx:id="departmentsTable" editable="true" prefHeight="545.0" prefWidth="1000.0">
+                        <columns>
+                           <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">
+                              <cellValueFactory>
+                                 <CustomCallbackNumberCellData />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackNumberTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="id" />
+                              </cellValueFactory>
+                           </TableColumn>
+                           <TableColumn onEditCommit="#onDepartmentNameColumnEditCommit" prefWidth="330.0" text="Название">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="name" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                        </columns>
+                     </TableView>
+                     <Button fx:id="departmentsRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onDepartmentsRefreshButton" text="Обновить" />
+                     <Button fx:id="departmentsAddButton" layoutX="1051.0" layoutY="133.0" minWidth="100.0" mnemonicParsing="false" onAction="#onDepartmentsAddButton" text="Добавить" />
+                     <Button fx:id="departmentsDeleteButton" layoutX="1051.0" layoutY="182.0" minWidth="100.0" mnemonicParsing="false" onAction="#onDepartmentsDeleteButton" text="Удалить" />
+                     <TextField fx:id="departmentsNameField" layoutX="1009.0" layoutY="93.0" prefHeight="25.0" prefWidth="184.0" />
+                     <Label layoutX="1009.0" layoutY="76.0" text="Название" />
+                     <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
+                        <TextField fx:id="departmentsSearchField" styleClass="transparent" promptText="Поиск">
+                           <StackPane.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </StackPane.margin>
+                        </TextField>
+                        <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="search-button" text="Butt" StackPane.alignment="CENTER_RIGHT" onAction="#onDepartmentsSearch">
+                           <StackPane.margin>
+                              <Insets right="4.0" />
+                           </StackPane.margin>
+                        </Button>
+                        <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="delete-button" text="Butt" StackPane.alignment="CENTER_LEFT" onAction="#onDepartmentsSearchClear">
+                           <StackPane.margin>
+                              <Insets left="4.0"/>
+                           </StackPane.margin>
+                        </Button>
+                     </StackPane>
+                  </children>
+               </Pane>
+            </content>
+         </Tab>
+         <Tab fx:id="postsTab" onSelectionChanged="#onPostsTabChanged" text="Должности">
+            <content>
+               <Pane prefHeight="600.0" prefWidth="1200.0">
+                  <children>
+                     <TableView fx:id="postsTable" editable="true" prefHeight="545.0" prefWidth="1000.0">
+                        <columns>
+                           <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">
+                              <cellValueFactory>
+                                 <CustomCallbackNumberCellData />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackNumberTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="id" />
+                              </cellValueFactory>
+                           </TableColumn>
+                           <TableColumn onEditCommit="#onPostNameColumnEditCommit" prefWidth="330.0" text="Название">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="name" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                        </columns>
+                     </TableView>
+                     <Button fx:id="postsRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onPostsRefreshButton" text="Обновить" />
+                     <Button fx:id="postsAddButton" layoutX="1051.0" layoutY="133.0" minWidth="100.0" mnemonicParsing="false" onAction="#onPostsAddButton" text="Добавить" />
+                     <Button fx:id="postsDeleteButton" layoutX="1051.0" layoutY="182.0" minWidth="100.0" mnemonicParsing="false" onAction="#onPostsDeleteButton" text="Удалить" />
+                     <TextField fx:id="postsNameField" layoutX="1009.0" layoutY="93.0" prefHeight="25.0" prefWidth="184.0" />
+                     <Label layoutX="1009.0" layoutY="76.0" text="Название" />
+                     <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
+                        <TextField fx:id="postsSearchField" styleClass="transparent" promptText="Поиск">
+                           <StackPane.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </StackPane.margin>
+                        </TextField>
+                        <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="search-button" text="Butt" StackPane.alignment="CENTER_RIGHT" onAction="#onPostsSearch">
+                           <StackPane.margin>
+                              <Insets right="4.0" />
+                           </StackPane.margin>
+                        </Button>
+                        <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="delete-button" text="Butt" StackPane.alignment="CENTER_LEFT" onAction="#onPostsSearchClear">
+                           <StackPane.margin>
+                              <Insets left="4.0"/>
+                           </StackPane.margin>
+                        </Button>
+                     </StackPane>
+                  </children>
+               </Pane>
+            </content>
+         </Tab>
+         <Tab fx:id="teacherDisciplineTab" onSelectionChanged="#onTeacherDisciplineTabChanged" text="Дисц. преп-ля">
+            <content>
+               <Pane prefHeight="600.0" prefWidth="1200.0">
+                  <children>
+                     <TableView fx:id="teacherDisciplineTable" editable="true" prefHeight="545.0" prefWidth="1000.0">
+                        <columns>
+                           <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">
+                              <cellValueFactory>
+                                 <CustomCallbackNumberCellData />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackNumberTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="id" />
+                              </cellValueFactory>
+                           </TableColumn>
+                           <TableColumn fx:id="teacherDisciplineTeacherColumn" onEditCommit="#onTeacherDisciplineTeacherColumnEditCommit" prefWidth="330.0" text="Преподаватель">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="teacher" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn fx:id="teacherDisciplineDisciplineColumn" onEditCommit="#onTeacherDisciplineDisciplineColumnEditCommit" prefWidth="400.0" text="Дисциплина">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="discipline" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                        </columns>
+                     </TableView>
+                     <Button fx:id="teacherDisciplineRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherDisciplineRefreshButton" text="Обновить" />
+                     <Button fx:id="teacherDisciplineAddButton" layoutX="1051.0" layoutY="181.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherDisciplineAddButton" text="Добавить" />
+                     <Button fx:id="teacherDisciplineDeleteButton" layoutX="1051.0" layoutY="230.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherDisciplineDeleteButton" text="Удалить" />
+                     <Label layoutX="1009.0" layoutY="75.0" text="Преподаватель" />
+                     <ComboBox fx:id="teacherDisciplineTeacherComboBox" layoutX="1009.0" layoutY="92.0" prefWidth="184.0" />
+                     <Label layoutX="1009.0" layoutY="124.0" text="Дисциплина" />
+                     <ComboBox fx:id="teacherDisciplineDisciplineComboBox" layoutX="1009.0" layoutY="141.0" prefWidth="184.0" />
+                     <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
+                        <TextField fx:id="teacherDisciplineSearchField" styleClass="transparent" promptText="Поиск">
+                           <StackPane.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </StackPane.margin>
+                        </TextField>
+                        <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="search-button" text="Butt" StackPane.alignment="CENTER_RIGHT" onAction="#onTeacherDisciplineSearch">
+                           <StackPane.margin>
+                              <Insets right="4.0" />
+                           </StackPane.margin>
+                        </Button>
+                        <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="delete-button" text="Butt" StackPane.alignment="CENTER_LEFT" onAction="#onTeacherDisciplineSearchClear">
+                           <StackPane.margin>
+                              <Insets left="4.0"/>
+                           </StackPane.margin>
+                        </Button>
+                     </StackPane>
+                  </children>
+               </Pane>
+            </content>
+         </Tab>
+         <Tab fx:id="teacherGroupTab" onSelectionChanged="#onTeacherGroupTabChanged" text="Гр. преп-ля">
+            <content>
+               <Pane prefHeight="600.0" prefWidth="1200.0">
+                  <children>
+                     <TableView fx:id="teacherGroupTable" editable="true" prefHeight="545.0" prefWidth="1000.0">
+                        <columns>
+                           <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">
+                              <cellValueFactory>
+                                 <CustomCallbackNumberCellData />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackNumberTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="id" />
+                              </cellValueFactory>
+                           </TableColumn>
+                           <TableColumn fx:id="teacherGroupTeacherDisciplineColumn" onEditCommit="#onTeacherGroupTeacherDisciplineColumnEditCommit" prefWidth="500.0" text="Преподаватель и его дисциплина">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="teacherDiscipline" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn fx:id="teacherGroupGroupColumn" onEditCommit="#onTeacherGroupGroupColumnEditCommit" prefWidth="100.0" text="Группа">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="group" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                        </columns>
+                     </TableView>
+                     <Button fx:id="teacherGroupRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherGroupRefreshButton" text="Обновить" />
+                     <Button fx:id="teacherGroupAddButton" layoutX="1051.0" layoutY="181.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherGroupAddButton" text="Добавить" />
+                     <Button fx:id="teacherGroupDeleteButton" layoutX="1051.0" layoutY="230.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherGroupDeleteButton" text="Удалить" />
+                     <Label layoutX="1009.0" layoutY="75.0" text="Преподаватель с дисциплиной" />
+                     <ComboBox fx:id="teacherGroupTeacherDisciplineComboBox" layoutX="1009.0" layoutY="92.0" prefWidth="184.0" />
+                     <Label layoutX="1009.0" layoutY="124.0" text="Группа" />
+                     <ComboBox fx:id="teacherGroupGroupComboBox" layoutX="1009.0" layoutY="141.0" prefWidth="184.0" />
+                     <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
+                        <TextField fx:id="teacherGroupSearchField" styleClass="transparent" promptText="Поиск">
+                           <StackPane.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </StackPane.margin>
+                        </TextField>
+                        <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="search-button" text="Butt" StackPane.alignment="CENTER_RIGHT" onAction="#onTeacherGroupSearch">
+                           <StackPane.margin>
+                              <Insets right="4.0" />
+                           </StackPane.margin>
+                        </Button>
+                        <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="delete-button" text="Butt" StackPane.alignment="CENTER_LEFT" onAction="#onTeacherGroupSearchClear">
+                           <StackPane.margin>
+                              <Insets left="4.0"/>
+                           </StackPane.margin>
+                        </Button>
+                     </StackPane>
+                  </children>
+               </Pane>
+            </content>
+         </Tab>
+         <Tab fx:id="specializationDisciplineTab" onSelectionChanged="#onSpecializationDisciplineTabChanged" text="Дисц. по напр.">
+            <content>
+               <Pane prefHeight="600.0" prefWidth="1200.0">
+                  <children>
+                     <TableView fx:id="specializationDisciplineTable" editable="true" prefHeight="545.0" prefWidth="1000.0">
+                        <columns>
+                           <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">
+                              <cellValueFactory>
+                                 <CustomCallbackNumberCellData />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackNumberTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="id" />
+                              </cellValueFactory>
+                           </TableColumn>
+                           <TableColumn fx:id="specializationDisciplineSpecializationColumn" onEditCommit="#onSpecializationDisciplineSpecializationColumnEditCommit" prefWidth="330.0" text="Направление">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="specialization" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+<!--                              <cellFactory>-->
+<!--                                 <CustomCallbackComboBoxTableColumn />-->
+<!--                              </cellFactory>-->
+                           </TableColumn>
+                           <TableColumn fx:id="specializationDisciplineDisciplineColumn" onEditCommit="#onSpecializationDisciplineDisciplineColumnEditCommit" prefWidth="400.0" text="Дисциплина">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="discipline" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+<!--                              <cellFactory>-->
+<!--                                 <CustomCallbackComboBoxTableColumn />-->
+<!--                              </cellFactory>-->
+                           </TableColumn>
+                        </columns>
+                     </TableView>
+                     <Button fx:id="specializationDisciplineRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSpecializationDisciplineRefreshButton" text="Обновить" />
+                     <Button fx:id="specializationDisciplineAddButton" layoutX="1051.0" layoutY="181.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSpecializationDisciplineAddButton" text="Добавить" />
+                     <Button fx:id="specializationDisciplineDeleteButton" layoutX="1051.0" layoutY="230.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSpecializationDisciplineDeleteButton" text="Удалить" />
+                     <Label layoutX="1009.0" layoutY="75.0" text="Направление" />
+                     <ComboBox fx:id="specializationDisciplineSpecializationComboBox" layoutX="1009.0" layoutY="92.0" prefWidth="184.0" />
+                     <Label layoutX="1009.0" layoutY="124.0" text="Дисциплина" />
+                     <ComboBox fx:id="specializationDisciplineDisciplineComboBox" layoutX="1009.0" layoutY="141.0" prefWidth="184.0" />
+                     <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
+                        <TextField fx:id="specializationDisciplineSearchField" styleClass="transparent" promptText="Поиск">
+                           <StackPane.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </StackPane.margin>
+                        </TextField>
+                        <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="search-button" text="Butt" StackPane.alignment="CENTER_RIGHT" onAction="#onSpecializationDisciplineSearch">
+                           <StackPane.margin>
+                              <Insets right="4.0" />
+                           </StackPane.margin>
+                        </Button>
+                        <Button minHeight="14.0" minWidth="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="delete-button" text="Butt" StackPane.alignment="CENTER_LEFT" onAction="#onSpecializationDisciplineSearchClear">
+                           <StackPane.margin>
+                              <Insets left="4.0"/>
                            </StackPane.margin>
                         </Button>
                      </StackPane>

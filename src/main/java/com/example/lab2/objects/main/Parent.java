@@ -1,10 +1,11 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.main;
 
+import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="parents")
-public class Parent {
+public class Parent extends CustomObject {
     @Id
     @GeneratedValue(generator = "increment")
     @Column(name="id")
@@ -23,6 +24,16 @@ public class Parent {
             cascade=CascadeType.MERGE)
     @JoinColumn (name="address_id")
     private Address address;
+
+    public Parent() {}
+
+    public Parent(Student student, String  lastName, String firstName, String patronymic, Address address) {
+        this.student = student;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.patronymic = patronymic;
+        this.address = address;
+    }
 
     public int getId() {
         return id;

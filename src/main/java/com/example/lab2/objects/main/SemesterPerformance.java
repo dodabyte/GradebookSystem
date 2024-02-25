@@ -1,11 +1,11 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.main;
 
-import com.example.lab2.utils.MarksUtils;
+import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="semester_performance")
-public class SemesterPerformance {
+public class SemesterPerformance extends CustomObject {
     @Id
     @GeneratedValue(generator = "increment")
     @Column(name="id")
@@ -24,11 +24,27 @@ public class SemesterPerformance {
     private Discipline discipline;
     @Column(name="mark")
     private int mark;
+    @Column(name="ects_mark")
     private String ectsMark;
-
+    @Column(name="traditional_mark")
     private int traditionalMark;
-
+    @Column(name="traditional_word_mark")
     private String traditionalWordMark;
+
+    public SemesterPerformance() {}
+
+    public SemesterPerformance(Student student, int course, int semester,
+                               Discipline discipline, int mark, String ectsMark,
+                               int traditionalMark, String traditionalWordMark) {
+        this.student = student;
+        this.course = course;
+        this.semester = semester;
+        this.discipline = discipline;
+        this.mark = mark;
+        this.ectsMark = ectsMark;
+        this.traditionalMark = traditionalMark;
+        this.traditionalWordMark = traditionalWordMark;
+    }
 
     public int getId() {
         return id;
@@ -102,10 +118,15 @@ public class SemesterPerformance {
         this.traditionalWordMark = traditionalWordMark;
     }
 
+    @Override
+    public String toString() {
+        return getStudent().toString() + " к. " + getCourse() + " сем. " + getSemester() + " "
+                + getDiscipline().toString() + " " + getMark();
+    }
+
     public String toStringFields() {
-        return student.toStringFields() + " " + getCourse() + " " + getSemester() + " " +
-                getDiscipline().toStringFields() + " " + getMark() + " " + MarksUtils.getEctsMark(getMark()) + " " +
-                MarksUtils.getTraditionalMark(getMark()) + " " +
-                MarksUtils.getTraditionalWordMark(getMark(), getDiscipline().getTypeOfMark().getName());
+        return getStudent().toStringFields() + " " + getCourse() + " " + getSemester() + " " +
+                getDiscipline().toStringFields() + " " + getMark() + " " + getEctsMark() + " " +
+                getTraditionalMark() + " " + getTraditionalWordMark();
     }
 }

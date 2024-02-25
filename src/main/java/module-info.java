@@ -8,7 +8,6 @@ module com.example.lab2 {
     requires spring.security.crypto;
     requires mail;
 
-    opens com.example.lab2.objects;
     opens com.example.lab2.callbacks;
     opens com.example.lab2.cells;
 
@@ -16,5 +15,7 @@ module com.example.lab2 {
     exports com.example.lab2;
     exports com.example.lab2.controllers;
     opens com.example.lab2.controllers to javafx.fxml;
-    opens com.example.lab2.objects.old;
+    opens com.example.lab2.objects.main;
+    opens com.example.lab2.objects.references;
+    opens com.example.lab2.controls;
 }

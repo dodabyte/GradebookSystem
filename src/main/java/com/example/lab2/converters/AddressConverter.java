@@ -1,7 +1,7 @@
 package com.example.lab2.converters;
 
 import com.example.lab2.AppManager;
-import com.example.lab2.objects.Address;
+import com.example.lab2.objects.main.Address;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;

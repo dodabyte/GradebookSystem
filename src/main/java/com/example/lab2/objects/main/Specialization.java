@@ -1,10 +1,11 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.main;
 
+import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="specializations")
-public class Specialization {
+public class Specialization extends CustomObject {
     @Id
     @GeneratedValue(generator = "increment")
     @Column(name="id")
@@ -15,6 +16,14 @@ public class Specialization {
     private String name;
     @Column(name="study_duration")
     private int studyDuration;
+
+    public Specialization() {}
+
+    public Specialization(String number, String name, int studyDuration) {
+        this.number = number;
+        this.name = name;
+        this.studyDuration = studyDuration;
+    }
 
     public int getId() {
         return id;

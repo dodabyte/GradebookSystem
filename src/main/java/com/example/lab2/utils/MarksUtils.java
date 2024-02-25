@@ -30,7 +30,7 @@ public class MarksUtils {
 
     public static String getTraditionalWordMark(int mark, String typeOfMark) {
         if (mark < 0 || mark > 100) return "unknown";
-        if (typeOfMark.equals("Зачёт")) {
+        if (typeOfMark.equalsIgnoreCase("зачёт")) {
             if (mark >= 50) return "Зачтено";
             else return "Не зачтено";
         } else {

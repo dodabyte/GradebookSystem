@@ -2,7 +2,7 @@ package com.example.lab2.dao;
 
 import com.example.lab2.dao.global.DataAccessObject;
 import com.example.lab2.hibernate.HibernateUtils;
-import com.example.lab2.objects.Discipline;
+import com.example.lab2.objects.main.Discipline;
 import jakarta.persistence.TypedQuery;
 
 public class DisciplinesDao extends DataAccessObject<Discipline> {
@@ -12,7 +12,8 @@ public class DisciplinesDao extends DataAccessObject<Discipline> {
         try {
             TypedQuery<Discipline> typedQuery = HibernateUtils.getEntityManager().createQuery("FROM " + getTableName() +
                     " WHERE name = '" + entity.getName() +
-                    "' AND typeOfMark = " + entity.getTypeOfMark(), getType());
+                    "' AND typeOfMark.name = '" + entity.getTypeOfMark().getName() + "'",
+                    getType());
             discipline = typedQuery.getSingleResult();
             HibernateUtils.getEntityManager().close();
         }

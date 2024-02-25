@@ -57,18 +57,20 @@ create table parents (id serial primary key,
                       foreign key (student_id) references students (id),
                       foreign key (address_id) references addresses (id));
 create table semester_performance (id serial primary key,
-                                   student_id int not null, 
-                                   course int not null, 
-                                   semester int not null,
-                                   discipline_id int not null,
-                                   mark int not null,
-                                   foreign key (student_id) references students (id),
-                                   foreign key (discipline_id) references disciplines (id));
+									student_id int not null, 
+									course int not null, 
+									semester int not null,
+									discipline_id int not null,
+									mark int not null,
+								   	ects_mark varchar not null,
+								   	traditional_mark int not null,
+								   	traditional_word_mark varchar not null,
+									foreign key (student_id) references students (id),
+									foreign key (discipline_id) references disciplines (id));
 create table departments (id serial primary key,
 							name varchar not null);
 create table posts (id serial primary key,
-                    name varchar not null,
-                    salary float not null);
+					name varchar not null);
 create table teachers (id serial primary key,
                        department_id int not null,
                        post_id int not null,
@@ -86,8 +88,10 @@ create table teacher_discipline (id serial primary key,
                                  foreign key (discipline_id) references disciplines (id),
                                  foreign key (teacher_id) references teachers (id));
 create table teacher_group (id serial primary key,
-                            group_id int not null,
-                            foreign key (group_id) references groups (id));
+							teacher_discipline_id int not null,
+							group_id int not null,
+							foreign key (teacher_discipline_id) references teacher_discipline (id),
+							foreign key (group_id) references groups (id));
 create table specialization_discipline (specialization_id int not null,
                                         discipline_id int not null,
                                         foreign key (specialization_id) references specializations (id),

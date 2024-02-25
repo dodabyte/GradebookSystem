@@ -2,7 +2,7 @@ package com.example.lab2.dao;
 
 import com.example.lab2.dao.global.DataAccessObject;
 import com.example.lab2.hibernate.HibernateUtils;
-import com.example.lab2.objects.Address;
+import com.example.lab2.objects.main.Address;
 import jakarta.persistence.TypedQuery;
 
 public class AddressesDao extends DataAccessObject<Address> {

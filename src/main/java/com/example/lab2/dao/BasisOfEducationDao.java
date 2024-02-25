@@ -2,7 +2,7 @@ package com.example.lab2.dao;
 
 import com.example.lab2.dao.global.DataAccessObject;
 import com.example.lab2.hibernate.HibernateUtils;
-import com.example.lab2.objects.BasisOfEducation;
+import com.example.lab2.objects.main.BasisOfEducation;
 import jakarta.persistence.TypedQuery;
 
 public class BasisOfEducationDao extends DataAccessObject<BasisOfEducation> {

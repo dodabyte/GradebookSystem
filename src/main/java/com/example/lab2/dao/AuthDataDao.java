@@ -2,8 +2,7 @@ package com.example.lab2.dao;
 
 import com.example.lab2.dao.global.DataAccessObject;
 import com.example.lab2.hibernate.HibernateUtils;
-import com.example.lab2.objects.AuthData;
-import com.example.lab2.objects.Student;
+import com.example.lab2.objects.main.AuthData;
 import jakarta.persistence.TypedQuery;
 
 public class AuthDataDao extends DataAccessObject<AuthData> {

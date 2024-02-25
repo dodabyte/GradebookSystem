@@ -1,16 +1,23 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.main;
 
+import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="forms_of_education")
-public class FormOfEducation {
+@Table(name="departments")
+public class Department extends CustomObject {
     @Id
     @GeneratedValue(generator = "increment")
     @Column(name="id")
     private int id;
     @Column(name="name")
     private String name;
+
+    public Department() {}
+
+    public Department(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -34,6 +41,6 @@ public class FormOfEducation {
     }
 
     public String toStringFields() {
-        return toString();
+        return getName();
     }
 }
