@@ -2,7 +2,7 @@ package com.example.lab2.dao;
 
 import com.example.lab2.dao.global.DataAccessObject;
 import com.example.lab2.hibernate.HibernateUtils;
-import com.example.lab2.objects.TypeOfMark;
+import com.example.lab2.objects.main.TypeOfMark;
 import jakarta.persistence.TypedQuery;
 
 public class TypesOfMarksDao extends DataAccessObject<TypeOfMark> {
@@ -11,8 +11,8 @@ public class TypesOfMarksDao extends DataAccessObject<TypeOfMark> {
         TypeOfMark typeOfMark = null;
         try {
             TypedQuery<TypeOfMark> typedQuery = HibernateUtils.getEntityManager().createQuery("FROM " + getTableName() +
-                    " WHERE name = '" + entity.getName() +
-                    "'", getType());
+                    " WHERE name = '" + entity.getName() + "'",
+                    getType());
             typeOfMark = typedQuery.getSingleResult();
             HibernateUtils.getEntityManager().close();
         }

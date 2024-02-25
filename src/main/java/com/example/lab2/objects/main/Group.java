@@ -1,12 +1,13 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.main;
 
+import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
 @Table(name="groups")
-public class Group {
+public class Group extends CustomObject {
     @Id
     @GeneratedValue(generator = "increment")
     @Column(name="id")
@@ -25,6 +26,18 @@ public class Group {
     private Date dateFormation;
     @Column(name="date_graduation")
     private Date dateGraduation;
+
+    public Group() {}
+
+    public Group(String name, int course, int semester,
+                 Specialization specialization, Date dateFormation, Date dateGraduation) {
+        this.name = name;
+        this.course = course;
+        this.semester = semester;
+        this.specialization = specialization;
+        this.dateFormation = dateFormation;
+        this.dateGraduation = dateGraduation;
+    }
 
     public int getId() {
         return id;

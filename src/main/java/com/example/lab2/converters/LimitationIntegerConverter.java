@@ -17,7 +17,7 @@ public class LimitationIntegerConverter extends IntegerStringConverter {
         } else {
             string = string.trim();
             int value = string.length() < 1 ? null : Integer.valueOf(string);
-            return value >= leftValue && value <= rightValue ? null : value;
+            return value >= leftValue && value <= rightValue ? value : null;
         }
     }
 }

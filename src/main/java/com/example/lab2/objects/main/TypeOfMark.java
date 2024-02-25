@@ -1,16 +1,23 @@
-package com.example.lab2.objects.old;
+package com.example.lab2.objects.main;
 
+import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="statuses")
-public class Status {
+@Table(name="types_of_marks")
+public class TypeOfMark extends CustomObject {
     @Id
     @GeneratedValue(generator = "increment")
     @Column(name="id")
     private int id;
     @Column(name="name")
     private String name;
+
+    public TypeOfMark() {}
+
+    public TypeOfMark(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;

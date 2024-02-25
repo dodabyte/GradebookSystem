@@ -1,16 +1,23 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.main;
 
+import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="basis_of_education")
-public class BasisOfEducation {
+public class BasisOfEducation extends CustomObject {
     @Id
     @GeneratedValue(generator = "increment")
     @Column(name="id")
     private int id;
     @Column(name="name")
     private String name;
+
+    public BasisOfEducation() {}
+
+    public BasisOfEducation(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;

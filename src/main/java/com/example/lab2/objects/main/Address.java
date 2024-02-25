@@ -1,10 +1,11 @@
-package com.example.lab2.objects;
+package com.example.lab2.objects.main;
 
+import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
 @Entity
 @Table (name="addresses")
-public class Address {
+public class Address extends CustomObject {
     @Id
     @GeneratedValue(generator = "increment")
     @Column(name="id")
@@ -17,6 +18,15 @@ public class Address {
     private String houseNumber;
     @Column(name="apartment_number")
     private int apartmentNumber;
+
+    public Address() {}
+
+    public Address(String city, String street, String houseNumber, int apartmentNumber) {
+        this.city = city;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.apartmentNumber = apartmentNumber;
+    }
 
     public int getId() {
         return id;
