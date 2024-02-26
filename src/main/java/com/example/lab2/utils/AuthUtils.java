@@ -3,6 +3,7 @@ package com.example.lab2.utils;
 import com.example.lab2.AppManager;
 import com.example.lab2.objects.main.AuthData;
 import com.example.lab2.objects.main.Student;
+import com.example.lab2.objects.main.Teacher;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.Date;
@@ -21,7 +22,7 @@ public class AuthUtils {
 
         String hash = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        AuthData authData = new AuthData(email, hash, null/*, null*/);
+        AuthData authData = new AuthData(email, hash, null, null);
         AppManager.getAuthDataDao().insert(authData);
     }
 
@@ -31,25 +32,25 @@ public class AuthUtils {
 
         String hash = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        AuthData authData = new AuthData(email, hash, student/*, null*/);
+        AuthData authData = new AuthData(email, hash, student, null);
         AppManager.getAuthDataDao().insert(authData);
         student.setAuthData(authData);
 
         MailSenderUtils.sendPassword(email, password);
     }
 
-//    public static void generateTeacherAuthData(Teacher teacher) {
-//        String email = generateEmail(teacher.getLastName(), teacher.getFirstName(), teacher.getDateOfBirth());
-//        String password = generatePassword();
-//
-//        String hash = BCrypt.hashpw(password, BCrypt.gensalt());
-//
-//        AuthData authData = new AuthData(email, hash, null, teacher);
-//        AppManager.getAuthDataDao().insert(authData);
-//        teacher.setAuthData(authData);
-//
-//        MailSenderUtils.sendPassword(email, password);
-//    }
+    public static void generateTeacherAuthData(Teacher teacher) {
+        String email = generateEmail(teacher.getLastName(), teacher.getFirstName(), teacher.getDateOfBirth());
+        String password = generatePassword();
+
+        String hash = BCrypt.hashpw(password, BCrypt.gensalt());
+
+        AuthData authData = new AuthData(email, hash, null, teacher);
+        AppManager.getAuthDataDao().insert(authData);
+        teacher.setAuthData(authData);
+
+        MailSenderUtils.sendPassword(email, password);
+    }
 
     public static void regeneratePassword(AuthData authData) {
         String password = generatePassword();
@@ -86,7 +87,7 @@ public class AuthUtils {
     }
 
     public static String generatePassword() {
-        String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%&*_+-.?";
+        String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%&*_+-?";
         StringBuilder password = new StringBuilder();
         int length = 8;
         Random rnd = new Random();

@@ -32,6 +32,8 @@ public class Teacher extends CustomObject {
             cascade = CascadeType.MERGE)
     @JoinColumn(name="address_id")
     private Address address;
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "teacher")
+    private AuthData authData;
 
     public Teacher() {}
 
@@ -109,6 +111,10 @@ public class Teacher extends CustomObject {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+    public AuthData getAuthData() { return authData; }
+
+    public void setAuthData(AuthData authData) { this.authData = authData; }
 
     @Override
     public String toString() {

@@ -27,7 +27,7 @@ public class AuthDataDao extends DataAccessObject<AuthData> {
         AuthData authData = null;
         try {
             TypedQuery<AuthData> typedQuery = HibernateUtils.getEntityManager().createQuery(
-                    "FROM " + getTableName() + " WHERE student IS NULL"/* AND teacher IS NULL"*/, getType());
+                    "FROM " + getTableName() + " WHERE student IS NULL AND teacher IS NULL", getType());
             authData = typedQuery.getSingleResult();
             HibernateUtils.getEntityManager().close();
         }
