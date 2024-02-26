@@ -43,7 +43,7 @@ public abstract class DataAccessObject<T>{
         HibernateUtils.getEntityManager().close();
         return list;
     }
-
+    
     public void insert(T entity) {
         try {
             HibernateUtils.getTransaction().begin();
