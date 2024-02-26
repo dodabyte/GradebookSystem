@@ -1347,6 +1347,7 @@ public class SuperuserController implements Initializable {
         }
         else if (canAdd) {
             AppManager.getTeacherDao().insert(teacher);
+            AuthUtils.generateTeacherAuthData(teacher);
             teacherLastNameField.setText("");
             teacherFirstNameField.setText("");
             teacherPatronymicField.setText("");
