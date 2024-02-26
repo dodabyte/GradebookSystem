@@ -7,6 +7,7 @@ module com.example.lab2 {
     requires com.zaxxer.hikari;
     requires spring.security.crypto;
     requires mail;
+    requires aspose.cells;
 
     opens com.example.lab2.callbacks;
     opens com.example.lab2.cells;
