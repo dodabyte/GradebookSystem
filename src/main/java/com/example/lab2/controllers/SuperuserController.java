@@ -2273,6 +2273,7 @@ public class SuperuserController implements Initializable {
     }
 
     private void initAllTables() {
+        initSemesterPerformanceTable();
         initAddressesTable();
         initBasisOfEducationTable();
         initFormsOfEducationTable();
