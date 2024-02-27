@@ -271,7 +271,7 @@ public class SuperuserController implements Initializable {
     @FXML
     protected void onAddressesExportButton() {
         try {
-            ExportData<Address> exportData= new ExportData<>(AppManager.getAddressesDao().findAll());
+            ExportData<Address> exportData = new ExportData<>("Адреса", AppManager.getAddressesDao().findAll());
             exportData.exportList(0, "Адреса");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -410,7 +410,7 @@ public class SuperuserController implements Initializable {
     @FXML
     protected void onDisciplinesExportButton() {
         try {
-            ExportData<Discipline> exportData= new ExportData<>(AppManager.getDisciplinesDao().findAll());
+            ExportData<Discipline> exportData = new ExportData<>("Дисциплины", AppManager.getDisciplinesDao().findAll());
             exportData.exportList(0, "Дисциплины");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -484,7 +484,7 @@ public class SuperuserController implements Initializable {
     @FXML
     protected void onSpecializationsExportButton() {
         try {
-            ExportData<Specialization> exportData= new ExportData<>(AppManager.getSpecializationsDao().findAll());
+            ExportData<Specialization> exportData = new ExportData<>("Направления", AppManager.getSpecializationsDao().findAll());
             exportData.exportList(0, "Направления");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -556,7 +556,7 @@ public class SuperuserController implements Initializable {
     @FXML
     protected void onGroupsExportButton() {
         try {
-            ExportData<Group> exportData= new ExportData<>(AppManager.getGroupsDao().findAll());
+            ExportData<Group> exportData = new ExportData<>("Группы", AppManager.getGroupsDao().findAll());
             exportData.exportList(0, "Группы");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -666,7 +666,7 @@ public class SuperuserController implements Initializable {
     protected void onStudentsExportButton() {
         try {
             int idx = 0;
-            ExportData<Student> exportData= new ExportData<>(AppManager.getStudentDao().findAll());
+            ExportData<Student> exportData = new ExportData<>("Студенты", AppManager.getStudentDao().findAll());
             exportData.exportList(idx++, "Студенты");
 
             exportData.setList(AppManager.getStudentDao().findByCustomField("semesterPerformance", "traditionalMark", 2));
@@ -859,7 +859,7 @@ public class SuperuserController implements Initializable {
     @FXML
     protected void onParentsExportButton() {
         try {
-            ExportData<Parent> exportData= new ExportData<>(AppManager.getParentDao().findAll());
+            ExportData<Parent> exportData = new ExportData<>("Родители", AppManager.getParentDao().findAll());
             exportData.exportList(0, "Родители");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -958,7 +958,7 @@ public class SuperuserController implements Initializable {
     @FXML
     protected void onSemesterPerformanceExportButton() {
         try {
-            ExportData<SemesterPerformance> exportData= new ExportData<>(AppManager.getSemesterPerformanceDao().findAll());
+            ExportData<SemesterPerformance> exportData = new ExportData<>("Успеваемость", AppManager.getSemesterPerformanceDao().findAll());
             exportData.exportList(0, "Семестровая успеваемость");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -1408,8 +1408,21 @@ public class SuperuserController implements Initializable {
     @FXML
     protected void onTeachersExportButton() {
         try {
-            ExportData<Teacher> exportData= new ExportData<>(AppManager.getTeacherDao().findAll());
-            exportData.exportList(0, "Преподаватели");
+            int idx = 0;
+            ExportData<Teacher> exportData = new ExportData<>("Преподаватели", AppManager.getTeacherDao().findAll());
+            exportData.exportList(idx++, "Преподаватели");
+
+            List<Department> departmentList = AppManager.getDepartmentsDao().findAll();
+            for (Department department : departmentList) {
+                exportData.setList(AppManager.getTeacherDao().findByCustomField("department", "id", department.getId()));
+                exportData.exportList(idx++, "Кафедра - " + department.getName());
+            }
+
+            List<Post> postList = AppManager.getPostsDao().findAll();
+            for (Post post : postList) {
+                exportData.setList(AppManager.getTeacherDao().findByCustomField("post", "id", post.getId()));
+                exportData.exportList(idx++, "Должность - " + post.getName());
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
