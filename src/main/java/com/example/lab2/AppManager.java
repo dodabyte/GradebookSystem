@@ -11,28 +11,28 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AppManager {
-    private static boolean debugModeEnable = true; // TODO replace with FALSE
+    private static final boolean debugModeEnable = true; // TODO replace with FALSE
 
     private static Student currentStudent = null;
     private static Teacher currentTeacher = null;
 
-    private static AddressesDao addressesDao = new AddressesDao();
-    private static BasisOfEducationDao basisOfEducationDao = new BasisOfEducationDao();
-    private static DisciplinesDao disciplinesDao = new DisciplinesDao();
-    private static FormsOfEducationDao formsOfEducationDao = new FormsOfEducationDao();
-    private static TypesOfMarksDao typesOfMarksDao = new TypesOfMarksDao();
-    private static SpecializationsDao specializationsDao = new SpecializationsDao();
-    private static GroupsDao groupsDao = new GroupsDao();
-    private static StudentDao studentDao = new StudentDao();
-    private static ParentDao parentDao = new ParentDao();
-    private static SemesterPerformanceDao semesterPerformanceDao = new SemesterPerformanceDao();
-    private static DepartmentsDao departmentsDao = new DepartmentsDao();
-    private static PostsDao postsDao = new PostsDao();
-    private static TeacherDisciplineDao teacherDisciplineDao = new TeacherDisciplineDao();
-    private static TeacherGroupDao teacherGroupDao = new TeacherGroupDao();
-    private static TeacherDao teacherDao = new TeacherDao();
-    private static SpecializationDisciplineDao specializationDisciplineDao = new SpecializationDisciplineDao();
-    private static AuthDataDao authDataDao = new AuthDataDao();
+    private static final AddressesDao addressesDao = new AddressesDao();
+    private static final BasisOfEducationDao basisOfEducationDao = new BasisOfEducationDao();
+    private static final DisciplinesDao disciplinesDao = new DisciplinesDao();
+    private static final FormsOfEducationDao formsOfEducationDao = new FormsOfEducationDao();
+    private static final TypesOfMarksDao typesOfMarksDao = new TypesOfMarksDao();
+    private static final SpecializationsDao specializationsDao = new SpecializationsDao();
+    private static final GroupsDao groupsDao = new GroupsDao();
+    private static final StudentDao studentDao = new StudentDao();
+    private static final ParentDao parentDao = new ParentDao();
+    private static final SemesterPerformanceDao semesterPerformanceDao = new SemesterPerformanceDao();
+    private static final DepartmentsDao departmentsDao = new DepartmentsDao();
+    private static final PostsDao postsDao = new PostsDao();
+    private static final TeacherDisciplineDao teacherDisciplineDao = new TeacherDisciplineDao();
+    private static final TeacherGroupDao teacherGroupDao = new TeacherGroupDao();
+    private static final TeacherDao teacherDao = new TeacherDao();
+    private static final SpecializationDisciplineDao specializationDisciplineDao = new SpecializationDisciplineDao();
+    private static final AuthDataDao authDataDao = new AuthDataDao();
 
     private static LocalizationLoader localizationLoader;
 
