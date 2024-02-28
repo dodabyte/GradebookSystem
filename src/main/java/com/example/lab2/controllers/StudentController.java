@@ -1,21 +1,28 @@
 package com.example.lab2.controllers;
 
 import com.example.lab2.AppManager;
+import com.example.lab2.Main;
 import com.example.lab2.objects.main.*;
 import com.example.lab2.stat.ExportData;
 import com.example.lab2.utils.DateUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import static com.example.lab2.utils.DateUtils.DATE_PATTERN;
 
 public class StudentController implements Initializable {
-
+    @FXML private Label currentStudentGroupLabel;
+    @FXML private Label specializationLabel;
     @FXML private Label nameLabel;
     @FXML private Label courseLabel;
     @FXML private Label semesterLabel;
@@ -35,9 +42,11 @@ public class StudentController implements Initializable {
     @FXML private TableView<SemesterPerformance> semesterPerformanceTable;
     @FXML private TableView<Student> groupTable;
 
+    @FXML private TabPane tabPane;
+
     @FXML private Tab semesterPerformanceTab;
     @FXML private Tab studentsTab;
-
+    private Stage changePasswordStage;
     private Group groupCurrentStudent = AppManager.getCurrentStudent().getGroup();
 
     @FXML
@@ -92,6 +101,7 @@ public class StudentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAllLabels();
+        initComboBox();
     }
 
     private void initAllLabels() {
@@ -102,19 +112,26 @@ public class StudentController implements Initializable {
         studyDurationLabel.setText(String.valueOf(groupCurrentStudent.getSpecialization().getStudyDuration()));
         formEducationLabel.setText(AppManager.getCurrentStudent().getFormOfEducation().getName());
         basisEducationLabel.setText(AppManager.getCurrentStudent().getBasisOfEducation().getName());
-        dataAdmissionLabel.setText(String.valueOf(AppManager.getCurrentStudent().getDateAdmission()));
+        specializationLabel.setText(groupCurrentStudent.getSpecialization().getName());
+        dataAdmissionLabel.setText(DateUtils.getStringFromDate(AppManager.getCurrentStudent().getDateAdmission(),DATE_PATTERN));
         mailLabel.setText(AppManager.getCurrentStudent().getAuthData().getEmail());
         cityLabel.setText(AppManager.getCurrentStudent().getAddress().getCity());
         streetLabel.setText(AppManager.getCurrentStudent().getAddress().getStreet());
         homeNumberLabel.setText(AppManager.getCurrentStudent().getAddress().getHouseNumber());
         apartmentNumberLabel.setText(String.valueOf(AppManager.getCurrentStudent().getAddress().getApartmentNumber()));
-        semestersComboBox.getItems().addAll(1,2,3,4,5,6,7,8);
+        currentStudentGroupLabel.setText(groupCurrentStudent.getName());
+    }
+
+    private void initComboBox() {
+        int studyduration = groupCurrentStudent.getSpecialization().getStudyDuration();
+        for (int i = 1;i<=studyduration*2;i++){
+            semestersComboBox.getItems().add(i);
+        }
         semestersComboBox.setValue(1);
     }
 
     protected List<SemesterPerformance> searchSemesterPerformance(List<SemesterPerformance> list, int semester) {
         List<SemesterPerformance> filteredList = new ArrayList<>();
-
         for (SemesterPerformance performance : list) {
             if (performance.getSemester() == semester) {
                 filteredList.add(performance);
@@ -125,6 +142,29 @@ public class StudentController implements Initializable {
 
     protected String studentNameMerge(){
         return AppManager.getCurrentStudent().getFirstName() + " " + AppManager.getCurrentStudent().getLastName() + " " + AppManager.getCurrentStudent().getPatronymic();
+    }
+
+    @FXML
+    private void onExitClick() throws IOException {
+        AppManager.setCurrentStudent(null);
+        Stage stage = (Stage) tabPane.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("authorization-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        stage.setScene(scene);
+    }
+
+    @FXML
+    private void onChangePasswordClick() throws IOException {
+        changePasswordStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("change-password-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 400, 200);
+        changePasswordStage.setScene(scene);
+        changePasswordStage.setTitle("Смена пароля");
+        changePasswordStage.setResizable(false);
+        changePasswordStage.initModality(Modality.WINDOW_MODAL);
+        changePasswordStage.initOwner(tabPane.getScene().getWindow());
+        changePasswordStage.show();
     }
 }
 
