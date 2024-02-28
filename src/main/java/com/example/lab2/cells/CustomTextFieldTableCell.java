@@ -1,5 +1,7 @@
 package com.example.lab2.cells;
 
+import com.example.lab2.controls.CustomTextField;
+import com.example.lab2.controls.global.AbstractTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -13,13 +15,15 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 
-public class CustomTableCell<S, T> extends TextFieldTableCell<S, T> {
-    private TextField textField;
+public class CustomTextFieldTableCell<S, T> extends TextFieldTableCell<S, T> {
+    private AbstractTextField textField;
     private boolean escapePressed = false;
     private TablePosition<S, ?> tablePos = null;
 
-    public CustomTableCell(final StringConverter<T> converter) {
+    public CustomTextFieldTableCell(final StringConverter<T> converter, AbstractTextField textField) {
         super(converter);
+        this.textField = textField;
+        initTextField();
     }
 
     public static <S>Callback<TableColumn<S, String>, TableCell<S, String>> forTableColumn() {
@@ -28,7 +32,12 @@ public class CustomTableCell<S, T> extends TextFieldTableCell<S, T> {
 
     public static <S, T> Callback<TableColumn<S, T>, TableCell<S, T>> forTableColumn(
             final StringConverter<T> converter) {
-        return list -> new CustomTableCell<S, T>(converter);
+        return list -> new CustomTextFieldTableCell<S, T>(converter, new CustomTextField());
+    }
+
+    public static <S, T> Callback<TableColumn<S, T>, TableCell<S, T>> forTableColumn(
+            final StringConverter<T> converter, AbstractTextField textField) {
+        return list -> new CustomTextFieldTableCell<S, T>(converter, textField);
     }
 
     @Override
@@ -41,7 +50,7 @@ public class CustomTableCell<S, T> extends TextFieldTableCell<S, T> {
 
         if (isEditing()) {
             if (textField == null) {
-                textField = getTextField();
+                textField = initTextField();
             }
             escapePressed = false;
             startEdit(textField);
@@ -98,12 +107,8 @@ public class CustomTableCell<S, T> extends TextFieldTableCell<S, T> {
         updateItem();
     }
 
-    private TextField getTextField() {
-
-        final TextField textField = new TextField(getItemText());
-
+    private AbstractTextField initTextField() {
         textField.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("hi");
@@ -135,6 +140,7 @@ public class CustomTableCell<S, T> extends TextFieldTableCell<S, T> {
             else
                 escapePressed = false;
         });
+
         textField.setOnKeyReleased(t -> {
             if (t.getCode() == KeyCode.ESCAPE) {
                 throw new IllegalArgumentException(
@@ -143,7 +149,12 @@ public class CustomTableCell<S, T> extends TextFieldTableCell<S, T> {
         });
 
         textField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
+            if (event.getCode() == KeyCode.ENTER) {
+                String newText = textField.getText();
+                this.commitEdit(getConverter().fromString(newText));
+                event.consume();
+            }
+            else if (event.getCode() == KeyCode.ESCAPE) {
                 textField.setText(getConverter().toString(getItem()));
                 cancelEdit();
                 event.consume();

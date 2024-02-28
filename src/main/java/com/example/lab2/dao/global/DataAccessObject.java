@@ -2,6 +2,7 @@ package com.example.lab2.dao.global;
 
 import com.example.lab2.hibernate.HibernateUtils;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.Expression;
 
 import java.util.List;
 

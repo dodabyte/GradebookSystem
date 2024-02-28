@@ -88,6 +88,7 @@ public class Parent extends CustomObject {
         return getLastName() + " " + getFirstName() + " " + getPatronymic();
     }
 
+    @Override
     public String toStringFields() {
         return getStudent().toStringFields() + " " + toString() + " " + getAddress().toStringFields();
     }

@@ -21,12 +21,12 @@ public class CustomDateStringConverter extends DateStringConverter {
                 if (value.length() < 1) {
                     return null;
                 } else {
-                    DateFormat format = this.getDateFormat();
+                    DateFormat formatter = this.getDateFormat();
                     Date currentDate = new Date();
-                    if (format.parse(value).after(currentDate)) {
+                    if (formatter.parse(value).after(currentDate)) {
                         return null;
                     }
-                    return format.parse(value);
+                    return formatter.parse(value);
                 }
             }
         } catch (ParseException e) {

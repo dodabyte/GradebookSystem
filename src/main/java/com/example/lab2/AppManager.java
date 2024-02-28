@@ -92,9 +92,7 @@ public class AppManager {
         return postsDao;
     }
 
-    public static TeacherDisciplineDao getTeacherDisciplineDao() {
-        return teacherDisciplineDao;
-    }
+    public static TeacherDisciplineDao getTeacherDisciplineDao() { return teacherDisciplineDao; }
 
     public static TeacherGroupDao getTeacherGroupDao() { return teacherGroupDao; }
 

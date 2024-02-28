@@ -137,7 +137,7 @@
                                  <Label layoutX="4.0" layoutY="954.0" text="Срок обучения в годах" />
                                  <TextField fx:id="studentSpecializationStudyDurationField" disable="true" layoutX="4.0" layoutY="971.0" prefHeight="25.0" prefWidth="184.0" />
                                  <Label layoutX="4.0" layoutY="1003.0" text="Дата формирования группы" />
-                                 <TextField fx:id="studentGroupDateFormationField" disable="true" layoutX="4.0" layoutY="1020.0" prefHeight="25.0" prefWidth="184.0" promptText="dd.mm.yyyy" />
+                                 <DateTextField fx:id="studentGroupDateFormationField" disable="true" layoutX="4.0" layoutY="1020.0" prefHeight="25.0" prefWidth="184.0" promptText="dd.mm.yyyy" />
                                  <Label layoutX="4.0" layoutY="1052.0" text="Форма обучения" />
                                  <ComboBox fx:id="studentFormOfEducationComboBox" layoutX="4.0" layoutY="1069.0" prefWidth="184.0" />
                                  <Label layoutX="4.0" layoutY="1101.0" text="Основа обучения" />
@@ -196,11 +196,17 @@
                               <cellValueFactory>
                                  <PropertyValueFactory property="course" />
                               </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
                            </TableColumn>
                            <TableColumn fx:id="semesterPerformanceSemesterColumn" editable="false" prefWidth="70.0" text="Семестр">
                               <cellValueFactory>
                                  <PropertyValueFactory property="semester" />
                               </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
                            </TableColumn>
                            <TableColumn fx:id="semesterPerformanceDisciplineColumn" onEditCommit="#onSemesterPerformanceDisciplineColumnEditCommit" prefWidth="240.0" text="Дисциплина">
                               <cellValueFactory>
@@ -678,7 +684,7 @@
                                  <Label layoutX="5.0" layoutY="332.0" text="Срок обучения в годах" />
                                  <TextField fx:id="groupSpecializationsStudyDurationField" disable="true" layoutX="4.0" layoutY="349.0" prefHeight="25.0" prefWidth="184.0" />
                                  <Label layoutX="5.0" layoutY="381.0" text="Дата формирования" />
-                                 <TextField fx:id="groupDateFormationField" layoutX="4.0" layoutY="398.0" prefHeight="25.0" prefWidth="184.0" promptText="dd.mm.yyyy" />
+                                 <DateTextField fx:id="groupDateFormationField" layoutX="4.0" layoutY="398.0" prefHeight="25.0" prefWidth="184.0" promptText="dd.mm.yyyy" />
                                  <StackPane layoutX="4.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
                                     <TextField fx:id="groupsSearchField" promptText="Поиск" styleClass="transparent">
                                        <StackPane.margin>
@@ -743,6 +749,9 @@
                                   <cellValueFactory>
                                      <PropertyValueFactory property="studyDuration" />
                                   </cellValueFactory>
+                                  <cellFactory>
+                                     <CustomCallbackTableColumn />
+                                  </cellFactory>
                                </TableColumn>
                             </columns>
                         </TableView>
@@ -1189,7 +1198,7 @@
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherGroupTeacherDisciplineColumn" onEditCommit="#onTeacherGroupTeacherDisciplineColumnEditCommit" prefWidth="500.0" text="Преподаватель и его дисциплина">
+                           <TableColumn fx:id="teacherGroupTeacherDisciplineColumn" editable="false" prefWidth="500.0" text="Преподаватель и его дисциплина">
                               <cellValueFactory>
                                  <PropertyValueFactory property="teacherDiscipline" />
                               </cellValueFactory>
@@ -1197,9 +1206,17 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherGroupGroupColumn" onEditCommit="#onTeacherGroupGroupColumnEditCommit" prefWidth="100.0" text="Группа">
+                           <TableColumn fx:id="teacherGroupGroupColumn" editable="false" prefWidth="100.0" text="Группа">
                               <cellValueFactory>
                                  <PropertyValueFactory property="group" />
+                              </cellValueFactory>
+                              <cellFactory>
+                                 <CustomCallbackTableColumn />
+                              </cellFactory>
+                           </TableColumn>
+                           <TableColumn fx:id="teacherGroupSemesterColumn" onEditCommit="#onTeacherGroupSemesterColumnEditCommit" prefWidth="70.0" text="Семестр">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="semester" />
                               </cellValueFactory>
                               <cellFactory>
                                  <CustomCallbackTableColumn />
@@ -1208,12 +1225,16 @@
                         </columns>
                      </TableView>
                      <Button fx:id="teacherGroupRefreshButton" layoutX="1052.0" layoutY="42.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherGroupRefreshButton" text="Обновить" />
-                     <Button fx:id="teacherGroupAddButton" layoutX="1051.0" layoutY="181.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherGroupAddButton" text="Добавить" />
-                     <Button fx:id="teacherGroupDeleteButton" layoutX="1051.0" layoutY="230.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherGroupDeleteButton" text="Удалить" />
-                     <Label layoutX="1009.0" layoutY="75.0" text="Преподаватель с дисциплиной" />
-                     <ComboBox fx:id="teacherGroupTeacherDisciplineComboBox" layoutX="1009.0" layoutY="92.0" prefWidth="184.0" />
-                     <Label layoutX="1009.0" layoutY="124.0" text="Группа" />
-                     <ComboBox fx:id="teacherGroupGroupComboBox" layoutX="1009.0" layoutY="141.0" prefWidth="184.0" />
+                     <Button fx:id="teacherGroupAddButton" layoutX="1051.0" layoutY="279.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherGroupAddButton" text="Добавить" />
+                     <Button fx:id="teacherGroupDeleteButton" layoutX="1051.0" layoutY="328.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTeacherGroupDeleteButton" text="Удалить" />
+                     <Label layoutX="1009.0" layoutY="75.0" text="Дисциплина" />
+                     <ComboBox fx:id="teacherGroupDisciplineComboBox" layoutX="1009.0" layoutY="92.0" prefWidth="184.0" />
+                     <Label layoutX="1009.0" layoutY="124.0" text="Преподаватель" />
+                     <ComboBox fx:id="teacherGroupTeacherComboBox" disable="true" layoutX="1009.0" layoutY="141.0" prefWidth="184.0" />
+                     <Label layoutX="1009.0" layoutY="173.0" text="Группа" />
+                     <ComboBox fx:id="teacherGroupGroupComboBox" layoutX="1009.0" layoutY="190.0" prefWidth="184.0" />
+                     <Label layoutX="1009.0" layoutY="222.0" text="Семестр" />
+                     <TextField fx:id="teacherGroupSemesterField" layoutX="1009.0" layoutY="239.0" prefWidth="184.0" />
                      <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">
                         <TextField fx:id="teacherGroupSearchField" styleClass="transparent" promptText="Поиск">
                            <StackPane.margin>

@@ -3,10 +3,8 @@ package com.example.lab2.controllers;
 import com.example.lab2.AppManager;
 import com.example.lab2.Main;
 import com.example.lab2.alerts.AlertLoader;
-import com.example.lab2.cells.CustomTableCell;
-import com.example.lab2.converters.AddressConverter;
-import com.example.lab2.converters.CustomDateStringConverter;
-import com.example.lab2.converters.LimitationIntegerConverter;
+import com.example.lab2.cells.CustomTextFieldTableCell;
+import com.example.lab2.converters.*;
 import com.example.lab2.controls.DateTextField;
 import com.example.lab2.objects.main.*;
 import com.example.lab2.objects.references.SpecializationDiscipline;
@@ -19,7 +17,9 @@ import com.example.lab2.utils.AuthUtils;
 import com.example.lab2.utils.TypesUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,10 +35,8 @@ import javafx.util.converter.IntegerStringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
-import java.util.Random;
+import java.util.List;
 import java.util.ResourceBundle;
-
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class SuperuserController implements Initializable {
     @FXML private Button addressesAddButton;
@@ -80,7 +78,7 @@ public class SuperuserController implements Initializable {
     @FXML private TextField groupSpecializationsNumberField;
     @FXML private TextField groupSpecializationsNameField;
     @FXML private TextField groupSpecializationsStudyDurationField;
-    @FXML private TextField groupDateFormationField;
+    @FXML private DateTextField groupDateFormationField;
     @FXML private TextField studentLastNameField;
     @FXML private TextField studentFirstNameField;
     @FXML private TextField studentPatronymicField;
@@ -90,7 +88,7 @@ public class SuperuserController implements Initializable {
     @FXML private TextField studentAddressApartmentNumberField;
     @FXML private DateTextField studentDateOfBirthField;
     @FXML private TextField studentGroupNameField;
-    @FXML private TextField studentGroupDateFormationField;
+    @FXML private DateTextField studentGroupDateFormationField;
     @FXML private TextField studentSpecializationNumberField;
     @FXML private TextField studentSpecializationNameField;
     @FXML private TextField studentSpecializationStudyDurationField;
@@ -134,6 +132,7 @@ public class SuperuserController implements Initializable {
     @FXML private TextField teacherGroupSearchField;
     @FXML private TextField teachersSearchField;
     @FXML private TextField specializationDisciplineSearchField;
+    @FXML private TextField teacherGroupSemesterField;
 
     @FXML private RadioButton groupSpecializationExitsRadioButton;
     @FXML private RadioButton groupSpecializationNewRadioButton;
@@ -168,7 +167,8 @@ public class SuperuserController implements Initializable {
     @FXML private ComboBox<TypeOfMark> disciplineTypeOfMarkComboBox;
     @FXML private ComboBox<Teacher> teacherDisciplineTeacherComboBox;
     @FXML private ComboBox<Discipline> teacherDisciplineDisciplineComboBox;
-    @FXML private ComboBox<TeacherDiscipline> teacherGroupTeacherDisciplineComboBox;
+    @FXML private ComboBox<Teacher> teacherGroupTeacherComboBox;
+    @FXML private ComboBox<Discipline> teacherGroupDisciplineComboBox;
     @FXML private ComboBox<Group> teacherGroupGroupComboBox;
     @FXML private ComboBox<Department> teacherDepartmentComboBox;
     @FXML private ComboBox<Post> teacherPostComboBox;
@@ -218,6 +218,7 @@ public class SuperuserController implements Initializable {
     @FXML protected TableColumn<TeacherDiscipline, Discipline> teacherDisciplineDisciplineColumn;
     @FXML protected TableColumn<TeacherGroup, TeacherDiscipline> teacherGroupTeacherDisciplineColumn;
     @FXML protected TableColumn<TeacherGroup, Group> teacherGroupGroupColumn;
+    @FXML protected TableColumn<TeacherGroup, Integer> teacherGroupSemesterColumn;
     @FXML protected TableColumn<Teacher, Date> teacherDateOfBirthColumn;
     @FXML protected TableColumn<Teacher, Department> teacherDepartmentColumn;
     @FXML protected TableColumn<Teacher, Post> teacherPostColumn;
@@ -433,6 +434,8 @@ public class SuperuserController implements Initializable {
         specializationDisciplineDisciplineComboBox.setItems(
                 FXCollections.observableArrayList(AppManager.getDisciplinesDao().findAll()));
         teacherDisciplineDisciplineComboBox.setItems(
+                FXCollections.observableArrayList(AppManager.getDisciplinesDao().findAll()));
+        teacherGroupDisciplineComboBox.setItems(
                 FXCollections.observableArrayList(AppManager.getDisciplinesDao().findAll()));
     }
 
@@ -1090,7 +1093,6 @@ public class SuperuserController implements Initializable {
             teacherDisciplineTeacherComboBox.setValue(null);
             teacherDisciplineDisciplineComboBox.setValue(null);
             onTeacherDisciplineRefreshButton();
-            teacherDisciplineComboBoxUpdate();
         }
     }
 
@@ -1099,16 +1101,10 @@ public class SuperuserController implements Initializable {
         try {
             AppManager.getTeacherDisciplineDao().delete(teacherDisciplineTable.getSelectionModel().getSelectedItem());
             onTeacherDisciplineRefreshButton();
-            teacherDisciplineComboBoxUpdate();
         }
         catch (Exception ignored) {
             AlertLoader.DELETE_ALERT.showAndWait();
         }
-    }
-
-    private void teacherDisciplineComboBoxUpdate() {
-        teacherGroupTeacherDisciplineComboBox.setItems(
-                FXCollections.observableArrayList(AppManager.getTeacherDisciplineDao().findAll()));
     }
 
     @FXML
@@ -1136,20 +1132,37 @@ public class SuperuserController implements Initializable {
     protected void onTeacherGroupAddButton() {
         TeacherGroup teacherGroup = new TeacherGroup();
 
-        if (!teacherGroupTeacherDisciplineComboBox.getSelectionModel().isEmpty()) {
-            teacherGroup.setTeacherDiscipline(teacherGroupTeacherDisciplineComboBox.getValue());
+        if (!teacherGroupTeacherComboBox.getSelectionModel().isEmpty() &&
+                !teacherGroupDisciplineComboBox.getSelectionModel().isEmpty()) {
+            if (AppManager.getTeacherDisciplineDao().contains(teacherGroupTeacherComboBox.getValue(),
+                    teacherGroupDisciplineComboBox.getValue())) {
+                teacherGroup.setTeacherDiscipline(AppManager.getTeacherDisciplineDao().findByField(
+                        teacherGroupTeacherComboBox.getValue(), teacherGroupDisciplineComboBox.getValue()));
+            }
+            else {
+                TeacherDiscipline teacherDiscipline = new TeacherDiscipline(teacherGroupTeacherComboBox.getValue(),
+                        teacherGroupDisciplineComboBox.getValue());
+                AppManager.getTeacherDisciplineDao().insert(teacherDiscipline);
+                teacherGroup.setTeacherDiscipline(teacherDiscipline);
+            }
         }
+
         if (!teacherGroupGroupComboBox.getSelectionModel().isEmpty()) {
             teacherGroup.setGroup(teacherGroupGroupComboBox.getValue());
         }
+
+        teacherGroup.setSemester(Integer.parseInt(teacherGroupSemesterField.getText()));
 
         if (AppManager.getTeacherGroupDao().contains(teacherGroup)) {
             AlertLoader.AVAILABLE_ALERT.showAndWait();
         }
         else {
             AppManager.getTeacherGroupDao().insert(teacherGroup);
-            teacherGroupTeacherDisciplineComboBox.setValue(null);
+            teacherGroupSemesterField.setText("");
+            teacherGroupDisciplineComboBox.setValue(null);
+            teacherGroupTeacherComboBox.setValue(null);
             teacherGroupGroupComboBox.setValue(null);
+            teacherGroupTeacherComboBox.setDisable(true);
             onTeacherGroupRefreshButton();
         }
     }
@@ -1588,6 +1601,8 @@ public class SuperuserController implements Initializable {
     protected void onDateFormationColumnEditCommit(TableColumn.CellEditEvent<Group, Date> event) {
         final Date value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getRowValue().setDateFormation(value);
+        event.getRowValue().setCourse(DateUtils.getCurrentCourse(event.getRowValue().getDateFormation()));
+        event.getRowValue().setSemester(DateUtils.getCurrentSemester(event.getRowValue().getDateFormation(), event.getRowValue().getCourse()));
         groupsTable.refresh();
         AppManager.getGroupsDao().update(event.getRowValue());
         groupsComboBoxUpdate();
@@ -1780,12 +1795,19 @@ public class SuperuserController implements Initializable {
     }
 
     @FXML
+    protected void onTeacherGroupSemesterColumnEditCommit(TableColumn.CellEditEvent<TeacherGroup, Integer> event) {
+        final Integer value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
+        event.getRowValue().setSemester(value);
+        teacherGroupTable.refresh();
+        AppManager.getTeacherGroupDao().update(event.getRowValue());
+    }
+
+    @FXML
     protected void onTeacherDisciplineTeacherColumnEditCommit(TableColumn.CellEditEvent<TeacherDiscipline, Teacher> event) {
         final Teacher value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getRowValue().setTeacher(value);
         teacherDisciplineTable.refresh();
         AppManager.getTeacherDisciplineDao().update(event.getRowValue());
-        teacherDisciplineComboBoxUpdate();
     }
 
     @FXML
@@ -1794,23 +1816,6 @@ public class SuperuserController implements Initializable {
         event.getRowValue().setDiscipline(value);
         teacherDisciplineTable.refresh();
         AppManager.getTeacherDisciplineDao().update(event.getRowValue());
-        teacherDisciplineComboBoxUpdate();
-    }
-
-    @FXML
-    protected void onTeacherGroupTeacherDisciplineColumnEditCommit(TableColumn.CellEditEvent<TeacherGroup, TeacherDiscipline> event) {
-        final TeacherDiscipline value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
-        event.getRowValue().setTeacherDiscipline(value);
-        teacherGroupTable.refresh();
-        AppManager.getTeacherGroupDao().update(event.getRowValue());
-    }
-
-    @FXML
-    protected void onTeacherGroupGroupColumnEditCommit(TableColumn.CellEditEvent<TeacherGroup, Group> event) {
-        final Group value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
-        event.getRowValue().setGroup(value);
-        teacherGroupTable.refresh();
-        AppManager.getTeacherGroupDao().update(event.getRowValue());
     }
 
     @FXML
@@ -2091,34 +2096,20 @@ public class SuperuserController implements Initializable {
     }
 
     private void activateAdvancedTabs() {
-        tabPane.getTabs().add(teachersTab);
-        tabPane.getTabs().add(addressesTab);
-        tabPane.getTabs().add(groupsTab);
-        tabPane.getTabs().add(specializationsTab);
-        tabPane.getTabs().add(disciplinesTab);
         tabPane.getTabs().add(typesOfMarksTab);
         tabPane.getTabs().add(formsOfEducationTab);
         tabPane.getTabs().add(basisOfEducationTab);
-        tabPane.getTabs().add(departmentsTab);
-        tabPane.getTabs().add(postsTab);
         tabPane.getTabs().add(teacherDisciplineTab);
         tabPane.getTabs().add(teacherGroupTab);
         tabPane.getTabs().add(specializationDisciplineTab);
     }
 
     private void deactivateAdvancedTabs() {
-        tabPane.getTabs().remove(addressesTab);
-        tabPane.getTabs().remove(groupsTab);
-        tabPane.getTabs().remove(specializationsTab);
-        tabPane.getTabs().remove(disciplinesTab);
         tabPane.getTabs().remove(typesOfMarksTab);
         tabPane.getTabs().remove(formsOfEducationTab);
         tabPane.getTabs().remove(basisOfEducationTab);
-        tabPane.getTabs().remove(departmentsTab);
-        tabPane.getTabs().remove(postsTab);
         tabPane.getTabs().remove(teacherDisciplineTab);
         tabPane.getTabs().remove(teacherGroupTab);
-        tabPane.getTabs().remove(teachersTab);
         tabPane.getTabs().remove(specializationDisciplineTab);
     }
 
@@ -2141,6 +2132,20 @@ public class SuperuserController implements Initializable {
         initAllTables();
         initAllButtons();
         initAllRadioButtons();
+        checkCoursesAndSemesters();
+    }
+
+    private void checkCoursesAndSemesters() {
+        for (Group group : AppManager.getGroupsDao().findAll()) {
+            int course = DateUtils.getCurrentCourse(group.getDateFormation());
+            int semester = DateUtils.getCurrentSemester(group.getDateFormation(), course);
+            if (group.getCourse() != course) {
+                group.setCourse(course);
+            }
+            if (group.getSemester() != semester) {
+                group.setSemester(semester);
+            }
+        }
     }
 
     private void initAllRadioButtons() {
@@ -2209,7 +2214,7 @@ public class SuperuserController implements Initializable {
 
     private void initAddressesTable() {
         addressesTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
-        apartmentNumberColumn.setCellFactory(CustomTableCell.forTableColumn(new IntegerStringConverter()));
+        apartmentNumberColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         addressesSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -2339,7 +2344,7 @@ public class SuperuserController implements Initializable {
 
     private void initSpecializationsTable() {
         specializationsTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
-        studyDurationColumn.setCellFactory(CustomTableCell.forTableColumn(new IntegerStringConverter()));
+        studyDurationColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         specializationsSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -2352,8 +2357,11 @@ public class SuperuserController implements Initializable {
 
     private void initGroupsTable() {
         groupsTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
-        courseColumn.setCellFactory(CustomTableCell.forTableColumn(new IntegerStringConverter()));
-        semesterColumn.setCellFactory(CustomTableCell.forTableColumn(new IntegerStringConverter()));
+
+        courseColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
+                new LimitationIntegerConverter(1, AppManager.getSpecializationsDao().findMaxStudyDuration())));
+        semesterColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
+                new LimitationIntegerConverter(1, AppManager.getSpecializationsDao().findMaxStudyDuration() * 2)));
 
         specializationColumn.setCellFactory(tc -> {
             ComboBox<Specialization> combo = new ComboBox<>();
@@ -2379,8 +2387,10 @@ public class SuperuserController implements Initializable {
             return cell;
         });
 
-        dateFormationColumn.setCellFactory(CustomTableCell.forTableColumn(new CustomDateStringConverter(DateUtils.DATE_PATTERN)));
-        dateGraduationColumn.setCellFactory(CustomTableCell.forTableColumn(new CustomDateStringConverter(DateUtils.DATE_PATTERN)));
+        dateFormationColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
+                new CustomDateStringConverter(DateUtils.DATE_PATTERN), new DateTextField()));
+        dateGraduationColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
+                new CustomDateStringConverter(DateUtils.DATE_PATTERN), new DateTextField()));
 
         groupsSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -2398,8 +2408,9 @@ public class SuperuserController implements Initializable {
         studentFormOfEducationComboBox.setItems(FXCollections.observableArrayList(AppManager.getFormsOfEducationDao().findAll()));
         studentBasisOfEducationComboBox.setItems(FXCollections.observableArrayList(AppManager.getBasisOfEducationDao().findAll()));
 
-        dateOfBirthColumn.setCellFactory(CustomTableCell.forTableColumn(new CustomDateStringConverter(DateUtils.DATE_PATTERN)));
-        studentAddressColumn.setCellFactory(CustomTableCell.forTableColumn(new AddressConverter()));
+        dateOfBirthColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn
+                (new CustomDateStringConverter(DateUtils.DATE_PATTERN), new DateTextField()));
+        studentAddressColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new AddressConverter()));
 
         groupColumn.setCellFactory(tc -> {
             ComboBox<Group> combo = new ComboBox<>();
@@ -2473,7 +2484,8 @@ public class SuperuserController implements Initializable {
             return cell;
         });
 
-        dateAdmissionColumn.setCellFactory(CustomTableCell.forTableColumn(new CustomDateStringConverter(DateUtils.DATE_PATTERN)));
+        dateAdmissionColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
+                new CustomDateStringConverter(DateUtils.DATE_PATTERN), new DateTextField()));
 
         studentsSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -2517,7 +2529,7 @@ public class SuperuserController implements Initializable {
             return cell;
         });
 
-        parentAddressColumn.setCellFactory(CustomTableCell.forTableColumn(new AddressConverter()));
+        parentAddressColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new AddressConverter()));
     }
 
     private void initSemesterPerformanceTable() {
@@ -2551,8 +2563,10 @@ public class SuperuserController implements Initializable {
             return cell;
         });
 
-        semesterPerformanceCourseColumn.setCellFactory(CustomTableCell.forTableColumn(new LimitationIntegerConverter(1, 4)));
-        semesterPerformanceSemesterColumn.setCellFactory(CustomTableCell.forTableColumn(new LimitationIntegerConverter(1, 8)));
+        semesterPerformanceCourseColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
+                new LimitationIntegerConverter(1, AppManager.getSpecializationsDao().findMaxStudyDuration())));
+        semesterPerformanceSemesterColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
+                new LimitationIntegerConverter(1, AppManager.getSpecializationsDao().findMaxStudyDuration() * 2)));
 
         semesterPerformanceDisciplineColumn.setCellFactory(tc -> {
             ComboBox<Discipline> combo = new ComboBox<>();
@@ -2579,7 +2593,7 @@ public class SuperuserController implements Initializable {
             });
             return cell;
         });
-        semesterPerformanceMarkColumn.setCellFactory(CustomTableCell.forTableColumn(new LimitationIntegerConverter(0, 100)));
+        semesterPerformanceMarkColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new LimitationIntegerConverter(0, 100)));
         semesterPerformanceSemesterField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -2683,58 +2697,30 @@ public class SuperuserController implements Initializable {
     private void initTeacherGroupTable() {
         teacherGroupTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
 
-        teacherGroupTeacherDisciplineComboBox.setItems(FXCollections.observableArrayList(
-                AppManager.getTeacherDisciplineDao().findAll()));
+        teacherGroupSemesterColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
+                new LimitationIntegerConverter(1, AppManager.getSpecializationsDao().findMaxStudyDuration() * 2)));
+
+        teacherGroupDisciplineComboBox.setItems(FXCollections.observableArrayList(
+                AppManager.getDisciplinesDao().findAll()));
         teacherGroupGroupComboBox.setItems(FXCollections.observableArrayList(
                 AppManager.getGroupsDao().findAll()));
 
-        teacherGroupTeacherDisciplineColumn.setCellFactory(tc -> {
-            ComboBox<TeacherDiscipline> combo = new ComboBox<>();
-            combo.getItems().addAll(AppManager.getTeacherDisciplineDao().findAll());
-            TableCell<TeacherGroup, TeacherDiscipline> cell = new TableCell<>() {
-                @Override
-                protected void updateItem(TeacherDiscipline reason, boolean empty) {
-                    super.updateItem(reason, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        combo.setValue(reason);
-                        setGraphic(combo);
-                    }
+        teacherGroupDisciplineComboBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (!teacherGroupDisciplineComboBox.getSelectionModel().isEmpty()) {
+                    teacherGroupTeacherComboBox.setDisable(false);
+                    teacherGroupTeacherComboBox.setItems(FXCollections.observableArrayList(
+                            AppManager.getTeacherDao().findTeachers(teacherGroupDisciplineComboBox.getValue())));
                 }
-            };
-            combo.setOnAction(e -> {
-                teacherGroupTable.getItems().get(cell.getIndex()).setTeacherDiscipline(combo.getValue());
-                teacherGroupTable.refresh();
-                AppManager.getTeacherGroupDao().update(teacherGroupTable.getItems().get(cell.getIndex()));
-                teacherDisciplineComboBoxUpdate();
-            });
-            return cell;
+                else {
+                    teacherGroupTeacherComboBox.setDisable(true);
+                }
+            }
         });
 
-        teacherGroupGroupColumn.setCellFactory(tc -> {
-            ComboBox<Group> combo = new ComboBox<>();
-            combo.getItems().addAll(AppManager.getGroupsDao().findAllWithOrder("name"));
-            TableCell<TeacherGroup, Group> cell = new TableCell<>() {
-                @Override
-                protected void updateItem(Group reason, boolean empty) {
-                    super.updateItem(reason, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        combo.setValue(reason);
-                        setGraphic(combo);
-                    }
-                }
-            };
-            combo.setOnAction(e -> {
-                teacherGroupTable.getItems().get(cell.getIndex()).setGroup(combo.getValue());
-                teacherGroupTable.refresh();
-                AppManager.getTeacherGroupDao().update(teacherGroupTable.getItems().get(cell.getIndex()));
-                groupsComboBoxUpdate();
-            });
-            return cell;
-        });
+        teacherGroupTeacherDisciplineColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new TeacherDisciplineConverter()));
+        teacherGroupGroupColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new GroupConverter()));
 
         teacherGroupSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -2748,8 +2734,10 @@ public class SuperuserController implements Initializable {
 
     private void initTeachersTable() {
         teachersTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
-        teacherDateOfBirthColumn.setCellFactory(CustomTableCell.forTableColumn(new CustomDateStringConverter(DateUtils.DATE_PATTERN)));
-        teacherAddressColumn.setCellFactory(CustomTableCell.forTableColumn(new AddressConverter()));
+
+        teacherDateOfBirthColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
+                new CustomDateStringConverter(DateUtils.DATE_PATTERN), new DateTextField()));
+        teacherAddressColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new AddressConverter()));
 
         teacherDepartmentColumn.setCellFactory(tc -> {
             ComboBox<Department> combo = new ComboBox<>();
@@ -3174,7 +3162,7 @@ public class SuperuserController implements Initializable {
                             && !semesterPerformanceDisciplineTypeOfMarkComboBox.getSelectionModel().isEmpty())
                             && (!semesterPerformanceDisciplineExitsRadioButton.isSelected()
                             || semesterPerformanceDisciplineComboBox.getSelectionModel().isEmpty()))
-                        || !TypesUtils.isInteger(semesterPerformanceMarkField.getText());
+                        || !TypesUtils.isMark(semesterPerformanceMarkField.getText());
             }
         };
 
@@ -3308,14 +3296,18 @@ public class SuperuserController implements Initializable {
     private void initTeacherGroupButtons() {
         BooleanBinding addBind = new BooleanBinding() {
             {
-                super.bind(teacherGroupTeacherDisciplineComboBox.valueProperty(),
+                super.bind(teacherGroupSemesterField.textProperty(),
+                        teacherGroupTeacherComboBox.valueProperty(),
+                        teacherGroupDisciplineComboBox.valueProperty(),
                         teacherGroupGroupComboBox.valueProperty());
             }
 
             @Override
             protected boolean computeValue() {
-                return teacherGroupTeacherDisciplineComboBox.getSelectionModel().isEmpty()
-                        || teacherGroupGroupComboBox.getSelectionModel().isEmpty();
+                return teacherGroupTeacherComboBox.getSelectionModel().isEmpty()
+                        || teacherGroupDisciplineComboBox.getSelectionModel().isEmpty()
+                        || teacherGroupGroupComboBox.getSelectionModel().isEmpty()
+                        || !TypesUtils.isSemester(teacherGroupSemesterField.getText());
             }
         };
 

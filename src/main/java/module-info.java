@@ -18,4 +18,5 @@ module com.example.lab2 {
     opens com.example.lab2.objects.main;
     opens com.example.lab2.objects.references;
     opens com.example.lab2.controls;
+    opens com.example.lab2.controls.global;
 }

@@ -40,6 +40,7 @@ public class Department extends CustomObject {
         return getName();
     }
 
+    @Override
     public String toStringFields() {
         return getName();
     }

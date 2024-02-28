@@ -3,7 +3,9 @@ package com.example.lab2.objects.main;
 import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="teachers")

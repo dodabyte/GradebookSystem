@@ -139,6 +139,7 @@ public class Student extends CustomObject {
         return getLastName() + " " + getFirstName() + " " + getPatronymic();
     }
 
+    @Override
     public String toStringFields() {
         return getLastName() + " " + getFirstName() + " " + getPatronymic() + " " +
                 getAddress().toStringFields() + " " + getDateOfBirth() + " " + getGroup().toStringFields() + " " +

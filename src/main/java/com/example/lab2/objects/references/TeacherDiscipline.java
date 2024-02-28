@@ -62,6 +62,7 @@ public class TeacherDiscipline extends CustomObject {
                 getTeacher().getPatronymic().charAt(0) + ". - " + getDiscipline().toString();
     }
 
+    @Override
     public String toStringFields() {
         return getTeacher().toStringFields() + " " + getDiscipline().toStringFields();
     }
