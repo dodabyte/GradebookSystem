@@ -13,6 +13,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+
 <?import com.example.lab2.callbacks.CustomCallbackTableColumn?>
 <?import com.example.lab2.callbacks.CustomCallbackNumberCellData?>
 <?import com.example.lab2.callbacks.CustomCallbackNumberTableColumn?>
@@ -24,7 +25,7 @@
             <content>
                <Pane prefHeight="200.0" prefWidth="200.0">
                   <children>
-                     <Label fx:id="basisEducationLabel" layoutX="300.0" layoutY="395.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="basisEducationLabel" layoutX="300.0" layoutY="395.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
@@ -94,57 +95,57 @@
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="courseLabel" layoutX="300.0" layoutY="95.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="courseLabel" layoutX="300.0" layoutY="95.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="groupLabel" layoutX="300.0" layoutY="195.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="groupLabel" layoutX="300.0" layoutY="195.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="specializationLabel" layoutX="300.0" layoutY="245.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="specializationLabel" layoutX="300.0" layoutY="245.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="studyDurationLabel" layoutX="300.0" layoutY="295.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="studyDurationLabel" layoutX="300.0" layoutY="295.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="formEducationLabel" layoutX="300.0" layoutY="345.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="formEducationLabel" layoutX="300.0" layoutY="345.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="dataAdmissionLabel" layoutX="300.0" layoutY="445.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="dataAdmissionLabel" layoutX="300.0" layoutY="445.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="cityLabel" layoutX="958.0" layoutY="146.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="cityLabel" layoutX="958.0" layoutY="146.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="streetLabel" layoutX="958.0" layoutY="196.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="streetLabel" layoutX="958.0" layoutY="196.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="homeNumberLabel" layoutX="958.0" layoutY="246.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="homeNumberLabel" layoutX="958.0" layoutY="246.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="apartmentNumberLabel" layoutX="958.0" layoutY="295.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="apartmentNumberLabel" layoutX="958.0" layoutY="295.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="mailLabel" layoutX="730.0" layoutY="32.0" prefHeight="35.0" prefWidth="386.0" text="Label">
+                     <Label fx:id="mailLabel" layoutX="730.0" layoutY="32.0" prefHeight="35.0" prefWidth="386.0">
                         <font>
                            <Font size="24.0" />
                         </font>
@@ -154,7 +155,7 @@
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="semesterLabel" layoutX="300.0" layoutY="145.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+                     <Label fx:id="semesterLabel" layoutX="300.0" layoutY="145.0" prefHeight="17.0" prefWidth="181.0">
                         <font>
                            <Font size="24.0" />
                         </font>
@@ -167,7 +168,7 @@
             <content>
                <Pane prefHeight="600.0" prefWidth="1200.0">
                   <children>
-                     <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" onAction="#onStudentsExportButton" text="Скачать данные" />
+                     <Button layoutX="219.0" layoutY="10.0" mnemonicParsing="false" onAction="#onStudentsExportButton" prefHeight="25.0" prefWidth="109.0" text="Скачать данные" />
                      <TableView fx:id="groupTable" editable="true" layoutY="45.0" prefHeight="545.0" prefWidth="1200.0">
                         <columns>
                            <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">
@@ -215,6 +216,16 @@
                            </TableColumn>
                         </columns>
                      </TableView>
+                     <Label layoutX="14.0" layoutY="5.0" text="Группа:">
+                        <font>
+                           <Font size="24.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="currentStudentGroupLabel" layoutX="117.0" layoutY="5.0" prefHeight="35.0" prefWidth="96.0">
+                        <font>
+                           <Font size="24.0" />
+                        </font>
+                     </Label>
                   </children>
                </Pane>
             </content></Tab>
@@ -222,9 +233,12 @@
             <content>
                <Pane prefHeight="600.0" prefWidth="1200.0">
                   <children>
-                     <Label layoutX="14.0" layoutY="14.0" text="Семестр" />
-                     <ComboBox fx:id="semestersComboBox" onAction="#onSemesterPerformanceTabChanged" layoutX="76.0" layoutY="10.0" prefWidth="184.0" />
-                     <Button layoutX="274.0" layoutY="10.0" mnemonicParsing="false" onAction="#onSemesterPerformanceExportButton" text="Скачать данные" />
+                     <Label layoutX="14.0" layoutY="5.0" text="Семестр:">
+                        <font>
+                           <Font size="24.0" />
+                        </font></Label>
+                     <ComboBox fx:id="semestersComboBox" layoutX="130.0" layoutY="10.0" onAction="#onSemesterPerformanceTabChanged" prefHeight="25.0" prefWidth="50.0" />
+                     <Button layoutX="196.0" layoutY="10.0" mnemonicParsing="false" onAction="#onSemesterPerformanceExportButton" text="Скачать данные" />
                      <TableView fx:id="semesterPerformanceTable" editable="true" layoutY="45.0" prefHeight="509.0" prefWidth="1200.0">
                         <columns>
                            <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">
@@ -285,6 +299,12 @@
            <MenuItem mnemonicParsing="false" text="О программе" />
          </items>
        </Menu>
+         <Menu mnemonicParsing="false" text="Профиль">
+            <items>
+               <MenuItem mnemonicParsing="false" onAction="#onChangePasswordClick" text="Сменить пароль" />
+               <MenuItem mnemonicParsing="false" onAction="#onExitClick" text="Выйти" />
+            </items>
+         </Menu>
      </menus>
    </MenuBar>
 </Pane>
