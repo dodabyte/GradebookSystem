@@ -1,5 +1,7 @@
 package com.example.lab2.utils;
 
+import com.example.lab2.AppManager;
+
 public class TypesUtils {
     public static boolean isInteger(String number) {
         try {
@@ -39,7 +41,7 @@ public class TypesUtils {
     public static boolean isCourse(String number) {
         try {
             int value = Integer.parseInt(number);
-            return value >= 1 && value <= 4;
+            return value >= 1 && value <= AppManager.getSpecializationsDao().findMaxStudyDuration();
         } catch (NumberFormatException e){
             return false;
         }
@@ -48,7 +50,7 @@ public class TypesUtils {
     public static boolean isSemester(String number) {
         try {
             int value = Integer.parseInt(number);
-            return value >= 1 && value <= 8;
+            return value >= 1 && value <= AppManager.getSpecializationsDao().findMaxStudyDuration() * 2;
         } catch (NumberFormatException e){
             return false;
         }

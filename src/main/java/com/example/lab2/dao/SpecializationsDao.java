@@ -40,6 +40,19 @@ public class SpecializationsDao extends DataAccessObject<Specialization> {
         return specialization;
     }
 
+    public int findMaxStudyDuration() {
+        int studyDuration = 4;
+        try {
+            TypedQuery<Integer> typedQuery = HibernateUtils.getEntityManager().createQuery("SELECT MAX(studyDuration) FROM " +
+                            getTableName(),
+                    Integer.class);
+            studyDuration = typedQuery.getSingleResult();
+            HibernateUtils.getEntityManager().close();
+        }
+        catch (Exception ignored) {}
+        return studyDuration;
+    }
+
     @Override
     protected Class<Specialization> getType() {
         return Specialization.class;

@@ -73,6 +73,7 @@ public class Address extends CustomObject {
         return "г. " + getCity() + " ул. " + getStreet() + " д. " + getHouseNumber() + " кв. " + getApartmentNumber();
     }
 
+    @Override
     public String toStringFields() {
         return getCity() + " " + getStreet() + " " + getHouseNumber() + " " + getApartmentNumber();
     }

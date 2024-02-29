@@ -3,6 +3,9 @@ package com.example.lab2.objects.main;
 import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="disciplines")
 public class Discipline extends CustomObject {
@@ -49,6 +52,7 @@ public class Discipline extends CustomObject {
         return getName();
     }
 
+    @Override
     public String toStringFields() {
         return toString();
     }

@@ -23,6 +23,8 @@ public class TeacherGroup extends CustomObject {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="group_id")
     private Group group;
+    @Column(name="semester")
+    private int semester;
 
     public TeacherGroup() {}
 
@@ -55,11 +57,20 @@ public class TeacherGroup extends CustomObject {
         this.group = group;
     }
 
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
+
     @Override
     public String toString() {
         return getTeacherDiscipline().toString() + " " + getGroup().toString();
     }
 
+    @Override
     public String toStringFields() {
         return getTeacherDiscipline().toStringFields() + " " + getGroup().toStringFields();
     }

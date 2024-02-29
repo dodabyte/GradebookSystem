@@ -1,9 +1,12 @@
 package com.example.lab2.objects.main;
 
 import com.example.lab2.objects.global.CustomObject;
+import com.example.lab2.objects.references.TeacherDiscipline;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="groups")
@@ -96,6 +99,7 @@ public class Group extends CustomObject {
         return getName();
     }
 
+    @Override
     public String toStringFields() {
         return getName() + " " + getCourse() + " " + getSemester() + " " + getSpecialization().toStringFields()
                 + " " + getDateFormation() + " " + getDateGraduation();

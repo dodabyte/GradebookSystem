@@ -58,6 +58,7 @@ public class Specialization extends CustomObject {
         return getNumber() + " " + getName();
     }
 
+    @Override
     public String toStringFields() {
         return toString();
     }

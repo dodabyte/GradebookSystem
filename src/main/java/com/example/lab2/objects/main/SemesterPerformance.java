@@ -124,6 +124,7 @@ public class SemesterPerformance extends CustomObject {
                 + getDiscipline().toString() + " " + getMark();
     }
 
+    @Override
     public String toStringFields() {
         return getStudent().toStringFields() + " " + getCourse() + " " + getSemester() + " " +
                 getDiscipline().toStringFields() + " " + getMark() + " " + getEctsMark() + " " +

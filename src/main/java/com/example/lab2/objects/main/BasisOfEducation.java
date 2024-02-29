@@ -40,6 +40,7 @@ public class BasisOfEducation extends CustomObject {
         return getName();
     }
 
+    @Override
     public String toStringFields() {
         return toString();
     }

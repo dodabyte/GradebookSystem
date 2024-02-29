@@ -1,5 +1,7 @@
 package com.example.lab2.utils;
 
+import com.example.lab2.AppManager;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -15,19 +17,19 @@ public class DateUtils {
     public static final int DATE_LIMIT = 10;
     public static final int TIMESTAMP_LIMIT = 19;
 
-    public static int getCurrentCourse(Date dateAdmission) {
+    public static int getCurrentCourse(Date dateFormation) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dateAdmission);
+        calendar.setTime(dateFormation);
         Period period = Period.between(LocalDate.of(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)), LocalDate.now());
         int course = period.getYears() + 1;
-        return course >= 1 && course <= 4 ? course : -1;
+        return course >= 1 && course <= AppManager.getSpecializationsDao().findMaxStudyDuration() ? course : -1;
     }
 
-    public static int getCurrentSemester(Date dateAdmission, int course) {
+    public static int getCurrentSemester(Date dateFormation, int course) {
         if (course < 1) return -1;
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dateAdmission);
+        calendar.setTime(dateFormation);
         return LocalDate.now().isAfter(LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE))) &&
                 LocalDate.now().isBefore(LocalDate.of(calendar.get(Calendar.YEAR) + 1, 1, 31))
                 ? course * 2 - 1 : course * 2;
