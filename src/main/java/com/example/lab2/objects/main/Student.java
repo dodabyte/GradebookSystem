@@ -2,6 +2,8 @@ package com.example.lab2.objects.main;
 
 import com.example.lab2.objects.global.CustomObject;
 import jakarta.persistence.*;
+
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -39,6 +41,8 @@ public class Student extends CustomObject {
     private Date dateAdmission;
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "student")
     private AuthData authData;
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "student")
+    private Collection<SemesterPerformance> semesterPerformance;
 
     public Student() {}
 
@@ -133,6 +137,14 @@ public class Student extends CustomObject {
     public AuthData getAuthData() { return authData; }
 
     public void setAuthData(AuthData authData) { this.authData = authData; }
+
+    public Collection<SemesterPerformance> getSemesterPerformance() {
+        return semesterPerformance;
+    }
+
+    public void setSemesterPerformance(Collection<SemesterPerformance> semesterPerformance) {
+        this.semesterPerformance = semesterPerformance;
+    }
 
     @Override
     public String toString() {

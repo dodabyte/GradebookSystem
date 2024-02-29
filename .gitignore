@@ -17,3 +17,5 @@ mvnw.cmd
 .mvn/*
 .idea/
 *.docx
+
+stat/

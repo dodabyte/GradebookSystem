@@ -3,6 +3,7 @@ package com.example.lab2;
 import com.example.lab2.dao.*;
 import com.example.lab2.objects.main.Student;
 import com.example.lab2.localizations.LocalizationLoader;
+import com.example.lab2.objects.main.Teacher;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -10,28 +11,28 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AppManager {
-    private static boolean debugModeEnable = true; // TODO replace with FALSE
+    private static final boolean debugModeEnable = true; // TODO replace with FALSE
 
     private static Student currentStudent = null;
-//    private static Teacher currentTeacher = null;
+    private static Teacher currentTeacher = null;
 
-    private static AddressesDao addressesDao = new AddressesDao();
-    private static BasisOfEducationDao basisOfEducationDao = new BasisOfEducationDao();
-    private static DisciplinesDao disciplinesDao = new DisciplinesDao();
-    private static FormsOfEducationDao formsOfEducationDao = new FormsOfEducationDao();
-    private static TypesOfMarksDao typesOfMarksDao = new TypesOfMarksDao();
-    private static SpecializationsDao specializationsDao = new SpecializationsDao();
-    private static GroupsDao groupsDao = new GroupsDao();
-    private static StudentDao studentDao = new StudentDao();
-    private static ParentDao parentDao = new ParentDao();
-    private static SemesterPerformanceDao semesterPerformanceDao = new SemesterPerformanceDao();
-    private static DepartmentsDao departmentsDao = new DepartmentsDao();
-    private static PostsDao postsDao = new PostsDao();
-    private static TeacherDisciplineDao teacherDisciplineDao = new TeacherDisciplineDao();
-    private static TeacherGroupDao teacherGroupDao = new TeacherGroupDao();
-    private static TeacherDao teacherDao = new TeacherDao();
-    private static SpecializationDisciplineDao specializationDisciplineDao = new SpecializationDisciplineDao();
-    private static AuthDataDao authDataDao = new AuthDataDao();
+    private static final AddressesDao addressesDao = new AddressesDao();
+    private static final BasisOfEducationDao basisOfEducationDao = new BasisOfEducationDao();
+    private static final DisciplinesDao disciplinesDao = new DisciplinesDao();
+    private static final FormsOfEducationDao formsOfEducationDao = new FormsOfEducationDao();
+    private static final TypesOfMarksDao typesOfMarksDao = new TypesOfMarksDao();
+    private static final SpecializationsDao specializationsDao = new SpecializationsDao();
+    private static final GroupsDao groupsDao = new GroupsDao();
+    private static final StudentDao studentDao = new StudentDao();
+    private static final ParentDao parentDao = new ParentDao();
+    private static final SemesterPerformanceDao semesterPerformanceDao = new SemesterPerformanceDao();
+    private static final DepartmentsDao departmentsDao = new DepartmentsDao();
+    private static final PostsDao postsDao = new PostsDao();
+    private static final TeacherDisciplineDao teacherDisciplineDao = new TeacherDisciplineDao();
+    private static final TeacherGroupDao teacherGroupDao = new TeacherGroupDao();
+    private static final TeacherDao teacherDao = new TeacherDao();
+    private static final SpecializationDisciplineDao specializationDisciplineDao = new SpecializationDisciplineDao();
+    private static final AuthDataDao authDataDao = new AuthDataDao();
 
     private static LocalizationLoader localizationLoader;
 
@@ -107,14 +108,14 @@ public class AppManager {
     public static Student getCurrentStudent() { return currentStudent; }
     public static void setCurrentStudent(Student student) { currentStudent = student;}
 
-//    public static Teacher getCurrentTeacher() { return currentTeacher; }
-//    public static void setCurrentTeacher(Teacher teacher) { currentTeacher = teacher;}
+    public static Teacher getCurrentTeacher() { return currentTeacher; }
+    public static void setCurrentTeacher(Teacher teacher) { currentTeacher = teacher;}
 
     public static Integer getTypeOfUser() {
         if (currentStudent != null)
             return 2; // student
-//        else if (currentTeacher != null)
-//            return 1; // teacher
+        else if (currentTeacher != null)
+            return 1; // teacher
         else
             return 0; // superuser
     }

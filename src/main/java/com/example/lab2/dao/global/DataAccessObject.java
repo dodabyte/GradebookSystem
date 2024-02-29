@@ -13,7 +13,7 @@ public abstract class DataAccessObject<T>{
 
     public List<T> findAll() {
         TypedQuery<T> typedQuery = HibernateUtils.getEntityManager().createQuery("FROM " + getTableName() +
-                " order by id", getType());
+                " ORDER BY id", getType());
         List<T> list = typedQuery.getResultList();
         HibernateUtils.getEntityManager().close();
         return list;
@@ -21,7 +21,17 @@ public abstract class DataAccessObject<T>{
 
     public List<T> findByField(String parameter, Object object) {
         TypedQuery <T> typedQuery = HibernateUtils.getEntityManager().createQuery("FROM " + getTableName() +
-                " WHERE " + parameter + " = " + object + " order by id", getType());
+                " WHERE " + parameter + " = " + object + " ORDER BY id", getType());
+        List<T> list = typedQuery.getResultList();
+        HibernateUtils.getEntityManager().close();
+        return list;
+    }
+
+    public List<T> findByCustomField(String parameter, String field, Object object) {
+        TypedQuery <T> typedQuery = HibernateUtils.getEntityManager().createQuery(
+                "SELECT t1 FROM " + getTableName() + " as t1 " +
+                "JOIN t1." + parameter + " as t2 " +
+                "WHERE t2." + field + " = " + object, getType());
         List<T> list = typedQuery.getResultList();
         HibernateUtils.getEntityManager().close();
         return list;
@@ -29,12 +39,12 @@ public abstract class DataAccessObject<T>{
 
     public List<T> findAllWithOrder(String order) {
         TypedQuery<T> typedQuery = HibernateUtils.getEntityManager().createQuery("FROM " + getTableName() +
-                " order by " + order, getType());
+                " ORDER BY " + order, getType());
         List<T> list = typedQuery.getResultList();
         HibernateUtils.getEntityManager().close();
         return list;
     }
-
+    
     public void insert(T entity) {
         try {
             HibernateUtils.getTransaction().begin();

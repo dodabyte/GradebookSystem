@@ -9,7 +9,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailSenderUtils {
-    private static String debugMail = "maria13sivi@yandex.ru";
+    private static String debugMail = "jowe123@mail.ru";
 
     public static void sendPassword(String toEmail, String newPassword) {
         String username = "mayahimayahamayahaha";

@@ -1,5 +1,6 @@
 package com.example.lab2.controllers;
 
+import com.aspose.cells.SaveFormat;
 import com.example.lab2.AppManager;
 import com.example.lab2.Main;
 import com.example.lab2.alerts.AlertLoader;
@@ -12,6 +13,7 @@ import com.example.lab2.objects.references.TeacherDiscipline;
 import com.example.lab2.objects.references.TeacherGroup;
 import com.example.lab2.predicates.CustomPredicate;
 import com.example.lab2.utils.DateUtils;
+import com.example.lab2.stat.*;
 import com.example.lab2.utils.MarksUtils;
 import com.example.lab2.utils.AuthUtils;
 import com.example.lab2.utils.TypesUtils;
@@ -36,6 +38,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class SuperuserController implements Initializable {
@@ -267,6 +270,16 @@ public class SuperuserController implements Initializable {
     }
 
     @FXML
+    protected void onAddressesExportButton() {
+        try {
+            ExportData<Address> exportData = new ExportData<>("Адреса", AppManager.getAddressesDao().findAll());
+            exportData.exportList(0, "Адреса");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
     protected void onAddressesAddButton() {
         Address address = new Address(addressCityField.getText(),
                 addressStreetField.getText(),
@@ -396,6 +409,16 @@ public class SuperuserController implements Initializable {
     }
 
     @FXML
+    protected void onDisciplinesExportButton() {
+        try {
+            ExportData<Discipline> exportData = new ExportData<>("Дисциплины", AppManager.getDisciplinesDao().findAll());
+            exportData.exportList(0, "Дисциплины");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
     protected void onDisciplinesAddButton() {
         Discipline discipline = new Discipline();
         discipline.setName(disciplinesNameField.getText());
@@ -462,6 +485,16 @@ public class SuperuserController implements Initializable {
     }
 
     @FXML
+    protected void onSpecializationsExportButton() {
+        try {
+            ExportData<Specialization> exportData = new ExportData<>("Направления", AppManager.getSpecializationsDao().findAll());
+            exportData.exportList(0, "Направления");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
     protected void onSpecializationsAddButton() {
         Specialization specialization = new Specialization(specializationsNumberField.getText(),
                 specializationsNameField.getText(),
@@ -521,6 +554,16 @@ public class SuperuserController implements Initializable {
     protected void onGroupsRefreshButton() {
         groupsTable.setItems(FXCollections.observableArrayList(AppManager.getGroupsDao().findAll()));
         groupsSearchField.setText("");
+    }
+
+    @FXML
+    protected void onGroupsExportButton() {
+        try {
+            ExportData<Group> exportData = new ExportData<>("Группы", AppManager.getGroupsDao().findAll());
+            exportData.exportList(0, "Группы");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -620,6 +663,32 @@ public class SuperuserController implements Initializable {
     protected void onStudentsRefreshButton() {
         studentsTable.setItems(FXCollections.observableArrayList(AppManager.getStudentDao().findAll()));
         studentsSearchField.setText("");
+    }
+
+    @FXML
+    protected void onStudentsExportButton() {
+        try {
+            int idx = 0;
+            ExportData<Student> exportData = new ExportData<>("Студенты", AppManager.getStudentDao().findAll());
+            exportData.exportList(idx++, "Студенты");
+
+            exportData.setList(AppManager.getStudentDao().findByCustomField("semesterPerformance", "traditionalMark", 2));
+            exportData.exportList(idx++, "Должники");
+
+            List<FormOfEducation> formsList = AppManager.getFormsOfEducationDao().findAll();
+            for (FormOfEducation form : formsList) {
+                exportData.setList(AppManager.getStudentDao().findByCustomField("formOfEducation", "id", form.getId()));
+                exportData.exportList(idx++, "Форма обучения - " + form.getName());
+            }
+
+            List<BasisOfEducation> basisList = AppManager.getBasisOfEducationDao().findAll();
+            for (BasisOfEducation basis : basisList) {
+                exportData.setList(AppManager.getStudentDao().findByCustomField("basisOfEducation", "id", basis.getId()));
+                exportData.exportList(idx++, "Основа обучения - " + basis.getName());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -791,6 +860,16 @@ public class SuperuserController implements Initializable {
     }
 
     @FXML
+    protected void onParentsExportButton() {
+        try {
+            ExportData<Parent> exportData = new ExportData<>("Родители", AppManager.getParentDao().findAll());
+            exportData.exportList(0, "Родители");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
     protected void onParentsAddButton() {
         boolean canAdd = true;
 
@@ -877,6 +956,16 @@ public class SuperuserController implements Initializable {
         semesterPerformanceStudentComboBox.setItems(FXCollections.observableArrayList(
                 AppManager.getStudentDao().findAll()));
         semesterPerformanceSearchField.setText("");
+    }
+
+    @FXML
+    protected void onSemesterPerformanceExportButton() {
+        try {
+            ExportData<SemesterPerformance> exportData = new ExportData<>("Успеваемость", AppManager.getSemesterPerformanceDao().findAll());
+            exportData.exportList(0, "Семестровая успеваемость");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -1271,6 +1360,7 @@ public class SuperuserController implements Initializable {
         }
         else if (canAdd) {
             AppManager.getTeacherDao().insert(teacher);
+            AuthUtils.generateTeacherAuthData(teacher);
             teacherLastNameField.setText("");
             teacherFirstNameField.setText("");
             teacherPatronymicField.setText("");
@@ -1326,6 +1416,29 @@ public class SuperuserController implements Initializable {
     protected void onTeachersSearchClear() {
         teachersSearchField.setText("");
         onTeachersRefreshButton();
+    }
+
+    @FXML
+    protected void onTeachersExportButton() {
+        try {
+            int idx = 0;
+            ExportData<Teacher> exportData = new ExportData<>("Преподаватели", AppManager.getTeacherDao().findAll());
+            exportData.exportList(idx++, "Преподаватели");
+
+            List<Department> departmentList = AppManager.getDepartmentsDao().findAll();
+            for (Department department : departmentList) {
+                exportData.setList(AppManager.getTeacherDao().findByCustomField("department", "id", department.getId()));
+                exportData.exportList(idx++, "Кафедра - " + department.getName());
+            }
+
+            List<Post> postList = AppManager.getPostsDao().findAll();
+            for (Post post : postList) {
+                exportData.setList(AppManager.getTeacherDao().findByCustomField("post", "id", post.getId()));
+                exportData.exportList(idx++, "Должность - " + post.getName());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -2178,6 +2291,7 @@ public class SuperuserController implements Initializable {
     }
 
     private void initAllTables() {
+        initSemesterPerformanceTable();
         initAddressesTable();
         initBasisOfEducationTable();
         initFormsOfEducationTable();
