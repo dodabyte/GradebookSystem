@@ -148,6 +148,7 @@ public class TeacherController implements Initializable {
         }
     }
 
+    @FXML
     protected void onSemesterPerformanceMarkColumnEditCommit(TableColumn.CellEditEvent<SemesterPerformance, Integer> event) {
         final Integer value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getRowValue().setMark(value);

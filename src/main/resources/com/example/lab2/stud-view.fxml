@@ -105,7 +105,7 @@
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="specializationLabel" layoutX="300.0" layoutY="245.0" prefHeight="17.0" prefWidth="181.0">
+                     <Label fx:id="specializationLabel" layoutX="300.0" layoutY="245.0" prefHeight="17.0" prefWidth="350.0">
                         <font>
                            <Font size="24.0" />
                         </font>
@@ -130,7 +130,7 @@
                            <Font size="24.0" />
                         </font>
                      </Label>
-                     <Label fx:id="streetLabel" layoutX="958.0" layoutY="196.0" prefHeight="17.0" prefWidth="181.0">
+                     <Label fx:id="streetLabel" layoutX="958.0" layoutY="196.0" prefHeight="17.0" prefWidth="250.0">
                         <font>
                            <Font size="24.0" />
                         </font>
