@@ -1254,19 +1254,19 @@ public class SuperuserController implements Initializable {
         }
     }
 
-    protected void teacherGroupAddStudents(Discipline discipline, Group group, Integer semestr){
-        //SemesterPerformance semesterPerformance = new SemesterPerformance();
+    protected void teacherGroupAddStudents(Discipline discipline, Group group, Integer semester){
         Integer course;
-        if (semestr == 1)
+        if (semester == 1)
             course = 1;
         else
-            course = (int) Math.floor(semestr/2.0);
+            course = (int) Math.floor(semester/2.0);
+      
         List<Student> list = AppManager.getStudentDao().findByCustomField("group","id",group.getId());
         for (Student student : list) {
             SemesterPerformance semesterPerformance = new SemesterPerformance();
             semesterPerformance.setStudent(student);
             semesterPerformance.setDiscipline(discipline);
-            semesterPerformance.setSemester(semestr);
+            semesterPerformance.setSemester(semester);
             semesterPerformance.setCourse(course);
             AppManager.getSemesterPerformanceDao().insert(semesterPerformance);
         }

@@ -86,11 +86,11 @@ public class SemesterPerformance extends CustomObject {
         this.discipline = discipline;
     }
 
-    public int getMark() {
+    public Integer getMark() {
         return mark;
     }
 
-    public void setMark(int mark) {
+    public void setMark(Integer mark) {
         this.mark = mark;
     }
 
@@ -102,11 +102,11 @@ public class SemesterPerformance extends CustomObject {
         this.ectsMark = ectsMark;
     }
 
-    public int getTraditionalMark() {
+    public Integer getTraditionalMark() {
         return traditionalMark;
     }
 
-    public void setTraditionalMark(int traditionalMark) {
+    public void setTraditionalMark(Integer traditionalMark) {
         this.traditionalMark = traditionalMark;
     }
 

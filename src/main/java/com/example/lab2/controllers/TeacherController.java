@@ -37,7 +37,7 @@ public class TeacherController implements Initializable {
 
     @FXML private TableView<SemesterPerformance> teacherSemesterPerformanceTable;
 
-    @FXML private Tab teacherSemestrPerfomanceTab;
+    @FXML private Tab teacherSemesterPerformanceTab;
     @FXML private Tab teacherDisciplineTab;
     @FXML private Tab teacherGroupsTab;
 
@@ -46,8 +46,8 @@ public class TeacherController implements Initializable {
     private Stage changePasswordStage;
 
     @FXML
-    protected void onTeacherSemestrPerfomanceTabChanged() {
-        if (teacherSemestrPerfomanceTab.isSelected()) {
+    protected void onTeacherSemesterPerfomanceTabChanged() {
+        if (teacherSemesterPerformanceTab.isSelected()) {
             onTeacherSemesterPerformanceRefreshButton();
         }
     }
@@ -69,21 +69,28 @@ public class TeacherController implements Initializable {
     @FXML
     protected void onTeacherSemesterPerformanceRefreshButton() {
         semesterPerformanceMarkColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new LimitationIntegerConverter(0, 100)));
-        teacherDisciplineComboBox2.setOnAction(event -> {
-            if (!teacherDisciplineComboBox2.getSelectionModel().isEmpty()) {
-                teacherGroupComboBox.setDisable(false);
-                teacherGroupComboBox.setItems(FXCollections.observableArrayList(
-                        AppManager.getGroupsDao().findGroups(AppManager.getCurrentTeacher(),teacherDisciplineComboBox2.getValue())));
-            }
-            else {
-                teacherGroupComboBox.setDisable(true);
+        teacherDisciplineComboBox2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (!teacherDisciplineComboBox2.getSelectionModel().isEmpty()) {
+                    teacherGroupComboBox.setDisable(false);
+                    teacherGroupComboBox.setItems(FXCollections.observableArrayList(
+                            AppManager.getGroupsDao().findGroups(AppManager.getCurrentTeacher(),teacherDisciplineComboBox2.getValue())));
+                    teacherSemesterPerformanceTable.setItems(null);
+                }
+                else {
+                    teacherGroupComboBox.setDisable(true);
+                }
             }
         });
-        teacherGroupComboBox.setOnAction(event -> {
-            if (!teacherGroupComboBox.getSelectionModel().isEmpty()) {
-                teacherSemesterPerformanceTable.setItems(FXCollections.observableArrayList(
-                        //AppManager.getSemesterPerformanceDao().findAll()));
-                        AppManager.getSemesterPerformanceDao().findSemesterPerformance(teacherDisciplineComboBox2.getValue(),teacherGroupComboBox.getValue())));
+        teacherGroupComboBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (!teacherGroupComboBox.getSelectionModel().isEmpty()) {
+
+                    teacherSemesterPerformanceTable.setItems(FXCollections.observableArrayList(
+                            AppManager.getSemesterPerformanceDao().findSemesterPerformance(teacherDisciplineComboBox2.getValue(),teacherGroupComboBox.getValue())));
+                }
             }
         });
     }
@@ -141,7 +148,6 @@ public class TeacherController implements Initializable {
         }
     }
 
-    @FXML
     protected void onSemesterPerformanceMarkColumnEditCommit(TableColumn.CellEditEvent<SemesterPerformance, Integer> event) {
         final Integer value = event.getNewValue() != null ? event.getNewValue() : event.getOldValue();
         event.getRowValue().setMark(value);
@@ -151,8 +157,6 @@ public class TeacherController implements Initializable {
                 event.getRowValue().getDiscipline().getTypeOfMark().getName()));
         teacherSemesterPerformanceTable.refresh();
         AppManager.getSemesterPerformanceDao().update(event.getRowValue());
-        teacherSemesterPerformanceTable.setItems(FXCollections.observableArrayList(
-                AppManager.getSemesterPerformanceDao().findSemesterPerformance(teacherDisciplineComboBox2.getValue(),teacherGroupComboBox.getValue())));
 
     }
 
@@ -160,7 +164,6 @@ public class TeacherController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAllComboBox();
     }
-
     public void initAllComboBox() {
         initTeacherDisciplineComboBox();
         initTeacherDisciplineComboBox2();
