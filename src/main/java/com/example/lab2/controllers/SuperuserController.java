@@ -1260,6 +1260,7 @@ public class SuperuserController implements Initializable {
             course = 1;
         else
             course = (int) Math.floor(semester/2.0);
+      
         List<Student> list = AppManager.getStudentDao().findByCustomField("group","id",group.getId());
         for (Student student : list) {
             SemesterPerformance semesterPerformance = new SemesterPerformance();
