@@ -1249,6 +1249,8 @@ public class SuperuserController implements Initializable {
             teacherGroupTeacherComboBox.setValue(null);
             teacherGroupGroupComboBox.setValue(null);
             teacherGroupTeacherComboBox.setDisable(true);
+            teacherGroupGroupComboBox.setDisable(true);
+            teacherGroupGroupComboBox.setItems(FXCollections.observableArrayList());
             onTeacherGroupRefreshButton();
         }
     }
