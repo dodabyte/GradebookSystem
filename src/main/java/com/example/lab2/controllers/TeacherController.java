@@ -4,29 +4,27 @@ import com.example.lab2.AppManager;
 import com.example.lab2.Main;
 import com.example.lab2.cells.CustomTextFieldTableCell;
 import com.example.lab2.converters.LimitationIntegerConverter;
-import com.example.lab2.objects.main.*;
-import com.example.lab2.objects.references.TeacherDiscipline;
+import com.example.lab2.objects.main.Discipline;
+import com.example.lab2.objects.main.Group;
+import com.example.lab2.objects.main.SemesterPerformance;
+import com.example.lab2.objects.main.Student;
 import com.example.lab2.stat.ExportData;
-import com.example.lab2.utils.DateUtils;
 import com.example.lab2.utils.MarksUtils;
 import javafx.collections.FXCollections;
-
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 public class TeacherController implements Initializable {
     @FXML protected TableColumn<SemesterPerformance, Integer> semesterPerformanceMarkColumn;
@@ -71,27 +69,21 @@ public class TeacherController implements Initializable {
     @FXML
     protected void onTeacherSemesterPerformanceRefreshButton() {
         semesterPerformanceMarkColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new LimitationIntegerConverter(0, 100)));
-        teacherDisciplineComboBox2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (!teacherDisciplineComboBox2.getSelectionModel().isEmpty()) {
-                    teacherGroupComboBox.setDisable(false);
-                    teacherGroupComboBox.setItems(FXCollections.observableArrayList(
-                            AppManager.getGroupsDao().findGroups(AppManager.getCurrentTeacher(),teacherDisciplineComboBox2.getValue())));
-                }
-                else {
-                    teacherGroupComboBox.setDisable(true);
-                }
+        teacherDisciplineComboBox2.setOnAction(event -> {
+            if (!teacherDisciplineComboBox2.getSelectionModel().isEmpty()) {
+                teacherGroupComboBox.setDisable(false);
+                teacherGroupComboBox.setItems(FXCollections.observableArrayList(
+                        AppManager.getGroupsDao().findGroups(AppManager.getCurrentTeacher(),teacherDisciplineComboBox2.getValue())));
+            }
+            else {
+                teacherGroupComboBox.setDisable(true);
             }
         });
-        teacherGroupComboBox.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (!teacherGroupComboBox.getSelectionModel().isEmpty()) {
-                    teacherSemesterPerformanceTable.setItems(FXCollections.observableArrayList(
-                            //AppManager.getSemesterPerformanceDao().findAll()));
-                            AppManager.getSemesterPerformanceDao().findSemesterPerformance(teacherDisciplineComboBox2.getValue(),teacherGroupComboBox.getValue())));
-                }
+        teacherGroupComboBox.setOnAction(event -> {
+            if (!teacherGroupComboBox.getSelectionModel().isEmpty()) {
+                teacherSemesterPerformanceTable.setItems(FXCollections.observableArrayList(
+                        //AppManager.getSemesterPerformanceDao().findAll()));
+                        AppManager.getSemesterPerformanceDao().findSemesterPerformance(teacherDisciplineComboBox2.getValue(),teacherGroupComboBox.getValue())));
             }
         });
     }
@@ -104,6 +96,49 @@ public class TeacherController implements Initializable {
     @FXML
     protected void onTeacherGroupsRefreshButton() {
         teacherGroupsTable.setItems(FXCollections.observableArrayList(AppManager.getGroupsDao().findGroups(AppManager.getCurrentTeacher(),teacherDisciplineComboBox.getValue())));
+    }
+
+    @FXML
+    protected void onDisciplineExportButton() {
+        try {
+            ExportData<Discipline> exportData = new ExportData<>("Дисциплины", AppManager.getDisciplinesDao().findDisciplines(AppManager.getCurrentTeacher()));
+            exportData.exportList(0, "Дисциплины");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    protected void onGroupsExportButton() {
+        try {
+            List<Discipline> list = AppManager.getDisciplinesDao().findDisciplines(AppManager.getCurrentTeacher());
+            ExportData<Group> exportData = new ExportData<>("Группы");
+            int idx = 0;
+            for (Discipline discipline : list) {
+                exportData.setList(AppManager.getGroupsDao().findGroups(AppManager.getCurrentTeacher(), discipline));
+                exportData.exportList(idx++, discipline.getName());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    protected void onSemesterPerformanceExportButton() {
+        try {
+            List<Discipline> listD = AppManager.getDisciplinesDao().findDisciplines(AppManager.getCurrentTeacher());
+            ExportData<SemesterPerformance> exportData = new ExportData<>("Журнал");
+            int idx = 0;
+            for (Discipline discipline : listD) {
+                List<Group> listG = AppManager.getGroupsDao().findGroups(AppManager.getCurrentTeacher(), discipline);
+                for (Group group : listG) {
+                    exportData.setList(AppManager.getSemesterPerformanceDao().findSemesterPerformance(discipline, group));
+                    exportData.exportList(idx++, discipline.getName() + " - " + group.getName());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -125,6 +160,7 @@ public class TeacherController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAllComboBox();
     }
+
     public void initAllComboBox() {
         initTeacherDisciplineComboBox();
         initTeacherDisciplineComboBox2();
