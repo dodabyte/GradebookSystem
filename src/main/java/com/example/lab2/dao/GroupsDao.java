@@ -7,7 +7,6 @@ import com.example.lab2.objects.main.Group;
 import com.example.lab2.objects.main.Specialization;
 import com.example.lab2.objects.main.Teacher;
 import com.example.lab2.objects.references.SpecializationDiscipline;
-import com.example.lab2.objects.references.TeacherDiscipline;
 import com.example.lab2.objects.references.TeacherGroup;
 import jakarta.persistence.TypedQuery;
 
@@ -61,8 +60,7 @@ public class GroupsDao extends DataAccessObject<Group> {
                     "WHERE t5.id = " + "(SELECT t3.id FROM " + SpecializationDiscipline.class.getSimpleName() + " as t1 " +
                     "JOIN t1.discipline as t2 " +
                     "JOIN t1.specialization as t3 " +
-                    "WHERE t2.id = " + discipline.getId() + " " +
-                    "LIMIT 1)",
+                    "WHERE t2.id = " + discipline.getId() + ")",
                     getType());
             groups = typedQuery.getResultList();
             HibernateUtils.getEntityManager().close();

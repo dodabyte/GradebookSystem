@@ -636,8 +636,6 @@ public class SuperuserController implements Initializable {
     private void groupsComboBoxUpdate() {
         studentGroupComboBox.setItems(
                 FXCollections.observableArrayList(AppManager.getGroupsDao().findAll()));
-        teacherGroupGroupComboBox.setItems(
-                FXCollections.observableArrayList(AppManager.getGroupsDao().findAll()));
     }
 
     @FXML
@@ -2843,6 +2841,8 @@ public class SuperuserController implements Initializable {
             else {
                 teacherGroupTeacherComboBox.setDisable(true);
                 teacherGroupTeacherComboBox.setValue(null);
+                teacherGroupTeacherComboBox.setItems(FXCollections.observableArrayList());
+                teacherGroupGroupComboBox.setItems(FXCollections.observableArrayList());
             }
         });
 
@@ -2860,6 +2860,7 @@ public class SuperuserController implements Initializable {
             else {
                 teacherGroupGroupComboBox.setDisable(true);
                 teacherGroupGroupComboBox.setValue(null);
+                teacherGroupGroupComboBox.setItems(FXCollections.observableArrayList());
             }
         });
 
