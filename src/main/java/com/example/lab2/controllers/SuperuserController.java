@@ -1,6 +1,5 @@
 package com.example.lab2.controllers;
 
-import com.aspose.cells.SaveFormat;
 import com.example.lab2.AppManager;
 import com.example.lab2.Main;
 import com.example.lab2.alerts.AlertLoader;
@@ -19,7 +18,6 @@ import com.example.lab2.utils.AuthUtils;
 import com.example.lab2.utils.TypesUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -38,7 +36,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class SuperuserController implements Initializable {
@@ -805,9 +802,8 @@ public class SuperuserController implements Initializable {
             studentSpecializationComboBox.setValue(null);
             studentFormOfEducationComboBox.setValue(null);
             studentBasisOfEducationComboBox.setValue(null);
+            studentGroupComboBox.setDisable(true);
             studentSpecializationComboBox.setDisable(true);
-            studentFormOfEducationComboBox.setDisable(true);
-            studentBasisOfEducationComboBox.setDisable(true);
             studentAddressGroup.selectToggle(null);
             studentGroupGroup.selectToggle(null);
             studentSpecializationGroup.selectToggle(null);
@@ -1247,12 +1243,31 @@ public class SuperuserController implements Initializable {
         }
         else {
             AppManager.getTeacherGroupDao().insert(teacherGroup);
+            teacherGroupAddStudents(teacherGroupDisciplineComboBox.getValue(),teacherGroupGroupComboBox.getValue(),Integer.parseInt(teacherGroupSemesterField.getText()));
             teacherGroupSemesterField.setText("");
             teacherGroupDisciplineComboBox.setValue(null);
             teacherGroupTeacherComboBox.setValue(null);
             teacherGroupGroupComboBox.setValue(null);
             teacherGroupTeacherComboBox.setDisable(true);
             onTeacherGroupRefreshButton();
+        }
+    }
+
+    protected void teacherGroupAddStudents(Discipline discipline, Group group, Integer semester){
+        Integer course;
+        if (semester == 1)
+            course = 1;
+        else
+            course = (int) Math.floor(semester/2.0);
+      
+        List<Student> list = AppManager.getStudentDao().findByCustomField("group","id",group.getId());
+        for (Student student : list) {
+            SemesterPerformance semesterPerformance = new SemesterPerformance();
+            semesterPerformance.setStudent(student);
+            semesterPerformance.setDiscipline(discipline);
+            semesterPerformance.setSemester(semester);
+            semesterPerformance.setCourse(course);
+            AppManager.getSemesterPerformanceDao().insert(semesterPerformance);
         }
     }
 
@@ -1465,8 +1480,6 @@ public class SuperuserController implements Initializable {
             AppManager.getSpecializationDisciplineDao().insert(specializationDiscipline);
             specializationDisciplineSpecializationComboBox.setValue(null);
             specializationDisciplineDisciplineComboBox.setValue(null);
-            specializationDisciplineSpecializationComboBox.setDisable(true);
-            specializationDisciplineDisciplineComboBox.setDisable(true);
             onSpecializationDisciplineRefreshButton();
         }
     }
@@ -2813,28 +2826,40 @@ public class SuperuserController implements Initializable {
 
         teacherGroupSemesterColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
                 new LimitationIntegerConverter(1, AppManager.getSpecializationsDao().findMaxStudyDuration() * 2)));
+        teacherGroupTeacherDisciplineColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new TeacherDisciplineConverter()));
+        teacherGroupGroupColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new GroupConverter()));
 
         teacherGroupDisciplineComboBox.setItems(FXCollections.observableArrayList(
                 AppManager.getDisciplinesDao().findAll()));
-        teacherGroupGroupComboBox.setItems(FXCollections.observableArrayList(
-                AppManager.getGroupsDao().findAll()));
 
-        teacherGroupDisciplineComboBox.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (!teacherGroupDisciplineComboBox.getSelectionModel().isEmpty()) {
-                    teacherGroupTeacherComboBox.setDisable(false);
-                    teacherGroupTeacherComboBox.setItems(FXCollections.observableArrayList(
-                            AppManager.getTeacherDao().findTeachers(teacherGroupDisciplineComboBox.getValue())));
-                }
-                else {
-                    teacherGroupTeacherComboBox.setDisable(true);
-                }
+        teacherGroupDisciplineComboBox.setOnAction(event -> {
+            if (!teacherGroupDisciplineComboBox.getSelectionModel().isEmpty()) {
+                teacherGroupTeacherComboBox.setDisable(false);
+                teacherGroupTeacherComboBox.setItems(FXCollections.observableArrayList(
+                        AppManager.getTeacherDao().findTeachers(teacherGroupDisciplineComboBox.getValue())));
+            }
+            else {
+                teacherGroupTeacherComboBox.setDisable(true);
+                teacherGroupTeacherComboBox.setValue(null);
             }
         });
 
-        teacherGroupTeacherDisciplineColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new TeacherDisciplineConverter()));
-        teacherGroupGroupColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new GroupConverter()));
+        teacherGroupTeacherComboBox.setOnAction(event -> {
+            if (!teacherGroupDisciplineComboBox.getSelectionModel().isEmpty() &&
+                    !teacherGroupTeacherComboBox.getSelectionModel().isEmpty()) {
+                teacherGroupGroupComboBox.setDisable(false);
+
+                List<Specialization> specializations = AppManager.getSpecializationsDao().findSpecializations(
+                        teacherGroupDisciplineComboBox.getValue());
+                for (Specialization specialization : specializations) {
+                    teacherGroupGroupComboBox.getItems().addAll(AppManager.getGroupsDao().findGroups(specialization));
+                }
+            }
+            else {
+                teacherGroupGroupComboBox.setDisable(true);
+                teacherGroupGroupComboBox.setValue(null);
+            }
+        });
 
         teacherGroupSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override

@@ -59,7 +59,7 @@ public class AuthorizationController implements Initializable {
                             // teacher
                             case 1 -> {
                                 AppManager.setCurrentTeacher(authData.getTeacher());
-                                fxmlLoader = new FXMLLoader(Main.class.getResource("superuser-view.fxml")); // TODO app for teachers
+                                fxmlLoader = new FXMLLoader(Main.class.getResource("teacher-view.fxml")); // TODO app for teachers
                             }
                             // student
                             case 2 -> {

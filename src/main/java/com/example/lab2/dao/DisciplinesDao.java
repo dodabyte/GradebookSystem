@@ -26,7 +26,6 @@ public class DisciplinesDao extends DataAccessObject<Discipline> {
         }
         return discipline != null;
     }
-
     public List<Discipline> findDisciplines(Teacher entity) {
         List<Discipline> disciplines = null;
         try {
