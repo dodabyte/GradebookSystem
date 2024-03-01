@@ -2826,28 +2826,40 @@ public class SuperuserController implements Initializable {
 
         teacherGroupSemesterColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(
                 new LimitationIntegerConverter(1, AppManager.getSpecializationsDao().findMaxStudyDuration() * 2)));
+        teacherGroupTeacherDisciplineColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new TeacherDisciplineConverter()));
+        teacherGroupGroupColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new GroupConverter()));
 
         teacherGroupDisciplineComboBox.setItems(FXCollections.observableArrayList(
                 AppManager.getDisciplinesDao().findAll()));
-        teacherGroupGroupComboBox.setItems(FXCollections.observableArrayList(
-                AppManager.getGroupsDao().findAll()));
 
-        teacherGroupDisciplineComboBox.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (!teacherGroupDisciplineComboBox.getSelectionModel().isEmpty()) {
-                    teacherGroupTeacherComboBox.setDisable(false);
-                    teacherGroupTeacherComboBox.setItems(FXCollections.observableArrayList(
-                            AppManager.getTeacherDao().findTeachers(teacherGroupDisciplineComboBox.getValue())));
-                }
-                else {
-                    teacherGroupTeacherComboBox.setDisable(true);
-                }
+        teacherGroupDisciplineComboBox.setOnAction(event -> {
+            if (!teacherGroupDisciplineComboBox.getSelectionModel().isEmpty()) {
+                teacherGroupTeacherComboBox.setDisable(false);
+                teacherGroupTeacherComboBox.setItems(FXCollections.observableArrayList(
+                        AppManager.getTeacherDao().findTeachers(teacherGroupDisciplineComboBox.getValue())));
+            }
+            else {
+                teacherGroupTeacherComboBox.setDisable(true);
+                teacherGroupTeacherComboBox.setValue(null);
             }
         });
 
-        teacherGroupTeacherDisciplineColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new TeacherDisciplineConverter()));
-        teacherGroupGroupColumn.setCellFactory(CustomTextFieldTableCell.forTableColumn(new GroupConverter()));
+        teacherGroupTeacherComboBox.setOnAction(event -> {
+            if (!teacherGroupDisciplineComboBox.getSelectionModel().isEmpty() &&
+                    !teacherGroupTeacherComboBox.getSelectionModel().isEmpty()) {
+                teacherGroupGroupComboBox.setDisable(false);
+
+                List<Specialization> specializations = AppManager.getSpecializationsDao().findSpecializations(
+                        teacherGroupDisciplineComboBox.getValue());
+                for (Specialization specialization : specializations) {
+                    teacherGroupGroupComboBox.getItems().addAll(AppManager.getGroupsDao().findGroups(specialization));
+                }
+            }
+            else {
+                teacherGroupGroupComboBox.setDisable(true);
+                teacherGroupGroupComboBox.setValue(null);
+            }
+        });
 
         teacherGroupSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override

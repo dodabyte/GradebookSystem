@@ -1240,7 +1240,7 @@
                      <Label layoutX="1009.0" layoutY="124.0" text="Преподаватель" />
                      <ComboBox fx:id="teacherGroupTeacherComboBox" disable="true" layoutX="1009.0" layoutY="141.0" prefWidth="184.0" />
                      <Label layoutX="1009.0" layoutY="173.0" text="Группа" />
-                     <ComboBox fx:id="teacherGroupGroupComboBox" layoutX="1009.0" layoutY="190.0" prefWidth="184.0" />
+                     <ComboBox fx:id="teacherGroupGroupComboBox" disable="true" layoutX="1009.0" layoutY="190.0" prefWidth="184.0" />
                      <Label layoutX="1009.0" layoutY="222.0" text="Семестр" />
                      <TextField fx:id="teacherGroupSemesterField" layoutX="1009.0" layoutY="239.0" prefWidth="184.0" />
                      <StackPane layoutX="1009.0" layoutY="5.0" prefWidth="184.0" styleClass="highlight-rectangle">

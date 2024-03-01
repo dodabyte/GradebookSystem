@@ -2,8 +2,15 @@ package com.example.lab2.dao;
 
 import com.example.lab2.dao.global.DataAccessObject;
 import com.example.lab2.hibernate.HibernateUtils;
+import com.example.lab2.objects.main.Discipline;
+import com.example.lab2.objects.main.Group;
 import com.example.lab2.objects.main.Specialization;
+import com.example.lab2.objects.main.Teacher;
+import com.example.lab2.objects.references.SpecializationDiscipline;
+import com.example.lab2.objects.references.TeacherGroup;
 import jakarta.persistence.TypedQuery;
+
+import java.util.List;
 
 public class SpecializationsDao extends DataAccessObject<Specialization> {
     @Override
@@ -51,6 +58,21 @@ public class SpecializationsDao extends DataAccessObject<Specialization> {
         }
         catch (Exception ignored) {}
         return studyDuration;
+    }
+
+    public List<Specialization> findSpecializations(Discipline discipline) {
+        List<Specialization> specializations = null;
+        try {
+            TypedQuery<Specialization> typedQuery = HibernateUtils.getEntityManager().createQuery(
+                    "SELECT t2 FROM " + SpecializationDiscipline.class.getSimpleName() + " as t1 " +
+                            "JOIN t1.specialization as t2 " +
+                            "WHERE t1.discipline.id = " + discipline.getId(),
+                    getType());
+            specializations = typedQuery.getResultList();
+            HibernateUtils.getEntityManager().close();
+        }
+        catch (Exception ignored) { ignored.printStackTrace(); }
+        return specializations;
     }
 
     @Override
