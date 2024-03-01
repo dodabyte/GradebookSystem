@@ -802,9 +802,8 @@ public class SuperuserController implements Initializable {
             studentSpecializationComboBox.setValue(null);
             studentFormOfEducationComboBox.setValue(null);
             studentBasisOfEducationComboBox.setValue(null);
+            studentGroupComboBox.setDisable(true);
             studentSpecializationComboBox.setDisable(true);
-            studentFormOfEducationComboBox.setDisable(true);
-            studentBasisOfEducationComboBox.setDisable(true);
             studentAddressGroup.selectToggle(null);
             studentGroupGroup.selectToggle(null);
             studentSpecializationGroup.selectToggle(null);
@@ -1481,8 +1480,6 @@ public class SuperuserController implements Initializable {
             AppManager.getSpecializationDisciplineDao().insert(specializationDiscipline);
             specializationDisciplineSpecializationComboBox.setValue(null);
             specializationDisciplineDisciplineComboBox.setValue(null);
-            specializationDisciplineSpecializationComboBox.setDisable(true);
-            specializationDisciplineDisciplineComboBox.setDisable(true);
             onSpecializationDisciplineRefreshButton();
         }
     }
