@@ -26,12 +26,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onStudentLastNameColumnEditCommit" prefWidth="120.0" text="Фамилия">
+                           <TableColumn onEditCommit="#onStudentLastNameColumnEditCommit" prefWidth="120.0" text="Фамилия" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="lastName" />
                               </cellValueFactory>
@@ -42,7 +42,7 @@
                                    <CustomCallbackTableColumn />
                                </cellFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onStudentFirstNameColumnEditCommit" prefWidth="120.0" text="Имя">
+                           <TableColumn onEditCommit="#onStudentFirstNameColumnEditCommit" prefWidth="120.0" text="Имя" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="firstName" />
                               </cellValueFactory>
@@ -53,7 +53,7 @@
                                    <CustomCallbackTableColumn />
                                </cellFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onStudentPatronymicColumnEditCommit" prefWidth="120.0" text="Отчество">
+                           <TableColumn onEditCommit="#onStudentPatronymicColumnEditCommit" prefWidth="120.0" text="Отчество" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="patronymic" />
                               </cellValueFactory>
@@ -61,32 +61,32 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="studentAddressColumn" minWidth="8.0" onEditCommit="#onStudentAddressColumnEditCommit" prefWidth="205.0" text="Адрес проживания">
+                           <TableColumn fx:id="studentAddressColumn" minWidth="8.0" onEditCommit="#onStudentAddressColumnEditCommit" prefWidth="205.0" text="Адрес проживания" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="address" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="dateOfBirthColumn" minWidth="8.0" onEditCommit="#onStudentDateOfBirthColumnEditCommit" prefWidth="100.0" text="Дата рождения">
+                           <TableColumn fx:id="dateOfBirthColumn" minWidth="8.0" onEditCommit="#onStudentDateOfBirthColumnEditCommit" prefWidth="100.0" text="Дата рождения" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="dateOfBirth" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="groupColumn" minWidth="8.0" onEditCommit="#onStudentGroupColumnEditCommit" prefWidth="100.0" text="Группа">
+                           <TableColumn fx:id="groupColumn" minWidth="8.0" onEditCommit="#onStudentGroupColumnEditCommit" prefWidth="100.0" text="Группа" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="group" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="formOfEducationColumn" minWidth="8.0" onEditCommit="#onStudentFormOfEducationColumnEditCommit" prefWidth="140.0" text="Форма обучения">
+                           <TableColumn fx:id="formOfEducationColumn" minWidth="8.0" onEditCommit="#onStudentFormOfEducationColumnEditCommit" prefWidth="140.0" text="Форма обучения" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="formOfEducation" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="basisOfEducationColumn" minWidth="8.0" onEditCommit="#onStudentBasisOfEducationColumnEditCommit" prefWidth="140.0" text="Основа обучения">
+                           <TableColumn fx:id="basisOfEducationColumn" minWidth="8.0" onEditCommit="#onStudentBasisOfEducationColumnEditCommit" prefWidth="140.0" text="Основа обучения" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="basisOfEducation" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="dateAdmissionColumn" minWidth="8.0" onEditCommit="#onStudentDateAdmissionColumnEditCommit" prefWidth="140.0" text="Дата поступления">
+                           <TableColumn fx:id="dateAdmissionColumn" minWidth="8.0" onEditCommit="#onStudentDateAdmissionColumnEditCommit" prefWidth="140.0" text="Дата поступления" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="dateAdmission" />
                               </cellValueFactory>
@@ -183,17 +183,17 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="semesterPerformanceStudentColumn" minWidth="8.0" onEditCommit="#onSemesterPerformanceStudentColumnEditCommit" prefWidth="240.0" text="Студент">
+                           <TableColumn fx:id="semesterPerformanceStudentColumn" minWidth="8.0" onEditCommit="#onSemesterPerformanceStudentColumnEditCommit" prefWidth="240.0" text="Студент" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="student" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="semesterPerformanceCourseColumn" editable="false" prefWidth="50.0" text="Курс">
+                           <TableColumn fx:id="semesterPerformanceCourseColumn" editable="false" prefWidth="50.0" text="Курс" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="course" />
                               </cellValueFactory>
@@ -201,7 +201,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="semesterPerformanceSemesterColumn" editable="false" prefWidth="70.0" text="Семестр">
+                           <TableColumn fx:id="semesterPerformanceSemesterColumn" editable="false" prefWidth="70.0" text="Семестр" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="semester" />
                               </cellValueFactory>
@@ -209,27 +209,27 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="semesterPerformanceDisciplineColumn" onEditCommit="#onSemesterPerformanceDisciplineColumnEditCommit" prefWidth="240.0" text="Дисциплина">
+                           <TableColumn fx:id="semesterPerformanceDisciplineColumn" onEditCommit="#onSemesterPerformanceDisciplineColumnEditCommit" prefWidth="240.0" text="Дисциплина" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="discipline" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="semesterPerformanceMarkColumn" minWidth="8.0" onEditCommit="#onSemesterPerformanceMarkColumnEditCommit" prefWidth="70.0" text="Оценка">
+                           <TableColumn fx:id="semesterPerformanceMarkColumn" minWidth="8.0" onEditCommit="#onSemesterPerformanceMarkColumnEditCommit" prefWidth="70.0" text="Оценка" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="mark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Оценка ECTS">
+                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Оценка ECTS" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="ectsMark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Оценка (5-балл.)">
+                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Оценка (5-балл.)" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="traditionalMark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Традиц. оценка">
+                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Традиц. оценка" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="traditionalWordMark" />
                               </cellValueFactory>
@@ -299,12 +299,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onParentLastNameColumnEditCommit" prefWidth="120.0" text="Фамилия">
+                           <TableColumn onEditCommit="#onParentLastNameColumnEditCommit" prefWidth="120.0" text="Фамилия" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="lastName" />
                               </cellValueFactory>
@@ -312,7 +312,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onParentFirstNameColumnEditCommit" prefWidth="120.0" text="Имя">
+                           <TableColumn onEditCommit="#onParentFirstNameColumnEditCommit" prefWidth="120.0" text="Имя" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="firstName" />
                               </cellValueFactory>
@@ -320,7 +320,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onParentPatronymicColumnEditCommit" prefWidth="120.0" text="Отчество">
+                           <TableColumn onEditCommit="#onParentPatronymicColumnEditCommit" prefWidth="120.0" text="Отчество" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="patronymic" />
                               </cellValueFactory>
@@ -328,12 +328,12 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="parentStudentColumn" minWidth="8.0" onEditCommit="#onParentStudentColumnEditCommit" prefWidth="240.0" text="Студент">
+                           <TableColumn fx:id="parentStudentColumn" minWidth="8.0" onEditCommit="#onParentStudentColumnEditCommit" prefWidth="240.0" text="Студент" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="student" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="parentAddressColumn" minWidth="8.0" onEditCommit="#onParentAddressColumnEditCommit" prefWidth="250.0" text="Адрес проживания">
+                           <TableColumn fx:id="parentAddressColumn" minWidth="8.0" onEditCommit="#onParentAddressColumnEditCommit" prefWidth="250.0" text="Адрес проживания" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="address" />
                               </cellValueFactory>
@@ -407,12 +407,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onTeacherLastNameColumnEditCommit" prefWidth="120.0" text="Фамилия">
+                           <TableColumn onEditCommit="#onTeacherLastNameColumnEditCommit" prefWidth="120.0" text="Фамилия" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="lastName" />
                               </cellValueFactory>
@@ -420,7 +420,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onTeacherFirstNameColumnEditCommit" prefWidth="120.0" text="Имя">
+                           <TableColumn onEditCommit="#onTeacherFirstNameColumnEditCommit" prefWidth="120.0" text="Имя" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="firstName" />
                               </cellValueFactory>
@@ -428,7 +428,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onTeacherPatronymicColumnEditCommit" prefWidth="120.0" text="Отчество">
+                           <TableColumn onEditCommit="#onTeacherPatronymicColumnEditCommit" prefWidth="120.0" text="Отчество" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="patronymic" />
                               </cellValueFactory>
@@ -436,22 +436,22 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherDateOfBirthColumn" minWidth="8.0" onEditCommit="#onTeacherDateOfBirthColumnEditCommit" prefWidth="100.0" text="Дата рождения">
+                           <TableColumn fx:id="teacherDateOfBirthColumn" minWidth="8.0" onEditCommit="#onTeacherDateOfBirthColumnEditCommit" prefWidth="100.0" text="Дата рождения" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="dateOfBirth" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherDepartmentColumn" minWidth="8.0" onEditCommit="#onTeacherDepartmentColumnEditCommit" prefWidth="200.0" text="Кафедра">
+                           <TableColumn fx:id="teacherDepartmentColumn" minWidth="8.0" onEditCommit="#onTeacherDepartmentColumnEditCommit" prefWidth="200.0" text="Кафедра" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="department" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherPostColumn" minWidth="8.0" onEditCommit="#onTeacherPostColumnEditCommit" prefWidth="100.0" text="Должность">
+                           <TableColumn fx:id="teacherPostColumn" minWidth="8.0" onEditCommit="#onTeacherPostColumnEditCommit" prefWidth="100.0" text="Должность" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="post" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherAddressColumn" minWidth="8.0" onEditCommit="#onTeacherAddressColumnEditCommit" prefWidth="250.0" text="Адрес проживания">
+                           <TableColumn fx:id="teacherAddressColumn" minWidth="8.0" onEditCommit="#onTeacherAddressColumnEditCommit" prefWidth="250.0" text="Адрес проживания" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="address" />
                               </cellValueFactory>
@@ -537,12 +537,12 @@
                                     <CustomCallbackNumberTableColumn />
                                 </cellFactory>
                             </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onCityColumnEditCommit" prefWidth="108.0" text="Город">
+                           <TableColumn onEditCommit="#onCityColumnEditCommit" prefWidth="108.0" text="Город" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="city" />
                               </cellValueFactory>
@@ -550,7 +550,7 @@
                                    <CustomCallbackTableColumn />
                                </cellFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onStreetColumnEditCommit" prefWidth="166.0" text="Улица">
+                           <TableColumn onEditCommit="#onStreetColumnEditCommit" prefWidth="166.0" text="Улица" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="street" />
                               </cellValueFactory>
@@ -558,7 +558,7 @@
                                    <CustomCallbackTableColumn />
                                </cellFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onHouseNumberColumnEditCommit" prefWidth="88.0" text="Номер дома">
+                           <TableColumn onEditCommit="#onHouseNumberColumnEditCommit" prefWidth="88.0" text="Номер дома" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="houseNumber" />
                               </cellValueFactory>
@@ -566,7 +566,7 @@
                                    <CustomCallbackTableColumn />
                                </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="apartmentNumberColumn" minWidth="8.0" onEditCommit="#onApartmentNumberColumnEditCommit" prefWidth="112.0" text="Номер квартиры">
+                           <TableColumn fx:id="apartmentNumberColumn" minWidth="8.0" onEditCommit="#onApartmentNumberColumnEditCommit" prefWidth="112.0" text="Номер квартиры" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="apartmentNumber" />
                               </cellValueFactory>
@@ -620,12 +620,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onGroupNameColumnEditCommit" prefWidth="80.0" text="Название">
+                           <TableColumn onEditCommit="#onGroupNameColumnEditCommit" text="Название" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="name" />
                               </cellValueFactory>
@@ -633,7 +633,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="courseColumn" editable="false" onEditCommit="#onCourseColumnEditCommit" prefWidth="64.0" text="Курс">
+                           <TableColumn fx:id="courseColumn" editable="false" onEditCommit="#onCourseColumnEditCommit" prefWidth="64.0" text="Курс" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="course" />
                               </cellValueFactory>
@@ -641,7 +641,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="semesterColumn" editable="false" onEditCommit="#onSemesterColumnEditCommit" prefWidth="64.0" text="Семестр">
+                           <TableColumn fx:id="semesterColumn" editable="false" onEditCommit="#onSemesterColumnEditCommit" prefWidth="64.0" text="Семестр" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="semester" />
                               </cellValueFactory>
@@ -649,7 +649,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="specializationColumn" prefWidth="330.0" text="Направление">
+                           <TableColumn fx:id="specializationColumn" prefWidth="330.0" text="Направление" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="specialization" />
                               </cellValueFactory>
@@ -657,12 +657,12 @@
                                    <CustomCallbackTableColumn />
                                </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="dateFormationColumn" minWidth="8.0" onEditCommit="#onDateFormationColumnEditCommit" prefWidth="120.0" text="Дата формирования">
+                           <TableColumn fx:id="dateFormationColumn" minWidth="8.0" onEditCommit="#onDateFormationColumnEditCommit" prefWidth="120.0" text="Дата формирования" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="dateFormation" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="dateGraduationColumn" editable="false" minWidth="8.0" prefWidth="96.0" text="Дата выпуска">
+                           <TableColumn fx:id="dateGraduationColumn" editable="false" minWidth="8.0" prefWidth="96.0" text="Дата выпуска" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="dateGraduation" />
                               </cellValueFactory>
@@ -730,12 +730,12 @@
                                         <CustomCallbackNumberTableColumn />
                                     </cellFactory>
                                 </TableColumn>
-                                <TableColumn editable="false" prefWidth="68.0" text="Id">
+                                <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="id" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn onEditCommit="#onSpecializationNumberColumnEditCommit" prefWidth="100.0" text="Номер">
+                                <TableColumn onEditCommit="#onSpecializationNumberColumnEditCommit" prefWidth="100.0" text="Номер" styleClass="alignment-center">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="number" />
                                     </cellValueFactory>
@@ -743,7 +743,7 @@
                                         <CustomCallbackTableColumn />
                                     </cellFactory>
                                 </TableColumn>
-                                <TableColumn onEditCommit="#onSpecializationNameColumnEditCommit" prefWidth="330.0" text="Название">
+                                <TableColumn onEditCommit="#onSpecializationNameColumnEditCommit" prefWidth="330.0" text="Название" styleClass="alignment-center-left">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="name" />
                                     </cellValueFactory>
@@ -751,7 +751,7 @@
                                         <CustomCallbackTableColumn />
                                     </cellFactory>
                                 </TableColumn>
-                               <TableColumn fx:id="studyDurationColumn" onEditCommit="#onSpecializationStudyDurationColumnEditCommit" prefWidth="100.0" text="Срок обучения">
+                               <TableColumn fx:id="studyDurationColumn" onEditCommit="#onSpecializationStudyDurationColumnEditCommit" prefWidth="100.0" text="Срок обучения" styleClass="alignment-center">
                                   <cellValueFactory>
                                      <PropertyValueFactory property="studyDuration" />
                                   </cellValueFactory>
@@ -806,12 +806,12 @@
                                         <CustomCallbackNumberTableColumn />
                                     </cellFactory>
                                 </TableColumn>
-                                <TableColumn editable="false" prefWidth="68.0" text="Id">
+                                <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="id" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn onEditCommit="#onDisciplineNameColumnEditCommit" prefWidth="330.0" text="Название">
+                                <TableColumn onEditCommit="#onDisciplineNameColumnEditCommit" prefWidth="330.0" text="Название" styleClass="alignment-center-left">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="name" />
                                     </cellValueFactory>
@@ -819,7 +819,7 @@
                                         <CustomCallbackTableColumn />
                                     </cellFactory>
                                 </TableColumn>
-                               <TableColumn fx:id="disciplineTypeOfMarkColumn" minWidth="8.0" onEditCommit="#onDisciplineTypeOfMarkColumnEditCommit" prefWidth="100.0" text="Тип оценки">
+                               <TableColumn fx:id="disciplineTypeOfMarkColumn" minWidth="8.0" onEditCommit="#onDisciplineTypeOfMarkColumnEditCommit" prefWidth="100.0" text="Тип оценки" styleClass="alignment-center">
                                   <cellValueFactory>
                                      <PropertyValueFactory property="typeOfMark" />
                                   </cellValueFactory>
@@ -869,12 +869,12 @@
                                         <CustomCallbackNumberTableColumn />
                                     </cellFactory>
                                 </TableColumn>
-                                <TableColumn editable="false" prefWidth="68.0" text="Id">
+                                <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="id" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn editable="false" prefWidth="330.0" text="Название">
+                                <TableColumn editable="false" prefWidth="330.0" text="Название" styleClass="alignment-center-left">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="name" />
                                     </cellValueFactory>
@@ -920,12 +920,12 @@
                                         <CustomCallbackNumberTableColumn />
                                     </cellFactory>
                                 </TableColumn>
-                                <TableColumn editable="false" prefWidth="68.0" text="Id">
+                                <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="id" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn editable="false" prefWidth="330.0" text="Название">
+                                <TableColumn editable="false" prefWidth="330.0" text="Название" styleClass="alignment-center-left">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="name" />
                                     </cellValueFactory>
@@ -971,12 +971,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="330.0" text="Название">
+                           <TableColumn editable="false" prefWidth="330.0" text="Название" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="name" />
                               </cellValueFactory>
@@ -1022,12 +1022,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onDepartmentNameColumnEditCommit" prefWidth="330.0" text="Название">
+                           <TableColumn onEditCommit="#onDepartmentNameColumnEditCommit" prefWidth="330.0" text="Название" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="name" />
                               </cellValueFactory>
@@ -1077,12 +1077,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn onEditCommit="#onPostNameColumnEditCommit" prefWidth="330.0" text="Название">
+                           <TableColumn onEditCommit="#onPostNameColumnEditCommit" prefWidth="330.0" text="Название" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="name" />
                               </cellValueFactory>
@@ -1132,12 +1132,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherDisciplineTeacherColumn" onEditCommit="#onTeacherDisciplineTeacherColumnEditCommit" prefWidth="330.0" text="Преподаватель">
+                           <TableColumn fx:id="teacherDisciplineTeacherColumn" onEditCommit="#onTeacherDisciplineTeacherColumnEditCommit" prefWidth="330.0" text="Преподаватель" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="teacher" />
                               </cellValueFactory>
@@ -1145,7 +1145,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherDisciplineDisciplineColumn" onEditCommit="#onTeacherDisciplineDisciplineColumnEditCommit" prefWidth="400.0" text="Дисциплина">
+                           <TableColumn fx:id="teacherDisciplineDisciplineColumn" onEditCommit="#onTeacherDisciplineDisciplineColumnEditCommit" prefWidth="400.0" text="Дисциплина" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="discipline" />
                               </cellValueFactory>
@@ -1197,12 +1197,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherGroupTeacherDisciplineColumn" editable="false" prefWidth="500.0" text="Преподаватель и его дисциплина">
+                           <TableColumn fx:id="teacherGroupTeacherDisciplineColumn" editable="false" prefWidth="500.0" text="Преподаватель и его дисциплина" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="teacherDiscipline" />
                               </cellValueFactory>
@@ -1210,7 +1210,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherGroupGroupColumn" editable="false" prefWidth="100.0" text="Группа">
+                           <TableColumn fx:id="teacherGroupGroupColumn" editable="false" prefWidth="100.0" text="Группа" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="group" />
                               </cellValueFactory>
@@ -1218,7 +1218,7 @@
                                  <CustomCallbackTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn fx:id="teacherGroupSemesterColumn" onEditCommit="#onTeacherGroupSemesterColumnEditCommit" prefWidth="70.0" text="Семестр">
+                           <TableColumn fx:id="teacherGroupSemesterColumn" onEditCommit="#onTeacherGroupSemesterColumnEditCommit" prefWidth="70.0" text="Семестр" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="semester" />
                               </cellValueFactory>
@@ -1274,12 +1274,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="specializationDisciplineSpecializationColumn" onEditCommit="#onSpecializationDisciplineSpecializationColumnEditCommit" prefWidth="330.0" text="Направление">
+                           <TableColumn fx:id="specializationDisciplineSpecializationColumn" onEditCommit="#onSpecializationDisciplineSpecializationColumnEditCommit" prefWidth="330.0" text="Направление" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="specialization" />
                               </cellValueFactory>
@@ -1290,7 +1290,7 @@
 <!--                                 <CustomCallbackComboBoxTableColumn />-->
 <!--                              </cellFactory>-->
                            </TableColumn>
-                           <TableColumn fx:id="specializationDisciplineDisciplineColumn" onEditCommit="#onSpecializationDisciplineDisciplineColumnEditCommit" prefWidth="400.0" text="Дисциплина">
+                           <TableColumn fx:id="specializationDisciplineDisciplineColumn" onEditCommit="#onSpecializationDisciplineDisciplineColumnEditCommit" prefWidth="400.0" text="Дисциплина" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="discipline" />
                               </cellValueFactory>

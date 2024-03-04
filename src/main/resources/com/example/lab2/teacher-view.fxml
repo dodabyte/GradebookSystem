@@ -10,11 +10,9 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import com.example.lab2.callbacks.CustomCallbackTableColumn?>
 <?import com.example.lab2.callbacks.CustomCallbackNumberCellData?>
 <?import com.example.lab2.callbacks.CustomCallbackNumberTableColumn?>
 
@@ -39,37 +37,37 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="117.0" text="Студент">
+                           <TableColumn editable="false" prefWidth="300.0" text="Студент" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="student" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn  editable="false" prefWidth="50.0" text="Курс">
+                           <TableColumn  editable="false" prefWidth="50.0" text="Курс" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="course" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn  editable="false" prefWidth="70.0" text="Семестр">
+                           <TableColumn  editable="false" prefWidth="70.0" text="Семестр" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="semester" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn fx:id="semesterPerformanceMarkColumn" minWidth="8.0" prefWidth="93.0" onEditCommit="#onSemesterPerformanceMarkColumnEditCommit" text="Оценка">
+                           <TableColumn fx:id="semesterPerformanceMarkColumn" minWidth="8.0" prefWidth="130.0" onEditCommit="#onSemesterPerformanceMarkColumnEditCommit" text="Оценка" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="mark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Оценка ECTS">
+                           <TableColumn minWidth="8.0" editable="false" prefWidth="130.0" text="Оценка ECTS" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="ectsMark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Оценка (5-балл.)">
+                           <TableColumn minWidth="8.0" editable="false" prefWidth="130.0" text="Оценка (5-балл.)" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="traditionalMark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn minWidth="8.0" editable="false" prefWidth="70.0" text="Традиц. оценка">
+                           <TableColumn minWidth="8.0" editable="false" prefWidth="130.0" text="Традиц. оценка" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="traditionalWordMark" />
                               </cellValueFactory>
@@ -96,12 +94,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="179.0" text="Название">
+                           <TableColumn editable="false" prefWidth="300.0" text="Название" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="name" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="220.0" text="Тип оценки">
+                           <TableColumn editable="false" prefWidth="150.0" text="Тип оценки" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="typeOfMark" />
                               </cellValueFactory>
@@ -116,7 +114,7 @@
             <content>
                <Pane prefHeight="600.0" prefWidth="1200.0">
                   <children>
-                     <Button layoutX="359.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0"  onAction="#onGroupsExportButton" text="Скачать данные" />
+                     <Button layoutX="509.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0"  onAction="#onGroupsExportButton" text="Скачать данные" />
                      <TableView fx:id="teacherGroupsTable" editable="true" layoutY="45.0" prefHeight="545.0" prefWidth="1200.0">
                         <columns>
                            <TableColumn editable="false" prefWidth="20.0" resizable="false" sortable="false" styleClass="color_column" text="№">
@@ -127,24 +125,24 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="179.0" text="Название">
+                           <TableColumn editable="false" prefWidth="100.0" text="Название" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="name" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="220.0" text="Курс">
+                           <TableColumn editable="false" prefWidth="50.0" text="Курс" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="course" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="220.0" text="Направленипе">
+                           <TableColumn editable="false" prefWidth="300.0" text="Направленипе">
                               <cellValueFactory>
                                  <PropertyValueFactory property="specialization" />
                               </cellValueFactory>
                            </TableColumn>
                         </columns>
                      </TableView>
-                     <ComboBox fx:id="teacherDisciplineComboBox" layoutX="181.0" layoutY="10.0" onAction="#onTeacherGroupsRefreshButton" prefWidth="150.0" />
+                     <ComboBox fx:id="teacherDisciplineComboBox" layoutX="181.0" layoutY="10.0" onAction="#onTeacherGroupsRefreshButton" prefWidth="300.0" />
                      <Label layoutX="14.0" layoutY="5.0" text="Дисцпиплина:">
                         <font>
                            <Font size="24.0" />

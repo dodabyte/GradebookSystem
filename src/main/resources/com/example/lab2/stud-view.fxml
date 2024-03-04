@@ -18,6 +18,7 @@
 <?import com.example.lab2.callbacks.CustomCallbackNumberCellData?>
 <?import com.example.lab2.callbacks.CustomCallbackNumberTableColumn?>
 
+<?import javafx.scene.shape.Line?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lab2.controllers.StudentController">
    <TabPane fx:id="tabPane" layoutY="26.0" prefHeight="575.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
@@ -25,141 +26,34 @@
             <content>
                <Pane prefHeight="200.0" prefWidth="200.0">
                   <children>
-                     <Label fx:id="basisEducationLabel" layoutX="300.0" layoutY="395.0" prefHeight="17.0" prefWidth="181.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="nameLabel" layoutX="50.0" layoutY="14.0" text="Ф,И,О">
-                        <font>
-                           <Font size="48.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="50.0" layoutY="95.0" text="Курс:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="50.0" layoutY="195.0" text="Группа:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="50.0" layoutY="245.0" text="Направление:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="50.0" layoutY="295.0" text="Срок обучения:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="50.0" layoutY="345.0" text="Форма обучения:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="50.0" layoutY="395.0" text="Основа обучения:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="50.0" layoutY="445.0" text="Дата поступления:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="730.0" layoutY="96.0" text="Адресс проживания:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="730.0" layoutY="146.0" text="Город:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="730.0" layoutY="196.0" text="Улица:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="730.0" layoutY="246.0" text="Номер дома:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="730.0" layoutY="295.0" text="Номер квартиры:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="courseLabel" layoutX="300.0" layoutY="95.0" prefHeight="17.0" prefWidth="181.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="groupLabel" layoutX="300.0" layoutY="195.0" prefHeight="17.0" prefWidth="181.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="specializationLabel" layoutX="300.0" layoutY="245.0" prefHeight="17.0" prefWidth="350.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="studyDurationLabel" layoutX="300.0" layoutY="295.0" prefHeight="17.0" prefWidth="181.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="formEducationLabel" layoutX="300.0" layoutY="345.0" prefHeight="17.0" prefWidth="181.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="dataAdmissionLabel" layoutX="300.0" layoutY="445.0" prefHeight="17.0" prefWidth="181.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="cityLabel" layoutX="958.0" layoutY="146.0" prefHeight="17.0" prefWidth="181.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="streetLabel" layoutX="958.0" layoutY="196.0" prefHeight="17.0" prefWidth="250.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="homeNumberLabel" layoutX="958.0" layoutY="246.0" prefHeight="17.0" prefWidth="181.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="apartmentNumberLabel" layoutX="958.0" layoutY="295.0" prefHeight="17.0" prefWidth="181.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="mailLabel" layoutX="730.0" layoutY="32.0" prefHeight="35.0" prefWidth="386.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="50.0" layoutY="145.0" text="Семестр:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="semesterLabel" layoutX="300.0" layoutY="145.0" prefHeight="17.0" prefWidth="181.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
+                     <Line layoutX="50.0" layoutY="100.0" endX="1000" />
+                     <Label fx:id="basisEducationLabel" layoutX="300.0" layoutY="430.0" prefHeight="17.0" prefWidth="181.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="nameLabel" layoutX="50.0" layoutY="30.0" text="Ф,И,О" style="-fx-font-size: 40"/>
+                     <Label layoutX="50.0" layoutY="130.0" text="Курс:" styleClass="bold-label"/>
+                     <Label layoutX="50.0" layoutY="230.0" text="Группа:" styleClass="bold-label"/>
+                     <Label layoutX="50.0" layoutY="280.0" text="Направление:" styleClass="bold-label"/>
+                     <Label layoutX="50.0" layoutY="330.0" text="Срок обучения:" styleClass="bold-label"/>
+                     <Label layoutX="50.0" layoutY="380.0" text="Форма обучения:" styleClass="bold-label"/>
+                     <Label layoutX="50.0" layoutY="430.0" text="Основа обучения:" styleClass="bold-label"/>
+                     <Label layoutX="50.0" layoutY="480.0" text="Дата поступления:" styleClass="bold-label"/>
+                     <Label layoutX="730.0" layoutY="130.0" text="Адрес проживания:" styleClass="bold-label"/>
+                     <Label layoutX="730.0" layoutY="180.0" text="Город:" styleClass="bold-label"/>
+                     <Label layoutX="730.0" layoutY="230.0" text="Улица:" styleClass="bold-label"/>
+                     <Label layoutX="730.0" layoutY="280.0" text="Номер дома:" styleClass="bold-label"/>
+                     <Label layoutX="730.0" layoutY="330.0" text="Номер квартиры:" styleClass="bold-label"/>
+                     <Label fx:id="courseLabel" layoutX="300.0" layoutY="130.0" prefHeight="17.0" prefWidth="181.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="groupLabel" layoutX="300.0" layoutY="230.0" prefHeight="17.0" prefWidth="181.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="specializationLabel" layoutX="300.0" layoutY="280.0" prefHeight="17.0" prefWidth="350.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="studyDurationLabel" layoutX="300.0" layoutY="330.0" prefHeight="17.0" prefWidth="181.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="formEducationLabel" layoutX="300.0" layoutY="380.0" prefHeight="17.0" prefWidth="181.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="dataAdmissionLabel" layoutX="300.0" layoutY="480.0" prefHeight="17.0" prefWidth="181.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="cityLabel" layoutX="958.0" layoutY="180.0" prefHeight="17.0" prefWidth="181.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="streetLabel" layoutX="958.0" layoutY="230.0" prefHeight="17.0" prefWidth="250.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="homeNumberLabel" layoutX="958.0" layoutY="280.0" prefHeight="17.0" prefWidth="181.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="apartmentNumberLabel" layoutX="958.0" layoutY="330.0" prefHeight="17.0" prefWidth="181.0" style="-fx-font-size: 20"/>
+                     <Label fx:id="mailLabel" layoutX="730.0" layoutY="50.0" prefHeight="35.0" prefWidth="386.0" style="-fx-font-size: 20; -fx-font-family: Consolas"/>
+                     <Label layoutX="50.0" layoutY="180.0" text="Семестр:" styleClass="bold-label"/>
+                     <Label fx:id="semesterLabel" layoutX="300.0" layoutY="180.0" prefHeight="17.0" prefWidth="181.0" style="-fx-font-size: 20"/>
                   </children>
                </Pane>
             </content>
@@ -179,12 +73,12 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="68.0" text="Id">
+                           <TableColumn editable="false" prefWidth="68.0" text="Id" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn prefWidth="120.0" text="Фамилия">
+                           <TableColumn prefWidth="120.0" text="Фамилия" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="lastName" />
                               </cellValueFactory>
@@ -195,7 +89,7 @@
                                    <CustomCallbackTableColumn />
                                </cellFactory>
                            </TableColumn>
-                           <TableColumn prefWidth="120.0" text="Имя">
+                           <TableColumn prefWidth="120.0" text="Имя" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="firstName" />
                               </cellValueFactory>
@@ -206,7 +100,7 @@
                                    <CustomCallbackTableColumn />
                                </cellFactory>
                            </TableColumn>
-                           <TableColumn prefWidth="120.0" text="Отчество">
+                           <TableColumn prefWidth="120.0" text="Отчество" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="patronymic" />
                               </cellValueFactory>
@@ -216,16 +110,8 @@
                            </TableColumn>
                         </columns>
                      </TableView>
-                     <Label layoutX="14.0" layoutY="5.0" text="Группа:">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="currentStudentGroupLabel" layoutX="117.0" layoutY="5.0" prefHeight="35.0" prefWidth="96.0">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
+                     <Label layoutX="14.0" layoutY="5.0" text="Группа:" style="-fx-font-size: 20"/>
+                     <Label fx:id="currentStudentGroupLabel" layoutX="110.0" layoutY="5.0" prefHeight="35.0" prefWidth="96.0" style="-fx-font-size: 20"/>
                   </children>
                </Pane>
             </content></Tab>
@@ -233,11 +119,8 @@
             <content>
                <Pane prefHeight="600.0" prefWidth="1200.0">
                   <children>
-                     <Label layoutX="14.0" layoutY="5.0" text="Семестр:">
-                        <font>
-                           <Font size="24.0" />
-                        </font></Label>
-                     <ComboBox fx:id="semestersComboBox" layoutX="130.0" layoutY="10.0" onAction="#onSemesterPerformanceTabChanged" prefHeight="25.0" prefWidth="50.0" />
+                     <Label layoutX="14.0" layoutY="5.0" text="Семестр:" style="-fx-font-size: 20"></Label>
+                     <ComboBox fx:id="semestersComboBox" layoutX="110.0" layoutY="10.0" onAction="#onSemesterPerformanceTabChanged" prefHeight="25.0" prefWidth="60.0" />
                      <Button layoutX="196.0" layoutY="10.0" mnemonicParsing="false" onAction="#onSemesterPerformanceExportButton" text="Скачать данные" />
                      <TableView fx:id="semesterPerformanceTable" editable="true" layoutY="45.0" prefHeight="509.0" prefWidth="1200.0">
                         <columns>
@@ -249,37 +132,37 @@
                                  <CustomCallbackNumberTableColumn />
                               </cellFactory>
                            </TableColumn>
-                           <TableColumn prefWidth="240.0" text="Дисциплина">
+                           <TableColumn prefWidth="300.0" text="Дисциплина" styleClass="alignment-center-left">
                               <cellValueFactory>
                                  <PropertyValueFactory property="discipline" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" prefWidth="70.0" text="Семестр">
-                              <cellValueFactory>
-                                 <PropertyValueFactory property="semester" />
-                              </cellValueFactory>
-                           </TableColumn>
-                           <TableColumn editable="false" prefWidth="117.0" text="Курс">
+                           <TableColumn editable="false" prefWidth="50.0" text="Курс" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="id" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn minWidth="0.0" prefWidth="68.0" text="Оценка">
+                           <TableColumn editable="false" prefWidth="70.0" text="Семестр" styleClass="alignment-center">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="semester" />
+                              </cellValueFactory>
+                           </TableColumn>
+                           <TableColumn minWidth="0.0" prefWidth="130.0" text="Оценка" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="mark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" minWidth="8.0" prefWidth="93.0" text="Оценка ECTS">
+                           <TableColumn editable="false" minWidth="8.0" prefWidth="130.0" text="Оценка ECTS" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="ectsMark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" minWidth="0.0" prefWidth="123.0" text="Оценка (5-балл.)">
+                           <TableColumn editable="false" minWidth="0.0" prefWidth="130.0" text="Оценка (5-балл.)" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="traditionalMark" />
                               </cellValueFactory>
                            </TableColumn>
-                           <TableColumn editable="false" minWidth="0.0" prefWidth="117.0" text="Традиц. оценка">
+                           <TableColumn editable="false" minWidth="0.0" prefWidth="130.0" text="Традиц. оценка" styleClass="alignment-center">
                               <cellValueFactory>
                                  <PropertyValueFactory property="traditionalWordMark" />
                               </cellValueFactory>

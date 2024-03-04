@@ -1,26 +1,145 @@
-.color_column {
-    -fx-background-color: #cccccc;
+* {
+    -fx-primary-color: #D0E8FF;
+    -fx-primary-light-color: #E9F3FF;
+    -fx-primary-dark-color: #A7C2E8;
+    -fx-secondary-dark-color: #3351AD;
+    -fx-secondary-odd-color: rgba(61, 162, 217, 0.15);
+    -fx-secondary-even-color: rgba(75, 138, 173, 0.15);
 }
 
-.transparent{
+.transparent,
+.table-view .column-header,
+.table-view .corner,
+.table-view .column-header-background .filler,
+.combo-box .list-cell {
     -fx-background-color: transparent;
 }
 
-.highlight-rectangle{
-    -fx-background-color: #fff;
+.table-view .combo-box {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.table-view .table-cell {
+    -fx-border-width: 0.4px;
+    -fx-border-color: -fx-primary-dark-color;
+}
+
+.alignment-center-left {
+    -fx-alignment: CENTER-LEFT;
+}
+
+.color_column,
+.alignment-center {
+    -fx-alignment: CENTER;
+}
+
+.color_column,
+.tab-pane .tab {
+    -fx-background-color: -fx-primary-dark-color;
+}
+
+.bold-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+}
+
+.highlight-rectangle {
+    -fx-background-color: -fx-primary-light-color;
     -fx-background-radius: 5px;
 }
 
-.delete-button{
-    -fx-background-color: #808080;
+.delete-button {
+    -fx-background-color: -fx-secondary-dark-color;
     -fx-shape: "m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063z";
 }
 
-.search-button{
-    -fx-background-color: #808080;
+.search-button {
+    -fx-background-color: -fx-secondary-dark-color;
     -fx-shape: "M495.04,404.48L410.56,320c15.36-30.72,25.6-66.56,25.6-102.4C436.16,97.28,338.88,0,218.56,0S0.96,97.28,0.96,217.6 s97.28,217.6,217.6,217.6c35.84,0,71.68-10.24,102.4-25.6l84.48,84.48c25.6,25.6,64,25.6,89.6,0 C518.08,468.48,518.08,430.08,495.04,404.48z M218.56,384c-92.16,0-166.4-74.24-166.4-166.4S126.4,51.2,218.56,51.2 s166.4,74.24,166.4,166.4S310.72,384,218.56,384z";
 }
 
-TableView {
-    -fx-background-color: #D0E8FF;
+.button {
+    -fx-background-color: -fx-primary-light-color;
+    -fx-border-color: -fx-primary-dark-color;
+}
+
+.table-view,
+.combo-box .list-view,
+.tab-header-area .tab-header-background,
+ScrollPane,
+ScrollPane:focused,
+Pane {
+    -fx-background-color: -fx-primary-color;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: -fx-secondary-odd-color;
+}
+
+.table-row-cell:even {
+    -fx-background-color: -fx-secondary-even-color;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb,
+.combo-box .combo-box-popup .list-view .list-cell:hover,
+.combo-box .combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: -fx-primary-dark-color;
+    -fx-text-fill: black;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to top, -fx-secondary-odd-color, -fx-secondary-even-color);
+}
+
+.tab-pane:focused .tab-header-area .headers-region .tab:selected .focus-indicator,
+ScrollPane .combo-box-base:showing {
+    -fx-border-color: -fx-secondary-dark-color;
+}
+
+Pane PasswordField Pane,
+Pane TextField Pane,
+Pane DateTextField Pane,
+Pane .combo-box {
+    -fx-background-color: -fx-primary-light-color;
+}
+
+Pane PasswordField,
+Pane TextField,
+Pane DateTextField {
+    -fx-background-color: -fx-primary-dark-color, -fx-primary-light-color;
+}
+
+Pane PasswordField:focused,
+Pane TextField:focused,
+Pane DateTextField:focused {
+    -fx-background-color: -fx-secondary-dark-color, -fx-primary-light-color;
+}
+
+Pane .combo-box {
+    -fx-border-color: -fx-primary-dark-color;
+}
+
+.radio-button .radio {
+    -fx-border-width: 1px;
+    -fx-border-color: -fx-secondary-dark-color;
+    -fx-background-color: -fx-primary-light-color;
+    -fx-background-image: null;
+    -fx-border-radius: 10px;
+    -fx-padding: 1px;
+}
+
+.radio-button .radio:selected,
+.radio-button -radio:armed,
+.radio-button -radio:determinate,
+.radio-button -radio:indeterminate
+{
+    -fx-background-color: -fx-secondary-dark-color;
+}
+
+.radio-button .dot {
+    -fx-mark-color: -fx-secondary-dark-color;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
 }
